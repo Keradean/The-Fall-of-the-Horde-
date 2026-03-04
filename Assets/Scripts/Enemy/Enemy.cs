@@ -1,0 +1,86 @@
+using UnityEngine;
+using UnityEngine.Pool;
+public class Enemy : MonoBehaviour
+{
+    [SerializeField] private EnemyStats enemyStats;
+
+
+    public Path _path;
+	private int currentWayPoint;
+	private bool reachedTheEnd;
+	
+	private float attackCounter;
+	private CastleHealth _castleHealth;
+
+	public int chooseAPointOfAttack;
+
+
+	private IObjectPool<Enemy> enemyPool;
+	public void SetPool(IObjectPool<Enemy> pool)
+	{
+		enemyPool = pool;
+	}
+    
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+		if(_path == null)
+		{
+			_path = FindFirstObjectByType<Path>();
+		}
+
+        if(_castleHealth == null)
+		{
+			_castleHealth = FindFirstObjectByType<CastleHealth>();
+		}
+		
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+ 			 if (!reachedTheEnd)
+	    {
+		    transform.position = Vector3.MoveTowards(transform.position, _path.wayPoints[currentWayPoint].position, enemyStats.moveSpeed * Time.deltaTime );
+		    transform.LookAt(_path.wayPoints[currentWayPoint].position);
+		    if(Vector3.Distance(transform.position, _path.wayPoints[currentWayPoint].position) < .01f)
+		    {
+			    currentWayPoint++;
+			    if(currentWayPoint >= _path.wayPoints.Length)
+			    {
+				    reachedTheEnd = true;
+					chooseAPointOfAttack = Random.Range(0, _castleHealth.PointsOfAttack.Length);
+			    }
+		    }
+	    }
+		else
+		{
+			transform.position = Vector3.MoveTowards(transform.position, _castleHealth.PointsOfAttack[chooseAPointOfAttack].position, enemyStats.moveSpeed * Time.deltaTime);
+			attackCounter -= Time.deltaTime;
+			if(attackCounter <= 0)
+			{
+				attackCounter = enemyStats.timeBetweenAttacks;
+				_castleHealth.TakeDamage(enemyStats.damagePerAttack);
+			}
+    	}
+	}
+
+	
+	// Reset the Enemy so he can Spawn with full life ...
+	public void ResetEnemy()
+	{
+		// Reset Health back to MaxHealth
+		enemyStats.health = enemyStats.maxHealth;
+		// ToDo Reset other things that has to be reset!!!
+		currentWayPoint = 0;
+		reachedTheEnd = false;
+		attackCounter = 0f;
+		
+	}
+	
+	public void Setup(CastleHealth newCastle, Path newPath)
+	{
+		_path = newPath;
+		_castleHealth = newCastle;
+	}
+}
