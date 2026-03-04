@@ -6,6 +6,8 @@ public class CastleHealth : MonoBehaviour, IDamageable
     [SerializeField] private CastleStats castleStats;
     [SerializeField] private Slider castleHealthBar;
 
+    public Transform[] PointsOfAttack;
+
     void Start()
     {
         castleStats.Health = castleStats.maxHealth;

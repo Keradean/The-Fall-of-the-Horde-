@@ -12,6 +12,8 @@ public class Enemy : MonoBehaviour
 	private float attackCounter;
 	private CastleHealth _castleHealth;
 
+	public int chooseAPointOfAttack;
+
 
 	private IObjectPool<Enemy> enemyPool;
 	public void SetPool(IObjectPool<Enemy> pool)
@@ -22,14 +24,22 @@ public class Enemy : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        _path = FindFirstObjectByType<Path>();
-		_castleHealth = FindFirstObjectByType<CastleHealth>();
+		if(_path == null)
+		{
+			_path = FindFirstObjectByType<Path>();
+		}
+
+        if(_castleHealth == null)
+		{
+			_castleHealth = FindFirstObjectByType<CastleHealth>();
+		}
+		
     }
 
     // Update is called once per frame
     void Update()
     {
- 			    if (!reachedTheEnd)
+ 			 if (!reachedTheEnd)
 	    {
 		    transform.position = Vector3.MoveTowards(transform.position, _path.wayPoints[currentWayPoint].position, enemyStats.moveSpeed * Time.deltaTime );
 		    transform.LookAt(_path.wayPoints[currentWayPoint].position);
@@ -39,11 +49,13 @@ public class Enemy : MonoBehaviour
 			    if(currentWayPoint >= _path.wayPoints.Length)
 			    {
 				    reachedTheEnd = true;
+					chooseAPointOfAttack = Random.Range(0, _castleHealth.PointsOfAttack.Length);
 			    }
 		    }
 	    }
 		else
 		{
+			transform.position = Vector3.MoveTowards(transform.position, _castleHealth.PointsOfAttack[chooseAPointOfAttack].position, enemyStats.moveSpeed * Time.deltaTime);
 			attackCounter -= Time.deltaTime;
 			if(attackCounter <= 0)
 			{
@@ -52,12 +64,23 @@ public class Enemy : MonoBehaviour
 			}
     	}
 	}
+
 	
+	// Reset the Enemy so he can Spawn with full life ...
 	public void ResetEnemy()
 	{
 		// Reset Health back to MaxHealth
 		enemyStats.health = enemyStats.maxHealth;
 		// ToDo Reset other things that has to be reset!!!
+		currentWayPoint = 0;
+		reachedTheEnd = false;
+		attackCounter = 0f;
+		
 	}
-
+	
+	public void Setup(CastleHealth newCastle, Path newPath)
+	{
+		_path = newPath;
+		_castleHealth = newCastle;
+	}
 }

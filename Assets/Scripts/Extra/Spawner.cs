@@ -3,12 +3,17 @@ using UnityEngine.Pool;
 public class Spawner : MonoBehaviour
 {
     [Header("Spawn Time")]
-    [SerializeField] private Transform[]  spawnPoints;
+    [SerializeField] private Transform  spawnPoint;
     [SerializeField] private float timeBetweenSpawns;
     [SerializeField] private int numberOfSpawns;
 
     [Header("Enemy Prefabs")] 
     [SerializeField] private Enemy enemyPrefab;
+    
+    [Header("Castle & Path Reference")]
+    [SerializeField] private CastleHealth _castleHealth;
+    [SerializeField] private CastleStats _castleStats;
+    [SerializeField] private Path _path;
     
 
     private ObjectPool<Enemy> enemyPool;
@@ -16,7 +21,6 @@ public class Spawner : MonoBehaviour
 
     private void Awake()
     {
-        enemyPool = new ObjectPool<Enemy>(CreateEnemy);
         enemyPool = new ObjectPool<Enemy>(
             CreateEnemy,
             OnTakeFromPool,
@@ -30,8 +34,10 @@ public class Spawner : MonoBehaviour
     
     private Enemy CreateEnemy()
     {
-        Enemy enemy = Instantiate(enemyPrefab);
-        enemy.SetPool(enemyPool);
+        Enemy enemy = Instantiate(enemyPrefab);			 	// spawne den Gegner
+        enemy.Setup(_castleHealth, _path);     				// die Referenz wo und wohin er gehen soll
+        enemy.SetPool(enemyPool);							// der Gegner wird wieder seinem Pool zugeordnet
+		enemy.transform.position = spawnPoint.position; 	// setze die Position des Gegner auf die des SpawnPoints
         return enemy; 
     }
 
@@ -54,12 +60,17 @@ public class Spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Prüfen ob der Timer abgelaufen ist und weniger gespawnte Gegner da sind (limit)
-        if (Time.time > spawnTimer && enemyPool.CountActive < numberOfSpawns) 
-        {
+		// keine neuen Spawns mehr wenn die Burg zerstört ist 
+		if(numberOfSpawns > 0 && _castleStats.Health > 0)
+		{
+			// Prüfen ob der Timer abgelaufen ist und weniger gespawnte Gegner da sind (limit)
+        	if (Time.time > spawnTimer && enemyPool.CountActive < numberOfSpawns) 
+       		{
             //Spawn Enemy
             enemyPool.Get(); // Gegner aus dem Pool holen
-            spawnTimer = Time.time +  timeBetweenSpawns; // Den Timer Zurück setzen
-        }
+            spawnTimer = Time.time +  timeBetweenSpawns; // Den Timer Zurück setzen    
+    	    }
+		}
+
     }
 }
