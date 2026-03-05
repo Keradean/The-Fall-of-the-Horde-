@@ -11,6 +11,6 @@ public class EnemyStats : ScriptableObject
     public float damagePerAttack;
     
     [Header("Health")]
-    public float health;
+    public float Health;
     public float maxHealth;
 }

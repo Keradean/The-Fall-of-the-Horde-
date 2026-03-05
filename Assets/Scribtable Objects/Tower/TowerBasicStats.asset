@@ -9,11 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb5b1d582d249f7e6bfc0dedb5725394, type: 3}
-  m_Name: Enemy Small
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
-  moveSpeed: 3.77
-  timeBetweenAttacks: 0.5
-  damagePerAttack: 1
-  health: 20
-  maxHealth: 20
+  m_Script: {fileID: 11500000, guid: 335b521c01db6d4b3b97ef9a7ef0abd6, type: 3}
+  m_Name: TowerBasicStats
+  m_EditorClassIdentifier: Assembly-CSharp::TowerStats
+  range: 5
+  timeBetweenAttacks: 1
