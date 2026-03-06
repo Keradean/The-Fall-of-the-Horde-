@@ -105,6 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f891ee127b3b20d69cbf25fd3ca5b04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
+  _projectileStats: {fileID: 11400000, guid: 4083bd3cebf13418f8e3e7c1f72e3b0e, type: 2}
   rB: {fileID: 3290543624148315023}
   firingSpeed: 5
 --- !u!65 &8898830004729027850

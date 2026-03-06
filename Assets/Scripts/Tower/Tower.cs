@@ -9,6 +9,8 @@ public class Tower : MonoBehaviour
     [SerializeField] private LayerMask findTheEnemy;
     [SerializeField] private Collider[]  collidersInRange;
     [SerializeField] public List<Enemy>  enemiesInRange = new List<Enemy>();
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -18,6 +20,7 @@ public class Tower : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		
         collidersInRange = Physics.OverlapSphere(transform.position, towerBasicStats.range, findTheEnemy);
         
         enemiesInRange.Clear();

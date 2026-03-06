@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: TowerBasicStats
   m_EditorClassIdentifier: Assembly-CSharp::TowerStats
   range: 5
-  timeBetweenAttacks: 1
+  timeBetweenAttacks: 0.5

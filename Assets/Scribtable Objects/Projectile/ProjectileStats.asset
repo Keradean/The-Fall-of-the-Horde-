@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb5b1d582d249f7e6bfc0dedb5725394, type: 3}
-  m_Name: Enemy Small
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
-  moveSpeed: 0.5
-  timeBetweenAttacks: 0.5
-  damagePerAttack: 1
-  maxHealth: 2
+  m_Script: {fileID: 11500000, guid: bed32c9a8cf3c7e7fae6dcaf2a55c587, type: 3}
+  m_Name: ProjectileStats
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectileStats
+  damage: 1

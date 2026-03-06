@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private EnemyStats enemyStats;
-
+	
+	[HideInInspector] public float Health;
     public Path _path;
 	private int currentWayPoint;
 	private bool reachedTheEnd;
@@ -72,7 +73,7 @@ public class Enemy : MonoBehaviour
 	public void ResetEnemy()
 	{
 		// Reset Health back to MaxHealth
-		enemyStats.Health = enemyStats.maxHealth;
+		Health = enemyStats.maxHealth;
 		// ToDo Reset other things that has to be reset!!!
 		currentWayPoint = 0;
 		reachedTheEnd = false;

@@ -632,6 +632,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   enemyStats: {fileID: 11400000, guid: 051d62d7d72110cd48ed8f57eff96f74, type: 2}
+  Health: 0
   _path: {fileID: 0}
   chooseAPointOfAttack: 0
 --- !u!114 &536328686266743292
@@ -647,6 +648,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   _enemyStats: {fileID: 11400000, guid: 051d62d7d72110cd48ed8f57eff96f74, type: 2}
+  _enemy: {fileID: 3026727806335809204}
   enemyHealthBar: {fileID: 2144130905100292001}
 --- !u!136 &7859242991969654353
 CapsuleCollider:

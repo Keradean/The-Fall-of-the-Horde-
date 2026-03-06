@@ -21,9 +21,10 @@ public class ProjectileTower : MonoBehaviour
     {
         if (target != null)
         {
-            //towerWeapon.LookAt(target);
+            towerWeapon.LookAt(target);
             // ToDo - schau dir Slerp an *  | | |||| *
             //towerWeapon.rotation = Quaternion.LookRotation(target.position - transform.position);
+			towerWeapon.rotation = Quaternion.Euler(0f, towerWeapon.rotation.eulerAngles.y, 0f );// die Waffe des Towers dreht sich nicht mehr nach unten, sollte sie höher stehen
         }
         shotCounter -= Time.deltaTime;
         if (shotCounter <= 0 && target != null)
