@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7570777191192223322}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 77926302050686269}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: arm-left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 33106356056141504}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: arm-right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7956925422436004123}
   - component: {fileID: 1625450695000857063}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: head-mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -204,7 +204,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7315535922071104890}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: leg-right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -235,7 +235,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6387283493324084653}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: torso
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -271,7 +271,7 @@ GameObject:
   - component: {fileID: 251142533345501270}
   - component: {fileID: 3842022928995610959}
   - component: {fileID: 2290274338090384799}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -344,7 +344,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5985200732869016664}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Orc - Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -378,7 +378,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7219024683312901208}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -409,7 +409,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 458806927833188331}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -428,6 +428,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2601114529352289607}
   - {fileID: 251142533345501270}
   m_Father: {fileID: 8805480014509389750}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -448,7 +449,8 @@ GameObject:
   - component: {fileID: 3980908794270707502}
   - component: {fileID: 1657305936627382399}
   - component: {fileID: 4294610188819877876}
-  m_Layer: 0
+  - component: {fileID: 8452774971707519528}
+  m_Layer: 6
   m_Name: Orc - Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -462,14 +464,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4376471394768289941}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8805480014509389750}
   m_Father: {fileID: 3790362633581737774}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0.827}
@@ -538,6 +540,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &8452774971707519528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4376471394768289941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f442ea3252e60583ad07345f146731d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LookAtCamera
 --- !u!1 &4570874298327029397
 GameObject:
   m_ObjectHideFlags: 0
@@ -547,7 +561,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2246319853625037616}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: leg-left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -579,7 +593,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3790362633581737774}
   - component: {fileID: 3026727806335809204}
-  m_Layer: 0
+  - component: {fileID: 536328686266743292}
+  - component: {fileID: 7859242991969654353}
+  m_Layer: 6
   m_Name: character - small Orc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -616,7 +632,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   enemyStats: {fileID: 11400000, guid: 051d62d7d72110cd48ed8f57eff96f74, type: 2}
+  Health: 0
   _path: {fileID: 0}
+  chooseAPointOfAttack: 0
+--- !u!114 &536328686266743292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5199780620947284450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 867061573dbe8908aa404ca0670eb455, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
+  _enemyStats: {fileID: 11400000, guid: 051d62d7d72110cd48ed8f57eff96f74, type: 2}
+  _enemy: {fileID: 3026727806335809204}
+  enemyHealthBar: {fileID: 2144130905100292001}
+--- !u!136 &7859242991969654353
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5199780620947284450}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.3871182
+  m_Height: 0.84979105
+  m_Direction: 1
+  m_Center: {x: -0.0044446588, y: 0.3666314, z: -7.651262e-18}
 --- !u!1 &6262360859445813993
 GameObject:
   m_ObjectHideFlags: 0
@@ -628,7 +684,7 @@ GameObject:
   - component: {fileID: 2601114529352289607}
   - component: {fileID: 241839569739321830}
   - component: {fileID: 4762576162548801656}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -642,12 +698,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6262360859445813993}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.00000005960463, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8805480014509389750}
+  m_Father: {fileID: 458806927833188331}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -702,7 +758,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8805480014509389750}
   - component: {fileID: 2144130905100292001}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Orc - Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -721,7 +777,6 @@ RectTransform:
   m_LocalScale: {x: 0.006, y: 0.006, z: 0.006}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 2601114529352289607}
   - {fileID: 458806927833188331}
   m_Father: {fileID: 6585681321183505372}
   m_LocalEulerAnglesHint: {x: 60, y: 90, z: 0}
@@ -791,7 +846,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7819258675800573410}
   - component: {fileID: 2367740176838577624}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: body-mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -1,10 +1,13 @@
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.UI;
+
+
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private EnemyStats enemyStats;
-
-
+	
+	[HideInInspector] public float Health;
     public Path _path;
 	private int currentWayPoint;
 	private bool reachedTheEnd;
@@ -33,7 +36,7 @@ public class Enemy : MonoBehaviour
 		{
 			_castleHealth = FindFirstObjectByType<CastleHealth>();
 		}
-		
+
     }
 
     // Update is called once per frame
@@ -63,14 +66,14 @@ public class Enemy : MonoBehaviour
 				_castleHealth.TakeDamage(enemyStats.damagePerAttack);
 			}
     	}
+		
 	}
 
-	
 	// Reset the Enemy so he can Spawn with full life ...
 	public void ResetEnemy()
 	{
 		// Reset Health back to MaxHealth
-		enemyStats.health = enemyStats.maxHealth;
+		Health = enemyStats.maxHealth;
 		// ToDo Reset other things that has to be reset!!!
 		currentWayPoint = 0;
 		reachedTheEnd = false;
