@@ -26,6 +26,8 @@ public class EnemyHealth : MonoBehaviour
             //ToDO
             //Animation better than this SetActive!!
             gameObject.SetActive(false);
+
+			GoldManager.instance.AddGold(_enemyStats.goldOnDeath);
             
             Debug.Log("Er ist gestorben!!!");
         }

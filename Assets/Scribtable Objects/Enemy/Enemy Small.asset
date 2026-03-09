@@ -16,3 +16,4 @@ MonoBehaviour:
   timeBetweenAttacks: 0.5
   damagePerAttack: 1
   maxHealth: 2
+  goldOnDeath: 25
