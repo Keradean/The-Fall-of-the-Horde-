@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 335b521c01db6d4b3b97ef9a7ef0abd6, type: 3}
   m_Name: TowerBasicStats
   m_EditorClassIdentifier: Assembly-CSharp::TowerStats
-  range: 5
+  range: 3
   timeBetweenAttacks: 0.5
