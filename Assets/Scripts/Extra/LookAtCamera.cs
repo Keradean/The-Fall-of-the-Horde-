@@ -13,6 +13,6 @@ public class LookAtCamera : MonoBehaviour
     void LateUpdate()
     {
         // Die Healthbar soll immer richtung Camera schauen
-        transform.eulerAngles = new Vector3(0, mainCamera.transform.eulerAngles.y + -90,0);
+        transform.eulerAngles = new Vector3(0, mainCamera.transform.eulerAngles.y - 90,0);
     }
 }

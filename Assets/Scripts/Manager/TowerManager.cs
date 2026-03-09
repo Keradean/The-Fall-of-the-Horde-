@@ -10,7 +10,9 @@ public class TowerManager : MonoBehaviour
     [SerializeField] private Transform indicator;
     [SerializeField] private LayerMask  ICanOnlyPlaceItThere;
     [SerializeField] private LayerMask  AreThereObstacles;
-    public bool isPlacing;
+    
+	
+	public bool isPlacing;
     
 
     
@@ -28,7 +30,12 @@ public class TowerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isPlacing)
+		PlacingTheTower();
+    }
+
+	public void PlacingTheTower()
+	{
+		if (isPlacing)
         {
             indicator.position = GetGridPosition();
 
@@ -44,13 +51,17 @@ public class TowerManager : MonoBehaviour
 
             if (Mouse.current.leftButton.wasPressedThisFrame && indicator.gameObject.activeSelf)
             {
-                isPlacing = false;
+				if(GoldManager.instance.SpendGold(towerStats.cost))
+				{
+				isPlacing = false;
                 Instantiate(activeTower, indicator.position, activeTower.transform.rotation);
 
                 indicator.gameObject.SetActive(false);
+				}
+
             }
         }
-    }
+	}
 
     public void PlaceTheTower(Tower placeTower)
     {
@@ -65,13 +76,13 @@ public class TowerManager : MonoBehaviour
         indicator = placedTower.transform;
 
 		placedTower.rangeIndicator.SetActive(true);
-		placedTower.rangeIndicator.transform.localScale = new Vector3(towerStats.range, 0.4f, towerStats.range );
+		placedTower.rangeIndicator.transform.localScale = new Vector3(towerStats.range, 0.001f, towerStats.range );
 		
 
         Debug.Log("Plazier mich Hart, Du Sau!!!");
     }   
 	
-	 public void DontPlaceTheTower()
+	public void DontPlaceTheTower()
     {
         if(isPlacing)
 		{

@@ -12,4 +12,7 @@ public class EnemyStats : ScriptableObject
     
     [Header("Health")]
     public float maxHealth;
+
+	[Header("Give Gold")]
+	public int goldOnDeath;
 }

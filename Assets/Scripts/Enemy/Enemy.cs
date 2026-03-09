@@ -19,6 +19,8 @@ public class Enemy : MonoBehaviour
 
 
 	private IObjectPool<Enemy> enemyPool;
+
+
 	public void SetPool(IObjectPool<Enemy> pool)
 	{
 		enemyPool = pool;
