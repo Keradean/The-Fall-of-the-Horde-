@@ -13,11 +13,11 @@ TagManager:
   - UI
   - Enemy
   - Ground
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Tower
+  - Castle
+  - Path
+  - Projectile
+  - Deselect
   - 
   - 
   - 

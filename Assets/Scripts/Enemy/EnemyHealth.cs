@@ -22,10 +22,10 @@ public class EnemyHealth : MonoBehaviour
         if (_enemy.Health <= 0f)
         {
             _enemy.Health = 0f;
+
             //ToDO
             //Animation better than this SetActive!!
             gameObject.SetActive(false);
-            
             
             Debug.Log("Er ist gestorben!!!");
         }

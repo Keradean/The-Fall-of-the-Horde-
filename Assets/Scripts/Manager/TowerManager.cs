@@ -4,10 +4,12 @@ using UnityEngine.InputSystem;
 public class TowerManager : MonoBehaviour
 {
     [SerializeField] private Tower activeTower;
+    [SerializeField] private TowerStats towerStats;
     public static TowerManager instance;
     
     [SerializeField] private Transform indicator;
-    [SerializeField] private LayerMask  Placement;
+    [SerializeField] private LayerMask  ICanOnlyPlaceItThere;
+    [SerializeField] private LayerMask  AreThereObstacles;
     public bool isPlacing;
     
 
@@ -30,7 +32,17 @@ public class TowerManager : MonoBehaviour
         {
             indicator.position = GetGridPosition();
 
-            if (Mouse.current.leftButton.wasPressedThisFrame)
+			RaycastHit hit; 
+			if(Physics.Raycast(indicator.position + new Vector3(0f, -2, 0f), Vector3.up, out hit, 10f, AreThereObstacles))
+			{
+				indicator.gameObject.SetActive(false);
+			}
+			else
+			{
+				indicator.gameObject.SetActive(true);
+			}
+
+            if (Mouse.current.leftButton.wasPressedThisFrame && indicator.gameObject.activeSelf)
             {
                 isPlacing = false;
                 Instantiate(activeTower, indicator.position, activeTower.transform.rotation);
@@ -49,10 +61,29 @@ public class TowerManager : MonoBehaviour
         Destroy(indicator.gameObject);    
         Tower placedTower = Instantiate(activeTower);
         placedTower.enabled = false;
+		placedTower.GetComponent<Collider>().enabled = false;
         indicator = placedTower.transform;
 
+		placedTower.rangeIndicator.SetActive(true);
+		placedTower.rangeIndicator.transform.localScale = new Vector3(towerStats.range, 0.4f, towerStats.range );
+		
+
         Debug.Log("Plazier mich Hart, Du Sau!!!");
-    }
+    }   
+	
+	 public void DontPlaceTheTower()
+    {
+        if(isPlacing)
+		{
+        isPlacing = false;
+        Debug.Log("Plazier mich nicht Hart, Du Sau!!!");
+
+		if(indicator != null)
+		{
+			indicator.gameObject.SetActive(false);
+		}
+	}    
+}
 
     public Vector3 GetGridPosition()
     {
@@ -64,7 +95,7 @@ public class TowerManager : MonoBehaviour
         Debug.DrawRay(ray.origin, ray.direction * 200f, Color.red);
 
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, 200f, Placement))
+        if (Physics.Raycast(ray, out hit, 200f, ICanOnlyPlaceItThere))
         {
             location = hit.point;
         }
