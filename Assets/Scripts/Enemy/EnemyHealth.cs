@@ -8,13 +8,19 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private Slider enemyHealthBar;
     
 
-    void Start()
+    void OnEnable()
     {
         _enemy.Health = _enemyStats.maxHealth;
             
         enemyHealthBar.maxValue = _enemyStats.maxHealth;
         enemyHealthBar.value = _enemy.Health;
+
+		LevelManager.instance.activeEnemies.Add(this);
     }
+	void OnDisable()
+	{
+		LevelManager.instance.activeEnemies.Remove(this);
+	} 
     
     public void TakeDamage(float damaged)
     {
