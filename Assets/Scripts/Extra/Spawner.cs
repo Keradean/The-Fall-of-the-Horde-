@@ -5,7 +5,7 @@ public class Spawner : MonoBehaviour
     [Header("Spawn Time")]
     [SerializeField] private Transform  spawnPoint;
     [SerializeField] private float timeBetweenSpawns;
-    [SerializeField] private int numberOfSpawns;
+    [SerializeField] public int numberOfSpawns;
 
     [Header("Enemy Prefabs")] 
     [SerializeField] private Enemy enemyPrefab;
@@ -43,6 +43,7 @@ public class Spawner : MonoBehaviour
 
     private void OnTakeFromPool(Enemy enemy)
     {
+		enemy.transform.position = spawnPoint.position;
         enemy.gameObject.SetActive(true);
         enemy.ResetEnemy(); // Setzt den Gegner auf den Startzustand zurück
     }
@@ -64,10 +65,11 @@ public class Spawner : MonoBehaviour
 		if(numberOfSpawns > 0 && _castleStats.Health > 0)
 		{
 			// Prüfen ob der Timer abgelaufen ist und weniger gespawnte Gegner da sind (limit)
-        	if (Time.time > spawnTimer && enemyPool.CountActive < numberOfSpawns) 
+        	if (Time.time > spawnTimer) 
        		{
             //Spawn Enemy
             enemyPool.Get(); // Gegner aus dem Pool holen
+			numberOfSpawns --; // Hioer wird Runtergezählt
             spawnTimer = Time.time +  timeBetweenSpawns; // Den Timer Zurück setzen    
     	    }
 		}

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb5b1d582d249f7e6bfc0dedb5725394, type: 3}
   m_Name: Enemy Small
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
-  moveSpeed: 0.5
+  moveSpeed: 1
   timeBetweenAttacks: 0.5
-  damagePerAttack: 1
-  maxHealth: 2
+  damagePerAttack: 5
+  maxHealth: 3
   goldOnDeath: 25

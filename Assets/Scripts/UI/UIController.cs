@@ -2,8 +2,10 @@ using UnityEngine;
 using TMPro;
 public class UIController : MonoBehaviour
 {
+    [SerializeField] public GameObject PanelWinScreen;
+    [SerializeField] public GameObject PanelLoseScreen;
+    [SerializeField] public GameObject PanelPlaceTower;
     public static UIController instance;
-    
     public TMP_Text goldTMP;
 
     private void Awake()
