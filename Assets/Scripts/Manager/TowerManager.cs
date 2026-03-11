@@ -10,21 +10,12 @@ public class TowerManager : MonoBehaviour
     [SerializeField] private Transform indicator;
     [SerializeField] private LayerMask  ICanOnlyPlaceItThere;
     [SerializeField] private LayerMask  AreThereObstacles;
-    
-	
+  
 	public bool isPlacing;
-    
-
-    
 
     void Awake()
     {
         instance = this;
-    }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
     }
 
     // Update is called once per frame
