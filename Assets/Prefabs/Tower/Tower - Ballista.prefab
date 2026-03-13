@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc85ac5341cc7d37eb9ea1d9d100c438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tower
-  towerBasicStats: {fileID: 11400000, guid: 479a5c220ea3deb079bb642b52230eb5, type: 2}
+  towerStats: {fileID: 11400000, guid: 479a5c220ea3deb079bb642b52230eb5, type: 2}
   findTheEnemy:
     serializedVersion: 2
     m_Bits: 64

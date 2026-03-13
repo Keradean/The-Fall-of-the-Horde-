@@ -14,9 +14,11 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>();
+        if(other.TryGetComponent<EnemyHealth>(out EnemyHealth enemyHealth))
+		{
 		enemyHealth.TakeDamage(_projectileStats.damage);
         Destroy(gameObject);
+		}
     }
 
     private void OnBecameInvisible()

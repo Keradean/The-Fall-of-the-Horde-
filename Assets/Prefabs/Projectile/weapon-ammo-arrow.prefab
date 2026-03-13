@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 499331189777316039}
   - component: {fileID: 8898830004729027850}
   - component: {fileID: 3290543624148315023}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: weapon-ammo-arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}

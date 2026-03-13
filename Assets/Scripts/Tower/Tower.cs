@@ -4,11 +4,11 @@ using System.Collections.Generic;
 public class Tower : MonoBehaviour
 {
     [Header("Tower Stats")]
-    [SerializeField] TowerStats towerBasicStats;
+    public TowerStats towerStats;
 
     [SerializeField] private LayerMask findTheEnemy;
     [SerializeField] private Collider[]  collidersInRange;
-    [SerializeField] public List<Enemy>  enemiesInRange = new List<Enemy>();
+	 public List<Enemy>  enemiesInRange = new List<Enemy>();
     
     [Header("Tower Range Indicator")]
     [SerializeField] public GameObject rangeIndicator;
@@ -24,12 +24,12 @@ public class Tower : MonoBehaviour
     void Update()
     {
 		
-        collidersInRange = Physics.OverlapSphere(transform.position, towerBasicStats.range, findTheEnemy);
+        collidersInRange = Physics.OverlapSphere(transform.position, towerStats.range, findTheEnemy);
         
         enemiesInRange.Clear();
         foreach (Collider col in collidersInRange)
         {
-            enemiesInRange.Add(col.GetComponent<Enemy>());
+            if(col.TryGetComponent<Enemy>(out Enemy enemy))enemiesInRange.Add(enemy);
         }
     }
 }

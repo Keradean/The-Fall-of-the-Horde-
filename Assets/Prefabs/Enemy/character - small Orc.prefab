@@ -595,6 +595,7 @@ GameObject:
   - component: {fileID: 3026727806335809204}
   - component: {fileID: 536328686266743292}
   - component: {fileID: 7859242991969654353}
+  - component: {fileID: 6816471266478976254}
   m_Layer: 6
   m_Name: character - small Orc
   m_TagString: Untagged
@@ -633,6 +634,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   enemyStats: {fileID: 11400000, guid: 051d62d7d72110cd48ed8f57eff96f74, type: 2}
   Health: 0
+  speedMod: 1
   _path: {fileID: 0}
   chooseAPointOfAttack: 0
 --- !u!114 &536328686266743292
@@ -650,7 +652,6 @@ MonoBehaviour:
   _enemyStats: {fileID: 11400000, guid: 051d62d7d72110cd48ed8f57eff96f74, type: 2}
   _enemy: {fileID: 3026727806335809204}
   enemyHealthBar: {fileID: 2144130905100292001}
-  goldOnDeath: 50
 --- !u!136 &7859242991969654353
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -674,6 +675,33 @@ CapsuleCollider:
   m_Height: 0.84979105
   m_Direction: 1
   m_Center: {x: -0.0044446588, y: 0.3666314, z: -7.651262e-18}
+--- !u!54 &6816471266478976254
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5199780620947284450}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &6262360859445813993
 GameObject:
   m_ObjectHideFlags: 0

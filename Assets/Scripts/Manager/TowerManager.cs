@@ -57,13 +57,14 @@ public class TowerManager : MonoBehaviour
     public void PlaceTheTower(Tower placeTower)
     {
         activeTower = placeTower;
-        
+		towerStats = placeTower.towerStats;
         isPlacing = true;
 
         Destroy(indicator.gameObject);    
         Tower placedTower = Instantiate(activeTower);
         placedTower.enabled = false;
-		placedTower.GetComponent<Collider>().enabled = false;
+
+		foreach (Collider col in placedTower.GetComponentsInChildren<Collider>()) col.enabled = false;
         indicator = placedTower.transform;
 
 		placedTower.rangeIndicator.SetActive(true);

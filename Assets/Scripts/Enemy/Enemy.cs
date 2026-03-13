@@ -8,6 +8,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private EnemyStats enemyStats;
 	
 	[HideInInspector] public float Health;
+	[HideInInspector] public float speedMod = 1f;
+
     public Path _path;
 	private int currentWayPoint;
 	private bool reachedTheEnd;
@@ -44,9 +46,14 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
- 			 if (!reachedTheEnd)
+		MoveAndAttack();
+	}
+
+	private void MoveAndAttack()
+	{	
+		if (!reachedTheEnd)
 	    {
-		    transform.position = Vector3.MoveTowards(transform.position, _path.wayPoints[currentWayPoint].position, enemyStats.moveSpeed * Time.deltaTime );
+		    transform.position = Vector3.MoveTowards(transform.position, _path.wayPoints[currentWayPoint].position, enemyStats.moveSpeed * Time.deltaTime * speedMod );
 		    transform.LookAt(_path.wayPoints[currentWayPoint].position);
 		    if(Vector3.Distance(transform.position, _path.wayPoints[currentWayPoint].position) < .01f)
 		    {
@@ -80,6 +87,7 @@ public class Enemy : MonoBehaviour
 		currentWayPoint = 0;
 		reachedTheEnd = false;
 		attackCounter = 0f;
+		speedMod = 1f; // back to normal speed
 		
 	}
 	
