@@ -8,6 +8,9 @@ public class UIController : MonoBehaviour
     [SerializeField] public GameObject PanelLoseScreen;
     [SerializeField] public GameObject PanelPlaceTower;
     [SerializeField] public GameObject PauseScreen;
+    [SerializeField] public GameObject UpgradeScreen;
+    private Tower selectedTower;
+
     public static UIController instance;
     public TMP_Text goldTMP;
     
@@ -74,5 +77,25 @@ public class UIController : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
     }
+
+    public void ShowUpgradeUI(Tower tower)
+    {
+        selectedTower = tower;
+        UpgradeScreen.SetActive(true);
+
+    }   
     
+    public void HideUpgradeUI()
+    {
+        selectedTower = null;
+        UpgradeScreen.SetActive(false);
+
+    }
+
+    public void OnUpgradeClick()
+    {
+        if (selectedTower == null) return;
+        if (GoldManager.instance.SpendGold(selectedTower.towerStats.cost)) selectedTower.Upgrade();
+        HideUpgradeUI();
+    }
 }

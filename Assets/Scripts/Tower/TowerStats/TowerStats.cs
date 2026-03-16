@@ -7,5 +7,6 @@ public class TowerStats : ScriptableObject
     public float range;
     public float timeBetweenAttacks;
 
+    [Header("Cost")]
     public int cost;
 }

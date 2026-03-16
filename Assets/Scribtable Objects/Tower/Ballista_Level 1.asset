@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 335b521c01db6d4b3b97ef9a7ef0abd6, type: 3}
-  m_Name: TowerBasicStats
+  m_Name: Ballista_Level 1
   m_EditorClassIdentifier: Assembly-CSharp::TowerStats
   range: 3
-  timeBetweenAttacks: 0.5
+  timeBetweenAttacks: 1
   cost: 100
