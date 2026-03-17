@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+
 public class UIController : MonoBehaviour
 {
     [SerializeField] public GameObject PanelWinScreen;
@@ -96,6 +97,14 @@ public class UIController : MonoBehaviour
     {
         if (selectedTower == null) return;
         if (GoldManager.instance.SpendGold(selectedTower.towerStats.cost)) selectedTower.Upgrade();
+		{
+			if(selectedTower.TryGetComponent<SlowdownTower>(out SlowdownTower slow)) slow.Upgrade();
+			else
+			{
+			selectedTower.Upgrade();
+			}
+		}
+
         HideUpgradeUI();
     }
 }
