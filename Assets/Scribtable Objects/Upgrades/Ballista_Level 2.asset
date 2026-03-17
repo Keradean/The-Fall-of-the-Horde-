@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 335b521c01db6d4b3b97ef9a7ef0abd6, type: 3}
-  m_Name: FrostTower
+  m_Name: Ballista_Level 2
   m_EditorClassIdentifier: Assembly-CSharp::TowerStats
-  range: 5
-  timeBetweenAttacks: 0.01
-  cost: 50
+  range: 4
+  timeBetweenAttacks: 0.8
+  cost: 150
