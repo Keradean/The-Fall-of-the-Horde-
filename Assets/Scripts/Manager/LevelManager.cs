@@ -7,7 +7,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Spawner enemiesSpawner;
     public static LevelManager instance;
     public bool levelActive;
-    private bool levelComplete;
+    private bool levelComplete; // eventuell für Sterne vergabe oder nächstes level freischalten verwenden
     
     public List<EnemyHealth> activeEnemies = new List<EnemyHealth>();
     
@@ -35,7 +35,7 @@ public class LevelManager : MonoBehaviour
                UIController.instance.PanelPlaceTower.SetActive(false);
             }
             else
-            if (activeEnemies.Count == 0 && enemiesSpawner.numberOfSpawns == 0)
+            if (activeEnemies.Count == 0 && enemiesSpawner.IsFinished())
             {
                 levelActive = false;
                 levelComplete = true;

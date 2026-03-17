@@ -7,19 +7,17 @@ public class Tower : MonoBehaviour, IPointerClickHandler
     [Header("Tower Stats")]
     public TowerStats towerStats;
 
+	[Header("Upgrade")]
+	[SerializeField] private TowerStats[] upgradeLevel;
+	private int currentLevel = 0;
+
+    [Header("Tower Range Indicator")]
+    [SerializeField] public GameObject rangeIndicator;
+
     [SerializeField] private LayerMask findTheEnemy;
     [SerializeField] private Collider[]  collidersInRange;
 	public List<Enemy>  enemiesInRange = new List<Enemy>();
     
-    [Header("Tower Range Indicator")]
-    [SerializeField] public GameObject rangeIndicator;
-
-	[Header("Upgrade")]
-	[SerializeField] private TowerStats[] upgradeLevel;
-	[SerializeField] private GameObject canvasUpgrade;
-	private int currentLevel = 0;
-
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
