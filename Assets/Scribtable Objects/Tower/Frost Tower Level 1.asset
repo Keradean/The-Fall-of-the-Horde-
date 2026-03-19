@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5977f1a2dd471e405ac7f5b6aacb83e2, type: 3}
   m_Name: Frost Tower Level 1
   m_EditorClassIdentifier: Assembly-CSharp::SlowDownTowerStats
-  range: 5
+  range: 1.5
   timeBetweenAttacks: 0.2
   cost: 100
-  slowDownAmount: 0.25
+  slowDownAmount: 0.5

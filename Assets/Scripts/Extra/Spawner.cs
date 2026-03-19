@@ -5,6 +5,7 @@ public class Spawner : MonoBehaviour
     [Header("Wave")]
 	[SerializeField] private WaveStats[] wave;
 	[SerializeField] private Enemy bossPrefab; 
+	[SerializeField] private Vector3 bossScale; 
     
     [Header("Castle & Path Reference")]
     [SerializeField] private Transform  spawnPoint;
@@ -63,6 +64,7 @@ public class Spawner : MonoBehaviour
 						bossSpawned = true;
 						Enemy boss = Instantiate(bossPrefab, spawnPoint.position, Quaternion.identity);
 						boss.Setup(_castleHealth, _path);
+						boss.transform.localScale = bossScale;
 						Debug.Log(" Der Endgegner ist in the House!!!");
 					}
 					return;
