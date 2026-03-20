@@ -68,6 +68,17 @@ public class UIController : MonoBehaviour
             Time.timeScale = 1f;
         }
     }
+	
+	public void Retry()
+	{
+		SceneManager.LoadScene("TestScene");
+	}	
+
+	public void Resume()
+	{
+		PauseScreen.SetActive(false);
+		Time.timeScale = 1f;
+	}
 
     public void LevelSelect()
     {
@@ -107,4 +118,15 @@ public class UIController : MonoBehaviour
 
         HideUpgradeUI();
     }
+
+	public void OnSellClick()
+	{
+		if (selectedTower == null) return; 
+
+		// Get the Half of your Money back
+       GoldManager.instance.AddGold(selectedTower.towerStats.cost / 2);
+		// destry tower
+		Destroy(selectedTower.gameObject);
+		HideUpgradeUI();
+	}
 }
