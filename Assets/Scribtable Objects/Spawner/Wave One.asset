@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 685008dfd37af8359b375aaec7000b4c, type: 3}
   m_Name: Wave One
   m_EditorClassIdentifier: Assembly-CSharp::WaveStats
-  enemyPrefab: {fileID: 3026727806335809204, guid: 29cc8081b1783aded98237b821b4693a, type: 3}
+  enemyPrefab: {fileID: 1587346904282486335, guid: e35c519c830c2a77c9b5c1f6b355f123, type: 3}
   numberOfEnemies: 20
-  timeBetweenSpawns: 1
+  timeBetweenSpawns: 0.5
   timeBetweenWaves: 2
