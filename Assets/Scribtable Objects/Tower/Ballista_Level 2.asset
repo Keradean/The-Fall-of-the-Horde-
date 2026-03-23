@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileStats
   range: 3.5
   timeBetweenAttacks: 0.5
-  cost: 150
+  cost: 50
   damage: 2

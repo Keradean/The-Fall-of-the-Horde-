@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d53b28b8ae68b8769d300abaffffcc9, type: 3}
   m_Name: FireTower - Level 2
   m_EditorClassIdentifier: Assembly-CSharp::FireTowerStats
-  range: 3
-  timeBetweenAttacks: 1
-  cost: 150
-  burnDamage: 0.2
-  burnDuration: 1
+  range: 3.5
+  timeBetweenAttacks: 0.8
+  cost: 100
+  damage: 2.5
+  burnDamage: 0.4
+  burnDuration: 1.2

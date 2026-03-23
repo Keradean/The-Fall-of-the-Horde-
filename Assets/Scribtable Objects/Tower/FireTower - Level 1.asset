@@ -15,5 +15,6 @@ MonoBehaviour:
   range: 3
   timeBetweenAttacks: 1
   cost: 150
+  damage: 2
   burnDamage: 0.2
-  burnDuration: 1
+  burnDuration: 0.6
