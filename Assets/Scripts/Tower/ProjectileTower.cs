@@ -2,18 +2,23 @@ using UnityEngine;
 
 public class ProjectileTower : MonoBehaviour
 {
-    [SerializeField] private TowerStats towerStats;
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform  firePoint;
     [SerializeField] private Transform  towerWeapon;
+
     
     private Tower _tower;
     private float shotCounter;
     private Transform target;
+	private ProjectileStats _projectileStats;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        _tower = FindFirstObjectByType<Tower>();
+        _tower = GetComponent<Tower>();
+		_projectileStats = _tower.towerStats as ProjectileStats;
+		Debug.Log("towerStats: " + _tower.towerStats);
+    	Debug.Log("_projectileStats: " + _projectileStats);
+		
     }
 
     // Update is called once per frame
@@ -29,16 +34,24 @@ public class ProjectileTower : MonoBehaviour
         shotCounter -= Time.deltaTime;
         if (shotCounter <= 0 && target != null)
         {
-            shotCounter = towerStats.timeBetweenAttacks;
+            shotCounter = _projectileStats.timeBetweenAttacks;
             
             firePoint.LookAt(target);
 
-            Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
+            GameObject pt = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
+			Projectile projectile = pt.GetComponent<Projectile>();
+			projectile.damage = _projectileStats.damage;
+		//if is a Fire Tower
+		if(_projectileStats is FireTowerStats fireStats)
+		{
+			projectile.burnDamage = fireStats.burnDamage;
+			projectile.burnDuration = fireStats.burnDuration;
+		}
         }
 
         if (_tower.enemiesInRange.Count > 0)
         {
-            float minDistance = towerStats.range + 1f;
+            float minDistance = _projectileStats.range + 1f;
             foreach (Enemy enemy in _tower.enemiesInRange)
             {
                 if (enemy != null)

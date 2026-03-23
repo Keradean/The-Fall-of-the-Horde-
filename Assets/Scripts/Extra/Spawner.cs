@@ -45,7 +45,7 @@ public class Spawner : MonoBehaviour
 	{
 		enemiesLeftToSpawn = wave[currentWave].numberOfEnemies;
 		waveActive = true; 
-		Debug.Log("Start For The Horde!!");
+		Debug.Log("Start The Horde!!");
 	}
 
     // Update is called once per frame

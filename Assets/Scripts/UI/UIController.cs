@@ -10,10 +10,24 @@ public class UIController : MonoBehaviour
     [SerializeField] public GameObject PanelPlaceTower;
     [SerializeField] public GameObject PauseScreen;
     [SerializeField] public GameObject UpgradeScreen;
+
+	[Header("Display Tower Cost")]
+    [SerializeField] private Tower  ballistaTower;
+    [SerializeField] private Tower  iceTower;
+    [SerializeField] private Tower  fireTower;
+   // [SerializeField] Tower  _insertnextTowerHere????;
+
+	[Header("Display Tower Upgrade")]
+	[SerializeField] private GameObject tower; 
+	//[SerializeField] 
+
     private Tower selectedTower;
 
     public static UIController instance;
     public TMP_Text goldTMP;
+    public TMP_Text BallistaTMP;
+    public TMP_Text IceTowerTMP;
+    public TMP_Text FireTowerTMP;
     
     private InputSystem_Actions inputActions;
 
@@ -25,7 +39,10 @@ public class UIController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+		// Display Tower Costs
+        BallistaTMP.text = ballistaTower.towerStats.cost.ToString();
+        IceTowerTMP.text = iceTower.towerStats.cost.ToString();
+        FireTowerTMP.text = fireTower.towerStats.cost.ToString();
     }
 
     // Update is called once per frame
@@ -51,6 +68,7 @@ public class UIController : MonoBehaviour
         PauseUnpause();
     }
 
+	#region Buttons
     public void PauseUnpause()
     {
         if (TowerManager.instance.isPlacing)
@@ -129,4 +147,5 @@ public class UIController : MonoBehaviour
 		Destroy(selectedTower.gameObject);
 		HideUpgradeUI();
 	}
+	#endregion
 }

@@ -10,6 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bed32c9a8cf3c7e7fae6dcaf2a55c587, type: 3}
-  m_Name: ProjectileStats
+  m_Name: Ballista_Level 2
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileStats
-  damage: 1
+  range: 3.5
+  timeBetweenAttacks: 0.5
+  cost: 150
+  damage: 2

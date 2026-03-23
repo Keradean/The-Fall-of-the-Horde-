@@ -2,10 +2,13 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    [SerializeField] private ProjectileStats _projectileStats;
     [SerializeField] private Rigidbody rB;
-
     [SerializeField] private float firingSpeed;
+	[HideInInspector] public float damage;
+	[HideInInspector] public float burnDamage;
+	[HideInInspector] public float burnDuration;
+    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -16,7 +19,13 @@ public class Projectile : MonoBehaviour
     {
         if(other.TryGetComponent<EnemyHealth>(out EnemyHealth enemyHealth))
 		{
-		enemyHealth.TakeDamage(_projectileStats.damage);
+		enemyHealth.TakeDamage(damage);
+		
+			//pls Burn you nasty Bitch
+			if(burnDuration > 0)
+			{
+				other.GetComponent<Enemy>().SetOnFire(burnDamage, burnDuration);
+			}
         Destroy(gameObject);
 		}
     }

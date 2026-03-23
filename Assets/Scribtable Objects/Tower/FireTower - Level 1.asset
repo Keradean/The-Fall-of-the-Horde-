@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bed32c9a8cf3c7e7fae6dcaf2a55c587, type: 3}
-  m_Name: Ballista_Level 1
-  m_EditorClassIdentifier: Assembly-CSharp::ProjectileStats
+  m_Script: {fileID: 11500000, guid: 3d53b28b8ae68b8769d300abaffffcc9, type: 3}
+  m_Name: FireTower - Level 1
+  m_EditorClassIdentifier: Assembly-CSharp::FireTowerStats
   range: 3
   timeBetweenAttacks: 1
-  cost: 100
-  damage: 1
+  cost: 150
+  burnDamage: 0.2
+  burnDuration: 1

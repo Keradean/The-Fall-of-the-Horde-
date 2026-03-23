@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private EnemyStats enemyStats;
-	
+
 	[HideInInspector] public float Health;
 	[HideInInspector] public float speedMod = 1f;
 
@@ -21,6 +21,9 @@ public class Enemy : MonoBehaviour
 
 
 	private IObjectPool<Enemy> enemyPool;
+
+	private float burnTimer = 0f;
+	private float burnDamage = 0f; 
 
 
 	public void SetPool(IObjectPool<Enemy> pool)
@@ -47,6 +50,13 @@ public class Enemy : MonoBehaviour
     void Update()
     {
 		MoveAndAttack();
+
+		if(burnTimer > 0)
+		{
+			burnTimer -= Time.deltaTime;
+			EnemyHealth enemyHealth = GetComponent<EnemyHealth>();
+			enemyHealth.TakeDamage(burnDamage * Time.deltaTime);
+		}
 	}
 
 	private void MoveAndAttack()
@@ -88,6 +98,8 @@ public class Enemy : MonoBehaviour
 		reachedTheEnd = false;
 		attackCounter = 0f;
 		speedMod = 1f; // back to normal speed
+		burnDamage = 0f;
+		burnTimer = 0f;
 		
 	}
 	
@@ -95,5 +107,13 @@ public class Enemy : MonoBehaviour
 	{
 		_path = newPath;
 		_castleHealth = newCastle;
+	}
+
+	public void SetOnFire(float damaged, float duration)
+	{
+		burnDamage = damaged;
+		burnTimer = duration; 
+		
+	
 	}
 }
