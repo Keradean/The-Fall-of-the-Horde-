@@ -18,6 +18,8 @@ public class Tower : MonoBehaviour, IPointerClickHandler
     [SerializeField] private LayerMask findTheEnemy;
     [SerializeField] private Collider[]  collidersInRange;
 	public List<Enemy>  enemiesInRange = new List<Enemy>();
+
+	public bool isCastleTower;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
