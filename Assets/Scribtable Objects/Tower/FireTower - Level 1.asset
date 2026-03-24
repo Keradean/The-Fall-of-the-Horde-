@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FireTowerStats
   range: 3
   timeBetweenAttacks: 1
+  description: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+    nonumy eirmod tempor invidunt ut
   cost: 150
   damage: 2
   burnDamage: 0.2

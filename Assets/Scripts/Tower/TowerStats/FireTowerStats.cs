@@ -6,4 +6,5 @@ public class FireTowerStats : ProjectileStats
     [Header("Burn")]
     public float burnDamage;
     public float burnDuration;
+
 }
