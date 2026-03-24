@@ -8,10 +8,12 @@ public class TowerManager : MonoBehaviour
     public static TowerManager instance;
     
     [SerializeField] private Transform indicator;
-    [SerializeField] private LayerMask  ICanOnlyPlaceItThere;
+    [SerializeField] private LayerMask  groundLayer;
+    [SerializeField] private LayerMask  castleLayer;
     [SerializeField] private LayerMask  AreThereObstacles;
   
 	public bool isPlacing;
+	public bool canPlace = true;
 
     void Awake()
     {
@@ -26,21 +28,25 @@ public class TowerManager : MonoBehaviour
 
 	public void PlacingTheTower()
 	{
-		if (isPlacing)
+		if (!isPlacing) return;
         {
             indicator.position = GetGridPosition();
+			canPlace = true;
 
 			RaycastHit hit; 
-			if(Physics.Raycast(indicator.position + new Vector3(0f, -2, 0f), Vector3.up, out hit, 10f, AreThereObstacles))
+			if(Physics.Raycast(indicator.position + Vector3.down, Vector3.up, out hit, 10f, AreThereObstacles))
 			{
-				indicator.gameObject.SetActive(false);
+				canPlace = false;
 			}
-			else
+			indicator.gameObject.SetActive(true);
+
+			Renderer rend = indicator.GetComponentInChildren<Renderer>();
+			if(rend != null)
 			{
-				indicator.gameObject.SetActive(true);
+				rend.material.color = canPlace ? Color.green : Color.red;
 			}
 
-            if (Mouse.current.leftButton.wasPressedThisFrame && indicator.gameObject.activeSelf)
+            if (Mouse.current.leftButton.wasPressedThisFrame && canPlace)
             {
 				if(GoldManager.instance.SpendGold(towerStats.cost))
 				{
@@ -90,21 +96,40 @@ public class TowerManager : MonoBehaviour
 
     public Vector3 GetGridPosition()
     {
-        Vector3 location = Vector3.zero;
 
-        Vector2 mousePosition = Mouse.current.position.ReadValue();
+			Vector3 location = indicator.position;
+
+       	 	Vector2 mousePosition = Mouse.current.position.ReadValue();
         
-        Ray ray = Camera.main.ScreenPointToRay(mousePosition);
-        Debug.DrawRay(ray.origin, ray.direction * 200f, Color.red);
+        	Ray ray = Camera.main.ScreenPointToRay(mousePosition);
+        	Debug.DrawRay(ray.origin, ray.direction * 200f, Color.red);
 
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, 200f, ICanOnlyPlaceItThere))
-        {
-            location = hit.point;
-        }
+        	RaycastHit hit;
+        	
+        	{
+				// CastleTower ..
+                if(activeTower.isCastleTower)
+				{
+					if (Physics.Raycast(ray, out hit, 200f, castleLayer))
+					{
+						location = hit.point;
+						location.y = 0.8f;
+					}
 
-        location.y = 0f;
+				}
+				// i call it here Ground Tower (normal tower)
+				else
+				{
+					if (Physics.Raycast(ray, out hit, 200f, groundLayer))
+					{
+						location = hit.point;
+						location.y = 0f;
+					}
+				}
+            	
+        	}
         
-        return location;
+       		 return location;
+  
     }
 }
