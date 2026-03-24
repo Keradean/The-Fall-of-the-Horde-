@@ -354,6 +354,8 @@ MonoBehaviour:
   speedMod: 1
   _path: {fileID: 0}
   chooseAPointOfAttack: 0
+  isFlying: 1
+  flyHeight: 0.75
 --- !u!114 &7048867225165333953
 MonoBehaviour:
   m_ObjectHideFlags: 0

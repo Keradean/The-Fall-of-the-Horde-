@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileStats
   range: 3
   timeBetweenAttacks: 1
+  description: "N\xE4chstes Level steigert die Reichweite, schnellere angrifsgeschwindigkeit
+    und Schaden"
   cost: 100
   damage: 1

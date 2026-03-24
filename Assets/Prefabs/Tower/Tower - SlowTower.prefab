@@ -569,6 +569,7 @@ MonoBehaviour:
   upgradeLevel:
   - {fileID: 11400000, guid: 50e6ffda5ab4a52d79bcfa005dd6e99f, type: 2}
   - {fileID: 11400000, guid: 56ebc67731c234bdaa7c89fd2dddd89f, type: 2}
+  towerPrefab: {fileID: 1144262047823582540, guid: 811e9e7cc0f129328aaf90d66d292fd4, type: 3}
   rangeIndicator: {fileID: 3029307238289570996}
   findTheEnemy:
     serializedVersion: 2

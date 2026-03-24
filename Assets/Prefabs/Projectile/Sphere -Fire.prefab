@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6451481503591816033}
   - component: {fileID: 7750457469848485798}
   - component: {fileID: 5934631759282442948}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Sphere -Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,6 +51,8 @@ MonoBehaviour:
   rB: {fileID: 5934631759282442948}
   firingSpeed: 6
   damage: 0
+  burnDamage: 0
+  burnDuration: 0
 --- !u!33 &5473018079382571054
 MeshFilter:
   m_ObjectHideFlags: 0

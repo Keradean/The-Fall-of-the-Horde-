@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FireTowerStats
   range: 3.5
   timeBetweenAttacks: 0.8
+  description: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+    nonumy eirmod tempor invidunt ut Level 2
   cost: 100
   damage: 2.5
   burnDamage: 0.4

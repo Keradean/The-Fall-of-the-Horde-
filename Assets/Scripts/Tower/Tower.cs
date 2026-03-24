@@ -10,6 +10,7 @@ public class Tower : MonoBehaviour, IPointerClickHandler
 	[Header("Upgrade")]
 	[SerializeField] private TowerStats[] upgradeLevel;
 	private int currentLevel = 0;
+	public GameObject towerPrefab;
 
     [Header("Tower Range Indicator")]
     [SerializeField] public GameObject rangeIndicator;
@@ -27,7 +28,6 @@ public class Tower : MonoBehaviour, IPointerClickHandler
     // Update is called once per frame
     void Update()
     {
-		
         collidersInRange = Physics.OverlapSphere(transform.position, towerStats.range, findTheEnemy);
         
         enemiesInRange.Clear();

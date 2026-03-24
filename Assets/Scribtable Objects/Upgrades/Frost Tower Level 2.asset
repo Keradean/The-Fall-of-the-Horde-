@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SlowDownTowerStats
   range: 3
   timeBetweenAttacks: 0.1
+  description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+    nonumy eirmod tempor invidunt ut level 2 '
   cost: 150
   slowDownAmount: 0.8

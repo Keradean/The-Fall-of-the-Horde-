@@ -15,13 +15,17 @@ public class UIController : MonoBehaviour
     [SerializeField] private Tower  ballistaTower;
     [SerializeField] private Tower  iceTower;
     [SerializeField] private Tower  fireTower;
-   // [SerializeField] Tower  _insertnextTowerHere????;
+   // [SerializeField] Tower  _insertnextTowerHere????;	
 
 	[Header("Display Tower Upgrade")]
-	[SerializeField] private GameObject tower; 
+	[SerializeField] private TMP_Text descriptionTMP;
+	[SerializeField] private TMP_Text costTMP;
+	[SerializeField] private Transform displayPoint;
+	private GameObject towerDisplay; 
 	//[SerializeField] 
 
-    private Tower selectedTower;
+	[Header("Display Tower Upgrade Cost")]
+
 
     public static UIController instance;
     public TMP_Text goldTMP;
@@ -30,6 +34,7 @@ public class UIController : MonoBehaviour
     public TMP_Text FireTowerTMP;
     
     private InputSystem_Actions inputActions;
+	private Tower selectedTower;
 
     private void Awake()
     {
@@ -112,6 +117,12 @@ public class UIController : MonoBehaviour
     {
         selectedTower = tower;
         UpgradeScreen.SetActive(true);
+		
+		descriptionTMP.text = tower.towerStats.description;
+		costTMP.text = tower.towerStats.cost.ToString(); 
+
+		if(towerDisplay != null) Destroy(towerDisplay); 
+		towerDisplay = Instantiate(tower.towerPrefab, displayPoint.position, Quaternion.identity);
 
     }   
     
@@ -119,7 +130,7 @@ public class UIController : MonoBehaviour
     {
         selectedTower = null;
         UpgradeScreen.SetActive(false);
-
+		if(towerDisplay != null) Destroy(towerDisplay);
     }
 
     public void OnUpgradeClick()
@@ -127,11 +138,11 @@ public class UIController : MonoBehaviour
         if (selectedTower == null) return;
         if (GoldManager.instance.SpendGold(selectedTower.towerStats.cost)) selectedTower.Upgrade();
 		{
-			if(selectedTower.TryGetComponent<SlowdownTower>(out SlowdownTower slow)) slow.Upgrade();
-			else
-			{
+			//if(selectedTower.TryGetComponent<SlowdownTower>(out SlowdownTower slow)) slow.Upgrade();
+			//else
+			//{
 			selectedTower.Upgrade();
-			}
+			//}
 		}
 
         HideUpgradeUI();
