@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e62a062ef06369d2813964485b54e68, type: 3}
   m_Name: Castele Small
   m_EditorClassIdentifier: Assembly-CSharp::CastleStats
-  Health: 0
-  maxHealth: 100
+  Health: 1000
+  maxHealth: 1000
