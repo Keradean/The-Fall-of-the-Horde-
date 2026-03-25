@@ -364,7 +364,7 @@ GameObject:
   - component: {fileID: 6006871565797088215}
   - component: {fileID: 901997535596814267}
   m_Layer: 5
-  m_Name: Button - Place Ballista (1)
+  m_Name: Button - Castle Tower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

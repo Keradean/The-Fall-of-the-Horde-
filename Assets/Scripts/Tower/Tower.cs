@@ -24,12 +24,13 @@ public class Tower : MonoBehaviour, IPointerClickHandler
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-     	towerStats = upgradeLevel[0];   
+     	towerStats = Instantiate(upgradeLevel[0]);   
     }
 
     // Update is called once per frame
     void Update()
     {
+		
         collidersInRange = Physics.OverlapSphere(transform.position, towerStats.range, findTheEnemy);
         
         enemiesInRange.Clear();
@@ -46,7 +47,7 @@ public class Tower : MonoBehaviour, IPointerClickHandler
 		if(currentLevel < upgradeLevel.Length -1) // verhindere das du über das letzte level hinaus gehst
 		{
 			currentLevel ++;
-			towerStats = upgradeLevel[currentLevel]; // Tausche das ScriptableObject aus
+			towerStats = Instantiate(upgradeLevel[currentLevel]); // Tausche das ScriptableObject aus
 		}
 	}
 	#endregion

@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 7913694637489712024}
   - component: {fileID: 6622366649159719773}
   m_Layer: 8
-  m_Name: weapon-cannon
+  m_Name: Tower - CastleTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -273,7 +273,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8517794570913625091
 Transform:
   m_ObjectHideFlags: 0
