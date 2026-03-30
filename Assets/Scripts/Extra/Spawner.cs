@@ -10,7 +10,6 @@ namespace Extra
 	{
 		[Header("Wave")]
 		[SerializeField] private WaveStats[] wave;
-
     
 		[Header("Castle & Path Reference")]
 		[SerializeField] private Transform  spawnPoint;
@@ -43,7 +42,6 @@ namespace Extra
 					maxSize: 50             // extreme Welle, 50 Gegner maximal
 				);
 			}
-
 		}
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		private void Start()

@@ -14,7 +14,7 @@ namespace Enemy
         [SerializeField] private Slider enemyHealthBar;
  
         ////////////////////////////////////////////////////////////////////////////////////////////////
-        void OnEnable()
+        public void OnEnable()
         {
             enemy.health = enemyStats.maxHealth;
             
@@ -24,7 +24,7 @@ namespace Enemy
             LevelManager.Instance.activeEnemies.Add(this);
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////
-        void OnDisable()
+        private void OnDisable()
         {
             LevelManager.Instance.activeEnemies.Remove(this);
         } 
