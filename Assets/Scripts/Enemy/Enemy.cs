@@ -1,29 +1,30 @@
 using UnityEngine;
 using UnityEngine.Pool;
-using UnityEngine.UI;
+using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private EnemyStats enemyStats;
 
-	[HideInInspector] public float Health;
+	[FormerlySerializedAs("Health")] [HideInInspector] public float health;
 	[HideInInspector] public float speedMod = 1f;
 
-    public Path _path;
-	private int currentWayPoint;
-	private bool reachedTheEnd;
+    [FormerlySerializedAs("_path")] public Path path;
+	private int _currentWayPoint;
+	private bool _reachedTheEnd;
 	
-	private float attackCounter;
+	private float _attackCounter;
 	private CastleHealth _castleHealth;
+	private EnemyHealth _enemyHealth;
 
 	public int chooseAPointOfAttack;
 
 
-	private IObjectPool<Enemy> enemyPool;
-
-	private float burnTimer = 0f;
-	private float burnDamage = 0f; 
+	private float _burnTimer;
+	private float _burnDamage;
+	private IObjectPool<Enemy> _pool;
 
 	public bool isFlying;
 	public float flyHeight;
@@ -31,15 +32,25 @@ public class Enemy : MonoBehaviour
 
 	public void SetPool(IObjectPool<Enemy> pool)
 	{
-		enemyPool = pool;
+		_pool = pool; 
 	}
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+	public void ReturnToPool()
+	{
+		_pool?.Release(this);
+	}
+
+	private void Awake()
+	{
+		_enemyHealth = GetComponent<EnemyHealth>(); // cachen
+	}
+
+	// Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-		if(_path == null)
+		if(path == null)
 		{
-			_path = FindFirstObjectByType<Path>();
+			path = FindFirstObjectByType<Path>();
 		}
 
         if(_castleHealth == null)
@@ -57,66 +68,48 @@ public class Enemy : MonoBehaviour
     {
 		MoveAndAttack();
 
-		if(burnTimer > 0)
-		{
-			burnTimer -= Time.deltaTime;
-			EnemyHealth enemyHealth = GetComponent<EnemyHealth>();
-			enemyHealth.TakeDamage(burnDamage * Time.deltaTime);
-		}
-	}
+		if (!(_burnTimer > 0)) return;
+		_burnTimer -= Time.deltaTime;
+		_enemyHealth.TakeDamage(_burnDamage * Time.deltaTime);
+    }
 
 	private void MoveAndAttack()
-	{	
-		if (!reachedTheEnd)
+	{
+		var waypoint = enemyStats.moveSpeed * Time.deltaTime * speedMod;
+		if (!_reachedTheEnd)
 	    {
 			// flying...
             if(!isFlying)
 			{
-				transform.position = Vector3.MoveTowards(transform.position, _path.wayPoints[currentWayPoint].position, enemyStats.moveSpeed * Time.deltaTime * speedMod );
-		    	transform.LookAt(_path.wayPoints[currentWayPoint].position);
-		    	if(Vector3.Distance(transform.position, _path.wayPoints[currentWayPoint].position) < .01f)
-		    	{
-			    	currentWayPoint++;
-			    	if(currentWayPoint >= _path.wayPoints.Length)
-			    	{
-				   		reachedTheEnd = true;
-						chooseAPointOfAttack = Random.Range(0, _castleHealth.PointsOfAttack.Length);
-			    	}
-		  	 	}	
+				transform.position = Vector3.MoveTowards(transform.position, path.wayPoints[_currentWayPoint].position, waypoint );
+		    	transform.LookAt(path.wayPoints[_currentWayPoint].position);
+			    if (!(Vector3.Distance(transform.position, path.wayPoints[_currentWayPoint].position) < .01f)) return;
+			    _currentWayPoint++;
+			    if (_currentWayPoint < path.wayPoints.Length) return;
+			    _reachedTheEnd = true;
+			    chooseAPointOfAttack = Random.Range(0, _castleHealth.pointsOfAttack.Length);
 			}
 			else
 			{
-				transform.position = Vector3.MoveTowards(transform.position, _path.wayPoints[currentWayPoint].position + (Vector3.up * flyHeight), enemyStats.moveSpeed * Time.deltaTime * speedMod );
-		    	transform.LookAt(_path.wayPoints[currentWayPoint].position);
-		    	if(Vector3.Distance(transform.position, _path.wayPoints[currentWayPoint].position + (Vector3.up * flyHeight)) < .01f)
-		    	{
-			    	currentWayPoint++;
-			    	if(currentWayPoint >= _path.wayPoints.Length)
-			    	{
-				   		reachedTheEnd = true;
-						chooseAPointOfAttack = Random.Range(0, _castleHealth.PointsOfAttack.Length);
-			    	}
-		  	 	}
-			 }
+				transform.position = Vector3.MoveTowards(transform.position, path.wayPoints[_currentWayPoint].position + (Vector3.up * flyHeight), waypoint );
+		    	transform.LookAt(path.wayPoints[_currentWayPoint].position);
+			    if (!(Vector3.Distance(transform.position,
+				        path.wayPoints[_currentWayPoint].position + (Vector3.up * flyHeight)) < .01f)) return;
+			    _currentWayPoint++;
+			    if (_currentWayPoint < path.wayPoints.Length) return;
+			    _reachedTheEnd = true;
+			    chooseAPointOfAttack = Random.Range(0, _castleHealth.pointsOfAttack.Length);
+			}
 	    }
 		else
 		{
-			if(!isFlying)
-			{
-				transform.position = Vector3.MoveTowards(transform.position, _castleHealth.PointsOfAttack[chooseAPointOfAttack].position, enemyStats.moveSpeed * Time.deltaTime);
-			}
-			else
-			{
-				transform.position = Vector3.MoveTowards(transform.position, _castleHealth.PointsOfAttack[chooseAPointOfAttack].position + (Vector3.up * flyHeight), enemyStats.moveSpeed * Time.deltaTime);
-			}
+			transform.position = !isFlying ? Vector3.MoveTowards(transform.position, _castleHealth.pointsOfAttack[chooseAPointOfAttack].position, waypoint) : Vector3.MoveTowards(transform.position, _castleHealth.pointsOfAttack[chooseAPointOfAttack].position + (Vector3.up * flyHeight), waypoint);
 			
-			attackCounter -= Time.deltaTime;
-			if(attackCounter <= 0)
-			{
-				attackCounter = enemyStats.timeBetweenAttacks;
-				_castleHealth.TakeDamage(enemyStats.damagePerAttack);
-			}
-    	}
+			_attackCounter -= Time.deltaTime;
+			if (!(_attackCounter <= 0)) return;
+			_attackCounter = enemyStats.timeBetweenAttacks;
+			_castleHealth.TakeDamage(enemyStats.damagePerAttack);
+		}
 		
 	}
 
@@ -124,27 +117,32 @@ public class Enemy : MonoBehaviour
 	public void ResetEnemy()
 	{
 		// Reset Health back to MaxHealth
-		Health = enemyStats.maxHealth;
+		health = enemyStats.maxHealth;
 		// ToDo Reset other things that has to be reset!!!
-		currentWayPoint = 0;
-		reachedTheEnd = false;
-		attackCounter = 0f;
+		_currentWayPoint = 0;
+		_reachedTheEnd = false;
+		_attackCounter = 0f;
 		speedMod = 1f; // back to normal speed
-		burnDamage = 0f;
-		burnTimer = 0f;
+		_burnDamage = 0f;
+		_burnTimer = 0f;
 		
+		// flug Gegner werden auf Ihrer Höhe resetet
+		if (isFlying)
+		{
+			transform.position +=  Vector3.up * flyHeight ;
+		}
 	}
 	
 	public void Setup(CastleHealth newCastle, Path newPath)
 	{
-		_path = newPath;
+		path = newPath;
 		_castleHealth = newCastle;
 	}
 
 	public void SetOnFire(float damaged, float duration)
 	{
-		burnDamage = damaged;
-		burnTimer = duration; 
+		_burnDamage = damaged;
+		_burnTimer = duration; 
 		
 	
 	}

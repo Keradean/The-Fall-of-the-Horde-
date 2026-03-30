@@ -1,23 +1,24 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class TowerManager : MonoBehaviour
 {
     [SerializeField] private Tower activeTower;
     [SerializeField] private TowerStats towerStats;
-    public static TowerManager instance;
+    public static TowerManager Instance;
     
     [SerializeField] private Transform indicator;
     [SerializeField] private LayerMask  groundLayer;
     [SerializeField] private LayerMask  castleLayer;
-    [SerializeField] private LayerMask  AreThereObstacles;
+    [FormerlySerializedAs("AreThereObstacles")] [SerializeField] private LayerMask  areThereObstacles;
   
 	public bool isPlacing;
 	public bool canPlace = true;
 
     void Awake()
     {
-        instance = this;
+        Instance = this;
     }
 
     // Update is called once per frame
@@ -34,7 +35,7 @@ public class TowerManager : MonoBehaviour
 			canPlace = true;
 
 			RaycastHit hit; 
-			if(Physics.Raycast(indicator.position + Vector3.down, Vector3.up, out hit, 10f, AreThereObstacles))
+			if(Physics.Raycast(indicator.position + Vector3.down, Vector3.up, out hit, 10f, areThereObstacles))
 			{
 				canPlace = false;
 			}
@@ -48,7 +49,7 @@ public class TowerManager : MonoBehaviour
 
             if (Mouse.current.leftButton.wasPressedThisFrame && canPlace)
             {
-				if(GoldManager.instance.SpendGold(towerStats.cost))
+				if(GoldManager.Instance.SpendGold(towerStats.cost))
 				{
 				isPlacing = false;
                 Instantiate(activeTower, indicator.position, activeTower.transform.rotation);

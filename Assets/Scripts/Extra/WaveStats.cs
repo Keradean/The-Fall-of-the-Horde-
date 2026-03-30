@@ -6,5 +6,5 @@ public class WaveStats : ScriptableObject
     public Enemy enemyPrefab;
     public int numberOfEnemies;
     public float timeBetweenSpawns;
-    public float timeBetweenWaves; 
+    public float timeBetweenWaves;
 }

@@ -9,7 +9,7 @@ public class Tower : MonoBehaviour, IPointerClickHandler
 
 	[Header("Upgrade")]
 	[SerializeField] private TowerStats[] upgradeLevel;
-	private int currentLevel = 0;
+	private int _currentLevel = 0;
 	public GameObject towerPrefab;
 
     [Header("Tower Range Indicator")]
@@ -44,10 +44,10 @@ public class Tower : MonoBehaviour, IPointerClickHandler
 	// Upgrade your Tower
 	public void Upgrade()
 	{	
-		if(currentLevel < upgradeLevel.Length -1) // verhindere das du über das letzte level hinaus gehst
+		if(_currentLevel < upgradeLevel.Length -1) // verhindere das du über das letzte level hinaus gehst
 		{
-			currentLevel ++;
-			towerStats = Instantiate(upgradeLevel[currentLevel]); // Tausche das ScriptableObject aus
+			_currentLevel ++;
+			towerStats = Instantiate(upgradeLevel[_currentLevel]); // Tausche das ScriptableObject aus
 		}
 	}
 	#endregion
@@ -55,7 +55,7 @@ public class Tower : MonoBehaviour, IPointerClickHandler
 	#region OnClick
 	public void OnPointerClick(PointerEventData eventData)
 	{
-		UIController.instance.ShowUpgradeUI(this);
+		UIController.Instance.ShowUpgradeUI(this);
 	}
 	
 	#endregion

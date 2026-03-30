@@ -1,9 +1,10 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu( menuName = "Building/Castle", fileName = "Castle Stats")]
 public class CastleStats : ScriptableObject
 {
-    [Header("Health")]
-    public float Health;
+    [FormerlySerializedAs("Health")] [Header("Health")]
+    public float health;
     public float maxHealth;
 }

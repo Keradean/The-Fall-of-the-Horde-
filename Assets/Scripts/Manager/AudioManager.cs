@@ -9,7 +9,7 @@ public class AudioManager : MonoBehaviour
     public static AudioManager Instance;
 
     private int _currentBGM = 0;
-    private bool playingBGM;
+    private bool _playingBGM;
 
     private void Awake()
     {
@@ -58,7 +58,7 @@ public class AudioManager : MonoBehaviour
         StopMusic();
         _currentBGM = Random.Range(0, bgm.Length);
         bgm[_currentBGM].Play();
-        playingBGM = true;
+        _playingBGM = true;
     }
 
     private void StopMusic()
@@ -71,7 +71,7 @@ public class AudioManager : MonoBehaviour
             track.Stop();
         }
 
-        playingBGM = false;
+        _playingBGM = false;
     }
 
     #endregion
@@ -80,7 +80,7 @@ public class AudioManager : MonoBehaviour
 
     public void IsBGMPlaying()
     {
-        if (playingBGM)
+        if (_playingBGM)
         {
             // Wenn die Musik nicht mehr spielt gehe zum nächsten element
             if (bgm[_currentBGM].isPlaying == false)

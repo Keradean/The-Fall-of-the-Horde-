@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI; // Fürs Canva Slider/ Healthbar
 
 public class CastleHealth : MonoBehaviour, IDamageable
@@ -6,22 +7,22 @@ public class CastleHealth : MonoBehaviour, IDamageable
     [SerializeField] private CastleStats castleStats;
     [SerializeField] private Slider castleHealthBar;
 
-    public Transform[] PointsOfAttack;
+    [FormerlySerializedAs("PointsOfAttack")] public Transform[] pointsOfAttack;
 
     void Start()
     {
-        castleStats.Health = castleStats.maxHealth;
+        castleStats.health = castleStats.maxHealth;
             
         castleHealthBar.maxValue = castleStats.maxHealth;
-        castleHealthBar.value = castleStats.Health;
+        castleHealthBar.value = castleStats.health;
     }
     
     public void TakeDamage(float damaged)
     {
-        castleStats.Health -=  damaged;
-        if (castleStats.Health <= 0f)
+        castleStats.health -=  damaged;
+        if (castleStats.health <= 0f)
         {
-            castleStats.Health = 0f;
+            castleStats.health = 0f;
             //ToDO
             //Animation better than this SetActive!!
             gameObject.SetActive(false);
@@ -29,6 +30,6 @@ public class CastleHealth : MonoBehaviour, IDamageable
             
             Debug.Log("Wie fühlt es sich an zu verlieren?");
         }
-        castleHealthBar.value = castleStats.Health;
+        castleHealthBar.value = castleStats.health;
     }
 }

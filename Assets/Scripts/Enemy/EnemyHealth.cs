@@ -1,42 +1,42 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI; // Fürs Canva Slider/ Healthbar
 
 public class EnemyHealth : MonoBehaviour
 {
-    [SerializeField] private EnemyStats _enemyStats;
-    [SerializeField] private Enemy _enemy;
+    [FormerlySerializedAs("_enemyStats")] [SerializeField] private EnemyStats enemyStats;
+    [FormerlySerializedAs("_enemy")] [SerializeField] private Enemy enemy;
     [SerializeField] private Slider enemyHealthBar;
-    
-
+ 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     void OnEnable()
     {
-        _enemy.Health = _enemyStats.maxHealth;
+        enemy.health = enemyStats.maxHealth;
             
-        enemyHealthBar.maxValue = _enemyStats.maxHealth;
-        enemyHealthBar.value = _enemy.Health;
+        enemyHealthBar.maxValue = enemyStats.maxHealth;
+        enemyHealthBar.value = enemy.health;
 
-		LevelManager.instance.activeEnemies.Add(this);
+		LevelManager.Instance.activeEnemies.Add(this);
     }
+    ////////////////////////////////////////////////////////////////////////////////////////////////
 	void OnDisable()
 	{
-		LevelManager.instance.activeEnemies.Remove(this);
+		LevelManager.Instance.activeEnemies.Remove(this);
 	} 
-    
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     public void TakeDamage(float damaged)
     {
-        _enemy.Health -=  damaged;
-        if (_enemy.Health <= 0f)
+        enemy.health -=  damaged;
+        if (enemy.health <= 0f)
         {
-            _enemy.Health = 0f;
+            enemy.health = 0f;
 
             //ToDO
-            //Animation better than this SetActive!!
-            gameObject.SetActive(false);
-
-			GoldManager.instance.AddGold(_enemyStats.goldOnDeath);
-            
-            Debug.Log("Er ist gestorben!!!");
+            //Animation
+			GoldManager.Instance.AddGold(enemyStats.goldOnDeath);
+            enemy.ReturnToPool();
+            return;
         }
-        enemyHealthBar.value = _enemy.Health;
+        enemyHealthBar.value = enemy.health;
     }
 }

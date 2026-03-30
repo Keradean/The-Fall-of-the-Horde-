@@ -18,7 +18,7 @@ public class UpgradeTower : MonoBehaviour
 
     public void OnUpgradeButton()
     {
-        if (GoldManager.instance.SpendGold(_tower.towerStats.cost)) _tower.Upgrade();
+        if (GoldManager.Instance.SpendGold(_tower.towerStats.cost)) _tower.Upgrade();
     }
     
     public void OnSell()
