@@ -1,11 +1,12 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
+using UnityEngine.Serialization;
 
 public class TowerButton : MonoBehaviour, IPointerEnterHandler
 {
     [SerializeField] private Tower placeTower;
-    [SerializeField] private TowerManager _towerManager;
+    [FormerlySerializedAs("_towerManager")] [SerializeField] private TowerManager towerManager;
 
     [SerializeField] string towerName;
     [SerializeField] private TextMeshProUGUI towerDisplayText;
@@ -13,7 +14,7 @@ public class TowerButton : MonoBehaviour, IPointerEnterHandler
 
     public void SelectTower()
     {
-        TowerManager.instance.PlaceTheTower(placeTower);
+        TowerManager.Instance.PlaceTheTower(placeTower);
         Debug.Log("Klick mich hart!!!");
     }
     
@@ -24,6 +25,6 @@ public class TowerButton : MonoBehaviour, IPointerEnterHandler
 
     public void DeselectTower()
     {
-        TowerManager.instance.DontPlaceTheTower();
+        TowerManager.Instance.DontPlaceTheTower();
     }
 }

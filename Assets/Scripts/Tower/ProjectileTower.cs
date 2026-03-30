@@ -8,8 +8,8 @@ public class ProjectileTower : MonoBehaviour
 
     
     private Tower _tower;
-    private float shotCounter;
-    private Transform target;
+    private float _shotCounter;
+    private Transform _target;
 	private ProjectileStats _projectileStats;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -24,19 +24,19 @@ public class ProjectileTower : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (target != null)
+        if (_target != null)
         {
-            towerWeapon.LookAt(target);
+            towerWeapon.LookAt(_target);
             // ToDo - schau dir Slerp an *  | | |||| *
             //towerWeapon.rotation = Quaternion.LookRotation(target.position - transform.position);
 			towerWeapon.rotation = Quaternion.Euler(0f, towerWeapon.rotation.eulerAngles.y, 0f );// die Waffe des Towers dreht sich nicht mehr nach unten, sollte sie höher stehen
         }
-        shotCounter -= Time.deltaTime;
-        if (shotCounter <= 0 && target != null)
+        _shotCounter -= Time.deltaTime;
+        if (_shotCounter <= 0 && _target != null)
         {
-            shotCounter = _projectileStats.timeBetweenAttacks;
+            _shotCounter = _projectileStats.timeBetweenAttacks;
             
-            firePoint.LookAt(target);
+            firePoint.LookAt(_target);
 
             GameObject pt = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
 			Projectile projectile = pt.GetComponent<Projectile>();
@@ -60,14 +60,14 @@ public class ProjectileTower : MonoBehaviour
                     if (distance < minDistance)
                     {
                         minDistance = distance;
-                        target = enemy.transform;
+                        _target = enemy.transform;
                     }
                 }
             }
         }
         else
         {
-            target = null;
+            _target = null;
         }
     }
 }

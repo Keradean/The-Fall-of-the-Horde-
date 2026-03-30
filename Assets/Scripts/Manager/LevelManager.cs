@@ -5,22 +5,22 @@ public class LevelManager : MonoBehaviour
 {
     [SerializeField] private CastleStats castleStats;
     [SerializeField] private Spawner enemiesSpawner;
-    public static LevelManager instance;
+    public static LevelManager Instance;
     public bool levelActive;
-    private bool levelComplete; // eventuell für Sterne vergabe oder nächstes level freischalten verwenden
+    private bool _levelComplete; // eventuell für Sterne vergabe oder nächstes level freischalten verwenden
     
     public List<EnemyHealth> activeEnemies = new List<EnemyHealth>();
     
     private void Awake()
     {
-        instance = this;
+        Instance = this;
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         levelActive = true;
         
-        AudioManager.Instance.PlayBGM();
+        AudioManager.Instance?.PlayBGM();
     }
 
     // Update is called once per frame
@@ -28,21 +28,21 @@ public class LevelManager : MonoBehaviour
     {
         if (levelActive)
         {
-            if (castleStats.Health <= 0)
+            if (castleStats.health <= 0)
             {
                 levelActive = false;
-                levelComplete = false;
+                _levelComplete = false;
                // Debug.Log("You Lose....Looser...!!");
-               UIController.instance.PanelLoseScreen.SetActive(true);
-               UIController.instance.PanelPlaceTower.SetActive(false);
+               UIController.Instance.panelLoseScreen.SetActive(true);
+               UIController.Instance.panelPlaceTower.SetActive(false);
             }
             else
             if (activeEnemies.Count == 0 && enemiesSpawner.IsFinished())
             {
                 levelActive = false;
-                levelComplete = true;
+                _levelComplete = true;
                 //Debug.Log("..Ja Krass du hast gewonnen...");
-                UIController.instance.PanelWinScreen.SetActive(true);
+                UIController.Instance.panelWinScreen.SetActive(true);
             }
         }
         

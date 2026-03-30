@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class GoldManager : MonoBehaviour
 {
-    public static GoldManager instance;
+    public static GoldManager Instance;
     
     public int currentGold;
     
     private void Awake()
     {
-        instance = this;
+        Instance = this;
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

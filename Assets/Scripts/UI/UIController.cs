@@ -2,14 +2,15 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class UIController : MonoBehaviour
 {
-    [SerializeField] public GameObject PanelWinScreen;
-    [SerializeField] public GameObject PanelLoseScreen;
-    [SerializeField] public GameObject PanelPlaceTower;
-    [SerializeField] public GameObject PauseScreen;
-    [SerializeField] public GameObject UpgradeScreen;
+    [FormerlySerializedAs("PanelWinScreen")] [SerializeField] public GameObject panelWinScreen;
+    [FormerlySerializedAs("PanelLoseScreen")] [SerializeField] public GameObject panelLoseScreen;
+    [FormerlySerializedAs("PanelPlaceTower")] [SerializeField] public GameObject panelPlaceTower;
+    [FormerlySerializedAs("PauseScreen")] [SerializeField] public GameObject pauseScreen;
+    [FormerlySerializedAs("UpgradeScreen")] [SerializeField] public GameObject upgradeScreen;
 
 	[Header("Display Tower Cost")]
     [SerializeField] private Tower  ballistaTower;
@@ -21,51 +22,51 @@ public class UIController : MonoBehaviour
 	[SerializeField] private TMP_Text descriptionTMP;
 	[SerializeField] private TMP_Text costTMP;
 	[SerializeField] private Transform displayPoint;
-	private GameObject towerDisplay; 
+	private GameObject _towerDisplay; 
 	//[SerializeField] 
 
 	[Header("Display Tower Upgrade Cost")]
 
 
-    public static UIController instance;
+    public static UIController Instance;
     public TMP_Text goldTMP;
-    public TMP_Text BallistaTMP;
-    public TMP_Text IceTowerTMP;
-    public TMP_Text FireTowerTMP;
+    [FormerlySerializedAs("BallistaTMP")] public TMP_Text ballistaTMP;
+    [FormerlySerializedAs("IceTowerTMP")] public TMP_Text iceTowerTMP;
+    [FormerlySerializedAs("FireTowerTMP")] public TMP_Text fireTowerTMP;
     
-    private InputSystem_Actions inputActions;
-	private Tower selectedTower;
+    private InputSystem_Actions _inputActions;
+	private Tower _selectedTower;
 
     private void Awake()
     {
-        instance = this;
-        inputActions = new InputSystem_Actions();
+        Instance = this;
+        _inputActions = new InputSystem_Actions();
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
 		// Display Tower Costs
-        BallistaTMP.text = ballistaTower.towerStats.cost.ToString();
-        IceTowerTMP.text = iceTower.towerStats.cost.ToString();
-        FireTowerTMP.text = fireTower.towerStats.cost.ToString();
+        ballistaTMP.text = ballistaTower.towerStats.cost.ToString();
+        iceTowerTMP.text = iceTower.towerStats.cost.ToString();
+        fireTowerTMP.text = fireTower.towerStats.cost.ToString();
     }
 
     // Update is called once per frame
     void Update()
     {
-        UIController.instance.goldTMP.text = GoldManager.instance.currentGold.ToString();
+        UIController.Instance.goldTMP.text = GoldManager.Instance.currentGold.ToString();
     }
 
     private void OnEnable()
     {
-        inputActions.UI.Enable();
-        inputActions.UI.Pause.performed += OnPause;
+        _inputActions.UI.Enable();
+        _inputActions.UI.Pause.performed += OnPause;
     }
 
     private void OnDisable()
     {
-        inputActions.UI.Pause.performed -= OnPause;
-        inputActions.UI.Disable();
+        _inputActions.UI.Pause.performed -= OnPause;
+        _inputActions.UI.Disable();
     }
 
     private void OnPause(InputAction.CallbackContext context)
@@ -76,18 +77,18 @@ public class UIController : MonoBehaviour
 	#region Buttons
     public void PauseUnpause()
     {
-        if (TowerManager.instance.isPlacing)
+        if (TowerManager.Instance.isPlacing)
         {
-            TowerManager.instance.DontPlaceTheTower();return;
+            TowerManager.Instance.DontPlaceTheTower();return;
         }
-        if (PauseScreen.activeSelf == false)
+        if (pauseScreen.activeSelf == false)
         {
-            PauseScreen.SetActive(true);
+            pauseScreen.SetActive(true);
             Time.timeScale = 0f; 
         }
         else
         {
-            PauseScreen.SetActive(false);
+            pauseScreen.SetActive(false);
             Time.timeScale = 1f;
         }
     }
@@ -99,7 +100,7 @@ public class UIController : MonoBehaviour
 
 	public void Resume()
 	{
-		PauseScreen.SetActive(false);
+		pauseScreen.SetActive(false);
 		Time.timeScale = 1f;
 	}
 
@@ -115,33 +116,33 @@ public class UIController : MonoBehaviour
 
     public void ShowUpgradeUI(Tower tower)
     {
-        selectedTower = tower;
-        UpgradeScreen.SetActive(true);
+        _selectedTower = tower;
+        upgradeScreen.SetActive(true);
 		
 		descriptionTMP.text = tower.towerStats.description;
 		costTMP.text = tower.towerStats.cost.ToString(); 
 
-		if(towerDisplay != null) Destroy(towerDisplay); 
-		towerDisplay = Instantiate(tower.towerPrefab, displayPoint.position, Quaternion.identity);
+		if(_towerDisplay != null) Destroy(_towerDisplay); 
+		_towerDisplay = Instantiate(tower.towerPrefab, displayPoint.position, Quaternion.identity);
 
     }   
     
     public void HideUpgradeUI()
     {
-        selectedTower = null;
-        UpgradeScreen.SetActive(false);
-		if(towerDisplay != null) Destroy(towerDisplay);
+        _selectedTower = null;
+        upgradeScreen.SetActive(false);
+		if(_towerDisplay != null) Destroy(_towerDisplay);
     }
 
     public void OnUpgradeClick()
     {
-        if (selectedTower == null) return;
-        if (GoldManager.instance.SpendGold(selectedTower.towerStats.cost)) selectedTower.Upgrade();
+        if (_selectedTower == null) return;
+        if (GoldManager.Instance.SpendGold(_selectedTower.towerStats.cost)) _selectedTower.Upgrade();
 		{
 			//if(selectedTower.TryGetComponent<SlowdownTower>(out SlowdownTower slow)) slow.Upgrade();
 			//else
 			//{
-			selectedTower.Upgrade();
+			_selectedTower.Upgrade();
 			//}
 		}
 
@@ -150,12 +151,12 @@ public class UIController : MonoBehaviour
 
 	public void OnSellClick()
 	{
-		if (selectedTower == null) return; 
+		if (_selectedTower == null) return; 
 
 		// Get the Half of your Money back
-       GoldManager.instance.AddGold(selectedTower.towerStats.cost / 2);
+       GoldManager.Instance.AddGold(_selectedTower.towerStats.cost / 2);
 		// destry tower
-		Destroy(selectedTower.gameObject);
+		Destroy(_selectedTower.gameObject);
 		HideUpgradeUI();
 	}
 	#endregion

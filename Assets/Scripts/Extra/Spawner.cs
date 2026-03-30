@@ -1,136 +1,113 @@
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.Serialization;
+
 public class Spawner : MonoBehaviour
 {
     [Header("Wave")]
 	[SerializeField] private WaveStats[] wave;
-	[SerializeField] private Enemy bossPrefab; 
-	[SerializeField] private Vector3 bossScale; 
+
     
     [Header("Castle & Path Reference")]
     [SerializeField] private Transform  spawnPoint;
-    [SerializeField] private CastleHealth _castleHealth;
+    [FormerlySerializedAs("_castleHealth")] [SerializeField] private CastleHealth castleHealth;
     //[SerializeField] private CastleStats _castleStats;
-    [SerializeField] private Path _path;
+    [FormerlySerializedAs("_path")] [SerializeField] private Path path;
     
-	private int currentWave = 0;
-	private int enemiesLeftToSpawn;
-	private float spawnTimer;
-	private float waveTimer;
-	private bool waveActive;
-	private bool bossSpawned; 
+	private int _currentWave;
+	private int _enemiesLeftToSpawn;
+	private float _spawnTimer;
+	private float _waveTimer;
+	private bool _waveActive;
 
-    private ObjectPool<Enemy> enemyPool;
+    private ObjectPool<Enemy>[] _enemyPools;
 
-
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     private void Awake()
     {
-        enemyPool = new ObjectPool<Enemy>(
-            CreateEnemy,
-            OnTakeFromPool,
-            OnReturnFromPool,
-            OnDestroyEnemy,
-            collectionCheck: true,    // helps catch double-release mistakes
-            defaultCapacity: 20,     // durschnittlich 20 Gegner auf der Map
-            maxSize: 50             // extreme Welle, 50 Gegner maximal
-        );
-    }
+	    _enemyPools = new ObjectPool<Enemy>[wave.Length];
+	    for (var i = 0; i < wave.Length; i++)
+	    {
+		    var index = i;  // Lambda capture
+		    _enemyPools[index] = new ObjectPool<Enemy>(
+			    ()=> CreateEnemy(index),
+			    OnTakeFromPool,
+			    OnReturnFromPool,
+			    OnDestroyEnemy,
+			    collectionCheck: true,    // helps catch double-release mistakes
+			    defaultCapacity: 20,     // durschnittlich 20 Gegner auf der Map
+			    maxSize: 50             // extreme Welle, 50 Gegner maximal
+		    );
+	    }
 
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////
 	private void Start()
 	{
 		StartWave();
 	}
-
+	////////////////////////////////////////////////////////////////////////////////////////////////
 	private void StartWave()
 	{
-		enemiesLeftToSpawn = wave[currentWave].numberOfEnemies;
-		waveActive = true; 
+		_enemiesLeftToSpawn = wave[_currentWave].numberOfEnemies;
+		_waveActive = true; 
 		Debug.Log("Start The Horde!!");
 	}
-
-    // Update is called once per frame
-    void Update()
+	////////////////////////////////////////////////////////////////////////////////////////////////
+    private void Update()
     {
-		if(!waveActive)
+		if(!_waveActive)
 		{
-			waveTimer -= Time.deltaTime;
-			if(waveTimer <= 0) // ist die Zeit abgelaufen? 
-			{
-				// Alle Wellen sind durch also Spawne den Endgegner!
-				if(currentWave >= wave.Length)
-				{
-					if(!bossSpawned)
-					{
-						bossSpawned = true;
-						Enemy boss = Instantiate(bossPrefab, spawnPoint.position, Quaternion.identity);
-						boss.Setup(_castleHealth, _path);
-						boss.transform.localScale = bossScale;
-						Debug.Log(" Der Endgegner ist in the House!!!");
-					}
-					return;
-				}
-				StartWave(); // Starte die nächste Welle!!!
-			}
+			_waveTimer -= Time.deltaTime;
+			if (!(_waveTimer <= 0)) return; // ist die Zeit abgelaufen? 
+			// Alle Wellen sind durch also Spawne den Endgegner!
+			if (_currentWave >= wave.Length) return;
+			StartWave(); // Starte die nächste Welle!!!
 			return;
 		}
 		// Spawne Gegener
-		if(enemiesLeftToSpawn > 0 && Time.time > spawnTimer)
+		if(_enemiesLeftToSpawn > 0 && Time.time > _spawnTimer)
 		{
-			enemyPool.Get(); // hole Gegner aus dem Pool raus
-			enemiesLeftToSpawn--; // einen weniger Spawnen	
-			spawnTimer = Time.time + wave[currentWave].timeBetweenSpawns; // Setze den timer neu 
+			_enemyPools[_currentWave].Get(); // hole Wave aus dem Pool raus
+			_enemiesLeftToSpawn--; // einen weniger Spawnen	
+			_spawnTimer = Time.time + wave[_currentWave].timeBetweenSpawns; // Setze den timer neu 
 		}
 		// Die Welle beenden und den Boss Spawnen lassen
-		if(enemiesLeftToSpawn <= 0)
-		{
-			waveActive = false; // stop die Welle
-			currentWave++; // bereite die nächste Welle vor
-			waveTimer = currentWave < wave.Length ? wave[currentWave].timeBetweenWaves : 3f; 
-		}
-		/*
-		// keine neuen Spawns mehr wenn die Burg zerstört ist 
-		if(numberOfSpawns > 0 && _castleStats.Health > 0)
-		{
-			// Prüfen ob der Timer abgelaufen ist und weniger gespawnte Gegner da sind (limit)
-        	if (Time.time > spawnTimer) 
-       		{
-            //Spawn Enemy
-            enemyPool.Get(); // Gegner aus dem Pool holen
-			numberOfSpawns --; // Hioer wird Runtergezählt
-            spawnTimer = Time.time +  timeBetweenSpawns; // Den Timer Zurück setzen    
-    	    }
-		}*/
+		if (_enemiesLeftToSpawn > 0) return;
+		_waveActive = false; // stop die Welle
+		_currentWave++; // bereite die nächste Welle vor
+		_waveTimer = _currentWave < wave.Length ? wave[_currentWave].timeBetweenWaves : 3f;
     }
-    
-    private Enemy CreateEnemy()
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    private Enemy CreateEnemy(int waveIndex)
     {
-        Enemy enemy = Instantiate(wave[currentWave].enemyPrefab);			 	// spawne den Gegner
-        enemy.Setup(_castleHealth, _path);     				// die Referenz wo und wohin er gehen soll
-        enemy.SetPool(enemyPool);							// der Gegner wird wieder seinem Pool zugeordnet
+        Enemy enemy = Instantiate(wave[waveIndex].enemyPrefab);			 	// spawne den Gegner
+        enemy.Setup(castleHealth, path);     				// die Referenz wo und wohin er gehen soll
+        enemy.SetPool(_enemyPools[waveIndex]);							// der Gegner wird wieder seinem Pool zugeordnet
 		enemy.transform.position = spawnPoint.position; 	// setze die Position des Gegner auf die des SpawnPoints
         return enemy; 
     }
-
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     private void OnTakeFromPool(Enemy enemy)
     {
 		enemy.transform.position = spawnPoint.position;
+		enemy.ResetEnemy(); // Setzt den Gegner auf den Startzustand zurück
         enemy.gameObject.SetActive(true);
-        enemy.ResetEnemy(); // Setzt den Gegner auf den Startzustand zurück
     }
-
-    private void OnReturnFromPool(Enemy enemy)
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    private static void OnReturnFromPool(Enemy enemy)
     {
         enemy.gameObject.SetActive(false);
     }
-
-    private void OnDestroyEnemy(Enemy enemy)
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    private static void OnDestroyEnemy(Enemy enemy)
     {
         Destroy(enemy.gameObject);
     }
-	
+    ////////////////////////////////////////////////////////////////////////////////////////////////	
 	public bool IsFinished()
 	{
-		return bossSpawned && LevelManager.instance.activeEnemies.Count == 0;
+		return _currentWave >= wave.Length && !_waveActive && LevelManager.Instance.activeEnemies.Count == 0;
 	}
 
 }
