@@ -1,11 +1,22 @@
 using UnityEngine;
 
-public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
+namespace Extra
 {
-    public static T Instance {get; private set;}
-
-    protected void Awake()
+    public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {
-        Instance = this as T;
+        public static T Instance {get; private set;}
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        protected virtual void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this as T;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 }

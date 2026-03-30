@@ -1,44 +1,25 @@
-using UnityEngine;
+using Extra;
 
-public class GoldManager : MonoBehaviour
+namespace Manager
 {
-    public static GoldManager Instance;
-    
-    public int currentGold;
-    
-    private void Awake()
+    public class GoldManager : Singleton<GoldManager>
     {
-        Instance = this;
-    }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void AddGold(int amount)
-    {
-        currentGold += amount;
-    }
-
-    public bool SpendGold(int amount)
-    {
-        bool canSpendGold = false;
-        
-        if (amount <= currentGold)
+        public int currentGold;
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        public void AddGold(int amount)
         {
-            canSpendGold = true;
-
-            Debug.Log("Spent" + amount);
-            currentGold -=  amount;
+            currentGold += amount;
         }
-        
-        return canSpendGold;
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        public bool SpendGold(int amount)
+        {
+            bool canSpendGold = false;
+            if (amount <= currentGold)
+            {
+                canSpendGold = true;
+                currentGold -=  amount;
+            }
+            return canSpendGold;
+        }
     }
 }

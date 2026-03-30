@@ -1,136 +1,124 @@
+using Extra;
+using Tower.TowerStats;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
-public class TowerManager : MonoBehaviour
+namespace Manager
 {
-    [SerializeField] private Tower activeTower;
-    [SerializeField] private TowerStats towerStats;
-    public static TowerManager Instance;
-    
-    [SerializeField] private Transform indicator;
-    [SerializeField] private LayerMask  groundLayer;
-    [SerializeField] private LayerMask  castleLayer;
-    [FormerlySerializedAs("AreThereObstacles")] [SerializeField] private LayerMask  areThereObstacles;
-  
-	public bool isPlacing;
-	public bool canPlace = true;
-
-    void Awake()
-    {
-        Instance = this;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-		PlacingTheTower();
-    }
-
-	public void PlacingTheTower()
+	public class TowerManager : Singleton<TowerManager>
 	{
-		if (!isPlacing) return;
-        {
-            indicator.position = GetGridPosition();
-			canPlace = true;
-
-			RaycastHit hit; 
-			if(Physics.Raycast(indicator.position + Vector3.down, Vector3.up, out hit, 10f, areThereObstacles))
+		[SerializeField] private Tower.Tower activeTower;
+		[SerializeField] private TowerStats towerStats;
+    
+		[SerializeField] private Transform indicator;
+		[SerializeField] private LayerMask  groundLayer;
+		[SerializeField] private LayerMask  castleLayer;
+		[FormerlySerializedAs("AreThereObstacles")] [SerializeField] private LayerMask  areThereObstacles;
+  
+		public bool isPlacing;
+		public bool canPlace = true;
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		// Update is called once per frame
+		void Update()
+		{
+			PlacingTheTower();
+		}
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		public void PlacingTheTower()
+		{
+			if (!isPlacing) return;
 			{
-				canPlace = false;
-			}
-			indicator.gameObject.SetActive(true);
-
-			Renderer rend = indicator.GetComponentInChildren<Renderer>();
-			if(rend != null)
-			{
-				rend.material.color = canPlace ? Color.green : Color.red;
-			}
-
-            if (Mouse.current.leftButton.wasPressedThisFrame && canPlace)
-            {
-				if(GoldManager.Instance.SpendGold(towerStats.cost))
+				indicator.position = GetGridPosition();
+				canPlace = true;
+				RaycastHit hit; 
+				if(Physics.Raycast(indicator.position + Vector3.down, Vector3.up, out hit, 10f, areThereObstacles))
 				{
-				isPlacing = false;
-                Instantiate(activeTower, indicator.position, activeTower.transform.rotation);
-
-                indicator.gameObject.SetActive(false);
+					canPlace = false;
 				}
+				indicator.gameObject.SetActive(true);
+				Renderer rend = indicator.GetComponentInChildren<Renderer>();
+				if(rend != null)
+				{
+					rend.material.color = canPlace ? Color.green : Color.red;
+				}
+				if (Mouse.current.leftButton.wasPressedThisFrame && canPlace)
+				{
+					if(GoldManager.Instance.SpendGold(towerStats.cost))
+					{
+						isPlacing = false;
+						Instantiate(activeTower, indicator.position, activeTower.transform.rotation);
 
-            }
-        }
-	}
+						indicator.gameObject.SetActive(false);
+					}
+				}
+			}
+		}
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		public void PlaceTheTower(Tower.Tower placeTower)
+		{
+			activeTower = placeTower;
+			towerStats = placeTower.towerStats;
+			isPlacing = true;
 
-    public void PlaceTheTower(Tower placeTower)
-    {
-        activeTower = placeTower;
-		towerStats = placeTower.towerStats;
-        isPlacing = true;
+			Destroy(indicator.gameObject);    
+			Tower.Tower placedTower = Instantiate(activeTower);
+			placedTower.enabled = false;
 
-        Destroy(indicator.gameObject);    
-        Tower placedTower = Instantiate(activeTower);
-        placedTower.enabled = false;
+			foreach (Collider col in placedTower.GetComponentsInChildren<Collider>()) col.enabled = false;
+			indicator = placedTower.transform;
 
-		foreach (Collider col in placedTower.GetComponentsInChildren<Collider>()) col.enabled = false;
-        indicator = placedTower.transform;
-
-		placedTower.rangeIndicator.SetActive(true);
-		placedTower.rangeIndicator.transform.localScale = new Vector3(towerStats.range, 0.001f, towerStats.range );
+			placedTower.rangeIndicator.SetActive(true);
+			placedTower.rangeIndicator.transform.localScale = new Vector3(towerStats.range, 0.001f, towerStats.range );
 		
 
-        Debug.Log("Plazier mich Hart, Du Sau!!!");
-    }   
-	
-	public void DontPlaceTheTower()
-    {
-        if(isPlacing)
+			Debug.Log("Plazier mich Hart, Du Sau!!!");
+		}   
+		////////////////////////////////////////////////////////////////////////////////////////////////v
+		public void DontPlaceTheTower()
 		{
-        isPlacing = false;
-        Debug.Log("Plazier mich nicht Hart, Du Sau!!!");
+			if(isPlacing)
+			{
+				isPlacing = false;
+				Debug.Log("Plazier mich nicht Hart, Du Sau!!!");
 
-		if(indicator != null)
-		{
-			indicator.gameObject.SetActive(false);
-		}
-	}    
-}
-
-    public Vector3 GetGridPosition()
-    {
-
-			Vector3 location = indicator.position;
-
-       	 	Vector2 mousePosition = Mouse.current.position.ReadValue();
-        
-        	Ray ray = Camera.main.ScreenPointToRay(mousePosition);
-        	Debug.DrawRay(ray.origin, ray.direction * 200f, Color.red);
-
-        	RaycastHit hit;
-        	
-        	{
-				// CastleTower ..
-                if(activeTower.isCastleTower)
+				if(indicator != null)
 				{
-					if (Physics.Raycast(ray, out hit, 200f, castleLayer))
-					{
-						location = hit.point;
-						location.y = 0.8f;
-					}
+					indicator.gameObject.SetActive(false);
+				}
+			}    
+		}
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		private Vector3 GetGridPosition()
+		{
+			var location = indicator.position;
+
+			var mousePosition = Mouse.current.position.ReadValue();
+
+			if (Camera.main == null) return location;
+			var ray = Camera.main.ScreenPointToRay(mousePosition);
+			Debug.DrawRay(ray.origin, ray.direction * 200f, Color.red);
+
+			{
+				// CastleTower ..
+				RaycastHit hit;
+				if(activeTower.isCastleTower)
+				{
+					if (!Physics.Raycast(ray, out hit, 200f, castleLayer)) return location;
+					location = hit.point;
+					location.y = 0.8f;
 
 				}
 				// i call it here Ground Tower (normal tower)
 				else
 				{
-					if (Physics.Raycast(ray, out hit, 200f, groundLayer))
-					{
-						location = hit.point;
-						location.y = 0f;
-					}
+					if (!Physics.Raycast(ray, out hit, 200f, groundLayer)) return location;
+					location = hit.point;
+					location.y = 0f;
 				}
-            	
-        	}
-        
-       		 return location;
+			}
+			return location;
   
-    }
+		}
+	}
 }

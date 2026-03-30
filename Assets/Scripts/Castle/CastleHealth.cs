@@ -1,35 +1,41 @@
+using Extra;
 using UnityEngine;
 using UnityEngine.Serialization;
-using UnityEngine.UI; // Fürs Canva Slider/ Healthbar
+using UnityEngine.UI;
 
-public class CastleHealth : MonoBehaviour, IDamageable
+// Fürs Canva Slider/ Healthbar
+
+namespace Castle
 {
-    [SerializeField] private CastleStats castleStats;
-    [SerializeField] private Slider castleHealthBar;
-
-    [FormerlySerializedAs("PointsOfAttack")] public Transform[] pointsOfAttack;
-
-    void Start()
+    public class CastleHealth : MonoBehaviour, IDamageable
     {
-        castleStats.health = castleStats.maxHealth;
-            
-        castleHealthBar.maxValue = castleStats.maxHealth;
-        castleHealthBar.value = castleStats.health;
-    }
-    
-    public void TakeDamage(float damaged)
-    {
-        castleStats.health -=  damaged;
-        if (castleStats.health <= 0f)
+        [SerializeField] private CastleStats castleStats;
+        [SerializeField] private Slider castleHealthBar;
+
+        [FormerlySerializedAs("PointsOfAttack")] public Transform[] pointsOfAttack;
+
+        void Start()
         {
-            castleStats.health = 0f;
-            //ToDO
-            //Animation better than this SetActive!!
-            gameObject.SetActive(false);
-            //LoseScreen();
+            castleStats.health = castleStats.maxHealth;
             
-            Debug.Log("Wie fühlt es sich an zu verlieren?");
+            castleHealthBar.maxValue = castleStats.maxHealth;
+            castleHealthBar.value = castleStats.health;
         }
-        castleHealthBar.value = castleStats.health;
+    
+        public void TakeDamage(float damaged)
+        {
+            castleStats.health -=  damaged;
+            if (castleStats.health <= 0f)
+            {
+                castleStats.health = 0f;
+                //ToDO
+                //Animation better than this SetActive!!
+                gameObject.SetActive(false);
+                //LoseScreen();
+            
+                Debug.Log("Wie fühlt es sich an zu verlieren?");
+            }
+            castleHealthBar.value = castleStats.health;
+        }
     }
 }

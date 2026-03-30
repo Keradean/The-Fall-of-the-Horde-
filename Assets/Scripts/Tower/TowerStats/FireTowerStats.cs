@@ -1,10 +1,13 @@
+using Projectile;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Tower/FireTowerStats", fileName = "FireTowerStats")]
-public class FireTowerStats : ProjectileStats
+namespace Tower.TowerStats
 {
-    [Header("Burn")]
-    public float burnDamage;
-    public float burnDuration;
-
+    [CreateAssetMenu(menuName = "Tower/FireTowerStats", fileName = "FireTowerStats")]
+    public class FireTowerStats : ProjectileStats
+    {
+        [Header("Burn")]
+        public float burnDamage;
+        public float burnDuration;
+    }
 }

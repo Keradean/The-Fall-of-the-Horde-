@@ -1,12 +1,15 @@
 using UnityEngine;
 
-public class Rotation : MonoBehaviour
+namespace Extra
 {
-    [SerializeField] private float rotationSpeed;
-
-    // Update is called once per frame
-    void Update()
+    public class Rotation : MonoBehaviour
     {
-        transform.Rotate(0f, rotationSpeed * Time.deltaTime, 0f);
+        [SerializeField] private float rotationSpeed;
+
+        // Update is called once per frame
+        void Update()
+        {
+            transform.Rotate(0f, rotationSpeed * Time.deltaTime, 0f);
+        }
     }
 }

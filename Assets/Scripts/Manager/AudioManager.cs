@@ -1,102 +1,73 @@
+using Extra;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-public class AudioManager : MonoBehaviour
+namespace Manager
 {
-    [SerializeField] public AudioSource menuMusic;
-    [SerializeField] public AudioSource levelSelectMusic;
-    [SerializeField] public AudioSource[] bgm;
-
-    public static AudioManager Instance;
-
-    private int _currentBGM = 0;
-    private bool _playingBGM;
-
-    private void Awake()
+    public class AudioManager : Singleton<AudioManager>
     {
-        if (Instance == null)
+        [SerializeField] public AudioSource menuMusic;
+        [SerializeField] public AudioSource levelSelectMusic;
+        [SerializeField] public AudioSource[] bgm;
+    
+        private int _currentBGM = 0;
+        private bool _playingBGM;
+    
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        private void Update()
         {
-            Instance = this;
-
-            DontDestroyOnLoad(gameObject);
+            IsBGMPlaying();
         }
-        else
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        public void PlayMenuMusic()
         {
-            Destroy(gameObject);
+            StopMusic();
+            menuMusic.Play();
         }
-
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    #region Play&StopMusik
-
-    public void PlayMenuMusic()
-    {
-        StopMusic();
-        menuMusic.Play();
-    }
-
-
-    public void PlayLevelSelectMusic()
-    {
-        StopMusic();
-        levelSelectMusic.Play();
-    }
-
-    public void PlayBGM()
-    {
-        StopMusic();
-        _currentBGM = Random.Range(0, bgm.Length);
-        bgm[_currentBGM].Play();
-        _playingBGM = true;
-    }
-
-    private void StopMusic()
-    {
-        menuMusic.Stop();
-        levelSelectMusic.Stop();
-
-        foreach (AudioSource track in bgm)
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        public void PlayLevelSelectMusic()
         {
-            track.Stop();
+            StopMusic();
+            levelSelectMusic.Play();
         }
-
-        _playingBGM = false;
-    }
-
-    #endregion
-
-    #region BackGroundMusic
-
-    public void IsBGMPlaying()
-    {
-        if (_playingBGM)
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        public void PlayBGM()
         {
-            // Wenn die Musik nicht mehr spielt gehe zum nächsten element
-            if (bgm[_currentBGM].isPlaying == false)
+            StopMusic();
+            _currentBGM = Random.Range(0, bgm.Length);
+            bgm[_currentBGM].Play();
+            _playingBGM = true;
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        private void StopMusic()
+        {
+            menuMusic.Stop();
+            levelSelectMusic.Stop();
+
+            foreach (AudioSource track in bgm)
             {
-                _currentBGM++;
-                // ist der Array durschgelaufen fange von vorne in der Liste an
-                if (_currentBGM >= bgm.Length)
-                {
-                    _currentBGM = 0;
-                }
+                track.Stop();
+            }
 
-                bgm[_currentBGM].Play();
+            _playingBGM = false;
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        private void IsBGMPlaying()
+        {
+            if (_playingBGM)
+            {
+                // Wenn die Musik nicht mehr spielt gehe zum nächsten element
+                if (bgm[_currentBGM].isPlaying == false)
+                {
+                    _currentBGM++;
+                    // ist der Array durschgelaufen fange von vorne in der Liste an
+                    if (_currentBGM >= bgm.Length)
+                    {
+                        _currentBGM = 0;
+                    }
+                    bgm[_currentBGM].Play();
+                }
             }
         }
     }
-
-
-    #endregion
 }
