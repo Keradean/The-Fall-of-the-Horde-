@@ -2,29 +2,32 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
-public class FollowTheMouse : MonoBehaviour
+namespace Extra
 {
-    [FormerlySerializedAs("_speed")] [SerializeField] private float speed;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class FollowTheMouse : MonoBehaviour
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        FollowMouse();
-    }
-
-    private void FollowMouse()
-    {
-        Vector2 mousePosition = Mouse.current.position.ReadValue();
-        Ray ray = Camera.main.ScreenPointToRay(mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        [FormerlySerializedAs("_speed")] [SerializeField] private float speed;
+        // Start is called once before the first execution of Update after the MonoBehaviour is created
+        void Start()
         {
-            transform.position = Vector3.MoveTowards(transform.position, hit.point, speed * Time.deltaTime);
-            transform.LookAt(hit.point);
+        
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            FollowMouse();
+        }
+
+        private void FollowMouse()
+        {
+            Vector2 mousePosition = Mouse.current.position.ReadValue();
+            Ray ray = Camera.main.ScreenPointToRay(mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                transform.position = Vector3.MoveTowards(transform.position, hit.point, speed * Time.deltaTime);
+                transform.LookAt(hit.point);
+            }
         }
     }
 }

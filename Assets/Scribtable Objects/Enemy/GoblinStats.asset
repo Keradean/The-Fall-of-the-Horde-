@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
   moveSpeed: 5
   timeBetweenAttacks: 1
-  damagePerAttack: 0
+  damagePerAttack: 9.66
   maxHealth: 3
   goldOnDeath: 25

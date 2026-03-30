@@ -1,21 +1,26 @@
-using System;
+using Manager;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class MainMenu : MonoBehaviour
+
+namespace MainMenu
 {
-    private void Start()
+    public class MainMenu : MonoBehaviour
     {
-        AudioManager.Instance.PlayMenuMusic();
-    }
-
-    public void NewGame()
-    {
-     SceneManager.LoadScene("LevelSelect");   
-    }
-
-    public void Quit()
-    {
-        Application.Quit();
-        Debug.Log("Raus Hier!!!");
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        private void Start()
+        {
+            AudioManager.Instance.PlayMenuMusic();
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        public void NewGame()
+        {
+            SceneManager.LoadScene("LevelSelect");   
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        public void Quit()
+        {
+            Application.Quit();
+            Debug.Log("Raus Hier!!!");
+        }
     }
 }

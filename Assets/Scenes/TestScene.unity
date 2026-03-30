@@ -1758,7 +1758,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerButton
   placeTower: {fileID: 7913694637489712024, guid: 00ebca86346efcc8b880e7a823ae202e, type: 3}
-  _towerManager: {fileID: 0}
+  towerManager: {fileID: 0}
   towerName: Ballista
   towerDisplayText: {fileID: 34684623}
 --- !u!114 &281352583
@@ -2177,7 +2177,7 @@ MonoBehaviour:
   castleLayer:
     serializedVersion: 2
     m_Bits: 8192
-  AreThereObstacles:
+  areThereObstacles:
     serializedVersion: 2
     m_Bits: 5888
   isPlacing: 0
@@ -3704,7 +3704,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerButton
   placeTower: {fileID: 1268169719930953591, guid: 1e4b051cbbd5d7b458033a12a76b9c5c, type: 3}
-  _towerManager: {fileID: 0}
+  towerManager: {fileID: 0}
   towerName: Deseleced Tower
   towerDisplayText: {fileID: 34684623}
 --- !u!114 &628231530
@@ -3856,7 +3856,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerButton
   placeTower: {fileID: 6049321357990965354, guid: a6ffff4b416ccb07186f84047d43b311, type: 3}
-  _towerManager: {fileID: 0}
+  towerManager: {fileID: 0}
   towerName: FrostTower
   towerDisplayText: {fileID: 34684623}
 --- !u!114 &637545914
@@ -8923,11 +8923,9 @@ MonoBehaviour:
   wave:
   - {fileID: 11400000, guid: a58a360ad9bdcf68a83004be0e4ab360, type: 2}
   - {fileID: 11400000, guid: 8f7c74983ccb6181b828e726a3882d83, type: 2}
-  bossPrefab: {fileID: 5453869343779277421, guid: 4174e9754ab15c5f3957314536f57cb9, type: 3}
-  bossScale: {x: 2, y: 2, z: 2}
   spawnPoint: {fileID: 1331543136}
-  _castleHealth: {fileID: 2086889534}
-  _path: {fileID: 985182693}
+  castleHealth: {fileID: 2086889534}
+  path: {fileID: 985182693}
 --- !u!1 &1338576622
 GameObject:
   m_ObjectHideFlags: 0
@@ -9597,7 +9595,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerButton
   placeTower: {fileID: 1217012912653334411, guid: 3a9317c1648ce4b358ad117cb328f0e8, type: 3}
-  _towerManager: {fileID: 0}
+  towerManager: {fileID: 0}
   towerName: FireTower
   towerDisplayText: {fileID: 34684623}
 --- !u!114 &1403058741
@@ -14807,7 +14805,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerButton
   placeTower: {fileID: 1268169719930953591, guid: 1e4b051cbbd5d7b458033a12a76b9c5c, type: 3}
-  _towerManager: {fileID: 0}
+  towerManager: {fileID: 0}
   towerName: Ballista
   towerDisplayText: {fileID: 34684623}
 --- !u!114 &1971866097
@@ -14948,11 +14946,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3d162aee9f3276b0a1ad3b42c2509fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIController
-  PanelWinScreen: {fileID: 1697973280}
-  PanelLoseScreen: {fileID: 642907152}
-  PanelPlaceTower: {fileID: 1035447944}
-  PauseScreen: {fileID: 1746750051}
-  UpgradeScreen: {fileID: 1626622248}
+  panelWinScreen: {fileID: 1697973280}
+  panelLoseScreen: {fileID: 642907152}
+  panelPlaceTower: {fileID: 1035447944}
+  pauseScreen: {fileID: 1746750051}
+  upgradeScreen: {fileID: 1626622248}
   ballistaTower: {fileID: 1268169719930953591, guid: 1e4b051cbbd5d7b458033a12a76b9c5c, type: 3}
   iceTower: {fileID: 6049321357990965354, guid: a6ffff4b416ccb07186f84047d43b311, type: 3}
   fireTower: {fileID: 1217012912653334411, guid: 3a9317c1648ce4b358ad117cb328f0e8, type: 3}
@@ -14960,9 +14958,9 @@ MonoBehaviour:
   costTMP: {fileID: 978219244}
   displayPoint: {fileID: 727371604}
   goldTMP: {fileID: 1586003951}
-  BallistaTMP: {fileID: 754070334}
-  IceTowerTMP: {fileID: 2133570338}
-  FireTowerTMP: {fileID: 1046049982}
+  ballistaTMP: {fileID: 754070334}
+  iceTowerTMP: {fileID: 2133570338}
+  fireTowerTMP: {fileID: 1046049982}
 --- !u!1 &2037044774
 GameObject:
   m_ObjectHideFlags: 0
@@ -15450,7 +15448,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CastleHealth
   castleStats: {fileID: 11400000, guid: 48f2db469c995b52b98989fec8dd77f2, type: 2}
   castleHealthBar: {fileID: 1548871147}
-  PointsOfAttack:
+  pointsOfAttack:
   - {fileID: 1372334402}
   - {fileID: 713218336}
   - {fileID: 100070498}

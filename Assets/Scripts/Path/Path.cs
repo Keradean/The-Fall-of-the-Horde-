@@ -1,7 +1,9 @@
 using UnityEngine;
 
-public class Path : MonoBehaviour
+namespace Path
 {
-    [SerializeField] public Transform[] wayPoints;
-    
+    public class Path : MonoBehaviour
+    {
+        [SerializeField] public Transform[] wayPoints;
+    }
 }

@@ -1,18 +1,21 @@
 using UnityEngine;
 
-public class LookAtCamera : MonoBehaviour
+namespace Extra
 {
-    private Camera _mainCamera;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class LookAtCamera : MonoBehaviour
     {
-        _mainCamera = Camera.main;
-    }
+        private Camera _mainCamera;
+        // Start is called once before the first execution of Update after the MonoBehaviour is created
+        void Start()
+        {
+            _mainCamera = Camera.main;
+        }
 
-    // Update is called once per frame
-    void LateUpdate()
-    {
-        // Die Healthbar soll immer richtung Camera schauen
-        transform.eulerAngles = new Vector3(0, _mainCamera.transform.eulerAngles.y - 90,0);
+        // Update is called once per frame
+        void LateUpdate()
+        {
+            // Die Healthbar soll immer richtung Camera schauen
+            transform.eulerAngles = new Vector3(0, _mainCamera.transform.eulerAngles.y - 90,0);
+        }
     }
 }

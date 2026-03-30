@@ -1,10 +1,11 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Tower/SlowDownTowerStats", fileName = "Frost Tower Level")]
-public class SlowDownTowerStats : TowerStats
+namespace Tower.TowerStats
 {
-    [Header("SlowDownAmount")]
-    public float slowDownAmount;
-    
-
+    [CreateAssetMenu(menuName = "Tower/SlowDownTowerStats", fileName = "Frost Tower Level")]
+    public class SlowDownTowerStats : TowerStats
+    {
+        [Header("SlowDownAmount")]
+        public float slowDownAmount;
+    }
 }

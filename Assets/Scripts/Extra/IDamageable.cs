@@ -1,6 +1,7 @@
-using UnityEngine;
-
-public interface IDamageable
+namespace Extra
 {
-    void TakeDamage(float damaged);
+    public interface IDamageable
+    {
+        void TakeDamage(float damaged);
+    }
 }

@@ -1,42 +1,47 @@
+using Manager;
 using UnityEngine;
 using UnityEngine.Serialization;
-using UnityEngine.UI; // Fürs Canva Slider/ Healthbar
+using UnityEngine.UI;
 
-public class EnemyHealth : MonoBehaviour
+// Fürs Canva Slider/ Healthbar
+
+namespace Enemy
 {
-    [FormerlySerializedAs("_enemyStats")] [SerializeField] private EnemyStats enemyStats;
-    [FormerlySerializedAs("_enemy")] [SerializeField] private Enemy enemy;
-    [SerializeField] private Slider enemyHealthBar;
+    public class EnemyHealth : MonoBehaviour
+    {
+        [FormerlySerializedAs("_enemyStats")] [SerializeField] private EnemyStats enemyStats;
+        [FormerlySerializedAs("_enemy")] [SerializeField] private Enemy enemy;
+        [SerializeField] private Slider enemyHealthBar;
  
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    void OnEnable()
-    {
-        enemy.health = enemyStats.maxHealth;
-            
-        enemyHealthBar.maxValue = enemyStats.maxHealth;
-        enemyHealthBar.value = enemy.health;
-
-		LevelManager.Instance.activeEnemies.Add(this);
-    }
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-	void OnDisable()
-	{
-		LevelManager.Instance.activeEnemies.Remove(this);
-	} 
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    public void TakeDamage(float damaged)
-    {
-        enemy.health -=  damaged;
-        if (enemy.health <= 0f)
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        void OnEnable()
         {
-            enemy.health = 0f;
+            enemy.health = enemyStats.maxHealth;
+            
+            enemyHealthBar.maxValue = enemyStats.maxHealth;
+            enemyHealthBar.value = enemy.health;
 
-            //ToDO
-            //Animation
-			GoldManager.Instance.AddGold(enemyStats.goldOnDeath);
-            enemy.ReturnToPool();
-            return;
+            LevelManager.Instance.activeEnemies.Add(this);
         }
-        enemyHealthBar.value = enemy.health;
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        void OnDisable()
+        {
+            LevelManager.Instance.activeEnemies.Remove(this);
+        } 
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        public void TakeDamage(float damaged)
+        {
+            enemy.health -=  damaged;
+            if (enemy.health <= 0f)
+            {
+                enemy.health = 0f;
+                //ToDO
+                //Animation
+                GoldManager.Instance.AddGold(enemyStats.goldOnDeath);
+                enemy.ReturnToPool();
+                return;
+            }
+            enemyHealthBar.value = enemy.health;
+        }
     }
 }
