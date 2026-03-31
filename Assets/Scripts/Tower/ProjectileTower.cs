@@ -1,3 +1,4 @@
+using Manager;
 using Projectile;
 using Tower.TowerStats;
 using UnityEngine;
@@ -6,27 +7,23 @@ namespace Tower
 {
     public class ProjectileTower : MonoBehaviour
     {
-        [SerializeField] private GameObject projectilePrefab;
         [SerializeField] private Transform  firePoint;
         [SerializeField] private Transform  towerWeapon;
-
-    
+        
         private Tower _tower;
         private float _shotCounter;
         private Transform _target;
         private ProjectileStats _projectileStats;
+        ////////////////////////////////////////////////////////////////////////////////////////////////
         // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
+        private void Start()
         {
             _tower = GetComponent<Tower>();
             _projectileStats = _tower.towerStats as ProjectileStats;
-            Debug.Log("towerStats: " + _tower.towerStats);
-            Debug.Log("_projectileStats: " + _projectileStats);
-		
         }
-
+        ////////////////////////////////////////////////////////////////////////////////////////////////
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
             if (_target != null)
             {
@@ -41,10 +38,13 @@ namespace Tower
                 _shotCounter = _projectileStats.timeBetweenAttacks;
             
                 firePoint.LookAt(_target);
-
-                GameObject pt = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
-                Projectile.Projectile projectile = pt.GetComponent<Projectile.Projectile>();
+                //ToDo
+                // je nach Tower Typ anpassen ?fireTower :? iceTower : arrowtower 
+                var projectile = PoolManager.Instance.ArrowPool.Get();
+                projectile.transform.position = firePoint.position;
+                projectile.transform.rotation = firePoint.rotation;
                 projectile.damage = _projectileStats.damage;
+                projectile.LaunchProjectile();
                 //if is a Fire Tower
                 if(_projectileStats is FireTowerStats fireStats)
                 {
