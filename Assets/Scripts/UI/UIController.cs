@@ -145,9 +145,24 @@ namespace UI
 			if (_selectedTower == null) return; 
 			// Get the Half of your Money back
 			GoldManager.Instance.AddGold(_selectedTower.towerStats.cost / 2);
-			// destry tower
+			// destroy tower
 			Destroy(_selectedTower.gameObject);
 			HideUpgradeUI();
+		}
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		public void FastTime()
+		{
+			Time.timeScale = 2f;
+		}
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		public void ResumeTime()
+		{
+			Time.timeScale = 1f;
+		}
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		public void SlowTime()
+		{
+			Time.timeScale = .5f;
 		}
 	}
 }

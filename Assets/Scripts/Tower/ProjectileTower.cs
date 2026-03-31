@@ -55,18 +55,14 @@ namespace Tower
 
             if (_tower.enemiesInRange.Count > 0)
             {
-                float minDistance = _projectileStats.range + 1f;
-                foreach (Enemy.Enemy enemy in _tower.enemiesInRange)
+                var minDistance = _projectileStats.range + 1f;
+                foreach (var enemy in _tower.enemiesInRange)
                 {
-                    if (enemy != null)
-                    {
-                        float distance = Vector3.Distance(transform.position, enemy.transform.position);
-                        if (distance < minDistance)
-                        {
-                            minDistance = distance;
-                            _target = enemy.transform;
-                        }
-                    }
+                    if (enemy == null) continue;
+                    var distance = Vector3.Distance(transform.position, enemy.transform.position);
+                    if (!(distance < minDistance)) continue;
+                    minDistance = distance;
+                    _target = enemy.transform;
                 }
             }
             else
