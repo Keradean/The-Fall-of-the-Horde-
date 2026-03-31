@@ -44,7 +44,7 @@ namespace Projectile
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		private void OnTriggerEnter(Collider other)
 		{
-			if (!other.TryGetComponent<EnemyHealth>(out EnemyHealth enemyHealth)) return;
+			if (!other.TryGetComponent(out EnemyHealth enemyHealth)) return;
 			enemyHealth.TakeDamage(damage);
 		
 			//pls Burn you nasty Bitch

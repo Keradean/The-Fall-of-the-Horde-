@@ -53,7 +53,6 @@ namespace Extra
 		{
 			_enemiesLeftToSpawn = wave[_currentWave].numberOfEnemies;
 			_waveActive = true; 
-			Debug.Log("Start The Horde!!");
 		}
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		private void Update()
@@ -83,7 +82,7 @@ namespace Extra
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		private Enemy.Enemy CreateEnemy(int waveIndex)
 		{
-			Enemy.Enemy enemy = Instantiate(wave[waveIndex].enemyPrefab);			 	// spawne den Gegner
+			var enemy = Instantiate(wave[waveIndex].enemyPrefab);			 	// spawne den Gegner
 			enemy.Setup(castleHealth, path);     				// die Referenz wo und wohin er gehen soll
 			enemy.SetPool(_enemyPools[waveIndex]);							// der Gegner wird wieder seinem Pool zugeordnet
 			enemy.transform.position = spawnPoint.position; 	// setze die Position des Gegner auf die des SpawnPoints
