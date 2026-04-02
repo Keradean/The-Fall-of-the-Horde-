@@ -9,10 +9,12 @@ namespace Manager
         [SerializeField] public AudioSource menuMusic;
         [SerializeField] public AudioSource levelSelectMusic;
         [SerializeField] public AudioSource[] bgm;
-    
-        private int _currentBGM = 0;
+
+        public AudioSource[] sfx;
+        
+        private int _currentBGM;
         private bool _playingBGM;
-    
+        
         ////////////////////////////////////////////////////////////////////////////////////////////////
         private void Update()
         {
@@ -44,30 +46,31 @@ namespace Manager
             menuMusic.Stop();
             levelSelectMusic.Stop();
 
-            foreach (AudioSource track in bgm)
+            foreach (var track in bgm)
             {
                 track.Stop();
             }
-
             _playingBGM = false;
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////
         private void IsBGMPlaying()
         {
-            if (_playingBGM)
+            if (!_playingBGM) return;
+            // Wenn die Musik nicht mehr spielt, gehe zum nächsten element
+            if (bgm[_currentBGM].isPlaying) return;
+            _currentBGM++;
+            // ist der Array durschgelaufen fange von vorne an
+            if (_currentBGM >= bgm.Length)
             {
-                // Wenn die Musik nicht mehr spielt gehe zum nächsten element
-                if (bgm[_currentBGM].isPlaying == false)
-                {
-                    _currentBGM++;
-                    // ist der Array durschgelaufen fange von vorne in der Liste an
-                    if (_currentBGM >= bgm.Length)
-                    {
-                        _currentBGM = 0;
-                    }
-                    bgm[_currentBGM].Play();
-                }
+                _currentBGM = 0;
             }
+            bgm[_currentBGM].Play();
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        public void PlaySfx(int sfxToPlay)
+        {
+            sfx[sfxToPlay].Stop();
+            sfx[sfxToPlay].Play();
         }
     }
 }

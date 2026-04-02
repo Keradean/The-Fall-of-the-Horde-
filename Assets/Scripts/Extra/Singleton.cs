@@ -9,7 +9,7 @@ namespace Extra
         ////////////////////////////////////////////////////////////////////////////////////////////////
         protected virtual void Awake()
         {
-            if (Instance == null)
+            if (!Instance)
             {
                 Instance = this as T;
                 DontDestroyOnLoad(gameObject);

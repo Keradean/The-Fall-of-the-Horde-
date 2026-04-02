@@ -17,32 +17,30 @@ namespace Manager
         ////////////////////////////////////////////////////////////////////////////////////////////////
         public List<EnemyHealth> activeEnemies = new List<EnemyHealth>();
         ////////////////////////////////////////////////////////////////////////////////////////////////
-        void Start()
+        private void Start()
         {
             levelActive = true;
             AudioManager.Instance?.PlayBGM();
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////
-        void Update()
+        private void Update()
         {
-            if (levelActive)
+            if (!levelActive) return;
+            if (castleStats.health <= 0)
             {
-                if (castleStats.health <= 0)
-                {
-                    levelActive = false;
-                    _levelComplete = false;
-                    UIController.Instance.panelLoseScreen.SetActive(true);
-                    UIController.Instance.panelPlaceTower.SetActive(false);
-                }
-                else
-                if (activeEnemies.Count == 0 && enemiesSpawner.IsFinished())
-                {
-                    levelActive = false;
-                    _levelComplete = true;
-                    UIController.Instance.panelWinScreen.SetActive(true);
-                }
+                levelActive = false;
+                _levelComplete = false;
+                UIController.Instance.panelLoseScreen.SetActive(true);
+                UIController.Instance.panelPlaceTower.SetActive(false);
             }
-        
+            else
+            if (activeEnemies.Count == 0 && enemiesSpawner.IsFinished())
+            {
+                levelActive = false;
+                _levelComplete = true;
+                UIController.Instance.panelWinScreen.SetActive(true);
+            }
+
         }
     }
 }

@@ -19,7 +19,7 @@ namespace UI
 		[SerializeField] private Tower.Tower  ballistaTower;
 		[SerializeField] private Tower.Tower  iceTower;
 		[SerializeField] private Tower.Tower  fireTower;
-		// [SerializeField] Tower  _insertnextTowerHere????;	
+		// [SerializeField] Tower insert next Tower Here????;	
 		[Header("Display Tower Upgrade")]
 		[SerializeField] private TMP_Text descriptionTMP;
 		[SerializeField] private TMP_Text costTMP;
@@ -80,7 +80,7 @@ namespace UI
 			{
 				TowerManager.Instance.DontPlaceTheTower();return;
 			}
-			if (pauseScreen.activeSelf == false)
+			if (!pauseScreen.activeSelf)
 			{
 				pauseScreen.SetActive(true);
 				Time.timeScale = 0f; 
