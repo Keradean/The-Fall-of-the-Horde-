@@ -9304,6 +9304,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Spawner
   wave:
   - {fileID: 11400000, guid: a58a360ad9bdcf68a83004be0e4ab360, type: 2}
+  - {fileID: 11400000, guid: ad854150d5a5f90e6952db8b9434c261, type: 2}
   - {fileID: 11400000, guid: 8f7c74983ccb6181b828e726a3882d83, type: 2}
   spawnPoint: {fileID: 1331543136}
   castleHealth: {fileID: 2086889534}

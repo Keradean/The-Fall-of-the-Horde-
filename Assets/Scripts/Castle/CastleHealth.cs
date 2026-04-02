@@ -13,15 +13,14 @@ namespace Castle
         [SerializeField] private Slider castleHealthBar;
 
         [FormerlySerializedAs("PointsOfAttack")] public Transform[] pointsOfAttack;
-
-        void Start()
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        private void Start()
         {
             castleStats.health = castleStats.maxHealth;
-            
             castleHealthBar.maxValue = castleStats.maxHealth;
             castleHealthBar.value = castleStats.health;
         }
-    
+        ////////////////////////////////////////////////////////////////////////////////////////////////
         public void TakeDamage(float damaged)
         {
             castleStats.health -=  damaged;
@@ -32,8 +31,6 @@ namespace Castle
                 //Animation better than this SetActive!!
                 gameObject.SetActive(false);
                 //LoseScreen();
-            
-                Debug.Log("Wie fühlt es sich an zu verlieren?");
             }
             castleHealthBar.value = castleStats.health;
         }

@@ -39,6 +39,7 @@ namespace Enemy
                 //Animation
                 GoldManager.Instance.AddGold(enemyStats.goldOnDeath);
                 enemy.ReturnToPool();
+               // AudioManager.Instance.PlaySfx(0);
                 return;
             }
             enemyHealthBar.value = enemy.health;

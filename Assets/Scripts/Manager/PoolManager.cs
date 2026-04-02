@@ -9,6 +9,12 @@ namespace Manager
     {
         [Header("Projectile")]
         [SerializeField] private Projectile.Projectile arrowPrefab;
+        // ToDo 
+        // Mehr Geschosse
+        [Header("VFX")]
+        // ToDo
+        // Effect einfügen und über den PoolManager laufen lassen!
+        
 
         public ObjectPool<Projectile.Projectile> ArrowPool { get; private set; }
         
@@ -19,7 +25,7 @@ namespace Manager
             ArrowPool = CreatePool(arrowPrefab);
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////
-        private ObjectPool<Projectile.Projectile> CreatePool(Projectile.Projectile prefab)
+        private static ObjectPool<Projectile.Projectile> CreatePool(Projectile.Projectile prefab)
         {
             ObjectPool<Projectile.Projectile> pool = null;
                 pool = new ObjectPool<Projectile.Projectile>(
@@ -42,8 +48,5 @@ namespace Manager
             );
             return pool;
         }
-
-       
-        
     }
 }
