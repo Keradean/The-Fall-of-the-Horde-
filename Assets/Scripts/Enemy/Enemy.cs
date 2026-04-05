@@ -1,3 +1,4 @@
+using System.Collections;
 using Castle;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -9,6 +10,8 @@ namespace Enemy
 {
 	public class Enemy : MonoBehaviour
 	{
+		private static readonly int IsAttacking = Animator.StringToHash("isAttacking");
+		private static readonly int IsDeath = Animator.StringToHash("isDeath");
 		[SerializeField] private EnemyStats enemyStats;
 
 		[FormerlySerializedAs("Health")] [HideInInspector] public float health;
@@ -31,6 +34,8 @@ namespace Enemy
 
 		public bool isFlying;
 		public float flyHeight;
+		
+		private Animator _animator;
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		public void SetPool(IObjectPool<Enemy> pool)
@@ -46,6 +51,7 @@ namespace Enemy
 		private void Awake()
 		{
 			_enemyHealth = GetComponent<EnemyHealth>(); // cachen
+			_animator = GetComponent<Animator>(); // hole dir die Componente
 		}
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		void Start()
@@ -111,6 +117,7 @@ namespace Enemy
 				_attackCounter -= Time.deltaTime;
 				if (!(_attackCounter <= 0)) return;
 				_attackCounter = enemyStats.timeBetweenAttacks;
+				_animator.SetBool(IsAttacking, true);
 				_castleHealth.TakeDamage(enemyStats.damagePerAttack);
 			}
 		
@@ -134,6 +141,10 @@ namespace Enemy
 			{
 				transform.position +=  Vector3.up * flyHeight ;
 			}
+
+			if (_animator == null) return; 
+			_animator.SetBool(IsAttacking, false);
+			_animator.SetBool(IsDeath, false);
 		}
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		public void Setup(CastleHealth newCastle, Path.Path newPath)
@@ -146,6 +157,20 @@ namespace Enemy
 		{
 			_burnDamage = damaged;
 			_burnTimer = duration; 
+		}		
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		public void Die()
+		{
+			_reachedTheEnd = true;
+			speedMod = 0f;
+			_animator.SetBool(IsDeath, true);
+			StartCoroutine(ReturnToPoolAfterDeath());
+
+			IEnumerator ReturnToPoolAfterDeath()
+			{
+				yield return new WaitForSecondsRealtime(enemyStats.deathAnimationDuration);
+				ReturnToPool();
+			}
 		}
 	}
 }

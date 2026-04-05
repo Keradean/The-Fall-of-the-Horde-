@@ -17,5 +17,8 @@ namespace Enemy
 
 		[Header("Give Gold")]
 		public int goldOnDeath;
+		
+		[Header("Death Animation")]
+		public float deathAnimationDuration;
 	}
 }

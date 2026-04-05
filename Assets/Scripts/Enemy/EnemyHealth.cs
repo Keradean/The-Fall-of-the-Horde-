@@ -9,12 +9,20 @@ namespace Enemy
 {
     public class EnemyHealth : MonoBehaviour
     {
+        
         [FormerlySerializedAs("_enemyStats")] [SerializeField] private EnemyStats enemyStats;
         [FormerlySerializedAs("_enemy")] [SerializeField] private Enemy enemy;
         [SerializeField] private Slider enemyHealthBar;
+        private static readonly int IsDead = Animator.StringToHash("IsDead");
+        private Animator _animator;
  
         ////////////////////////////////////////////////////////////////////////////////////////////////
-        public void OnEnable()
+        private void Start()
+        { 
+            _animator = GetComponent<Animator>();
+        }       
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        private void OnEnable()
         {
             enemy.health = enemyStats.maxHealth;
             
@@ -31,16 +39,18 @@ namespace Enemy
         ////////////////////////////////////////////////////////////////////////////////////////////////
         public void TakeDamage(float damaged)
         {
+            if(enemy.health <= 0f) return; // Einmal sterben ist genug!
+            
             enemy.health -=  damaged;
             if (enemy.health <= 0f)
             {
                 enemy.health = 0f;
                 //ToDO
-                //Animation
+                
                 GoldManager.Instance.AddGold(enemyStats.goldOnDeath);
-                enemy.ReturnToPool();
+                enemy.Die();
                // AudioManager.Instance.PlaySfx(0);
-                return;
+                
             }
             enemyHealthBar.value = enemy.health;
         }

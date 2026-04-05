@@ -18,5 +18,5 @@ MonoBehaviour:
     nonumy eirmod tempor invidunt ut
   cost: 150
   damage: 2
-  burnDamage: 0.2
-  burnDuration: 0.6
+  burnDamage: 1
+  burnDuration: 1

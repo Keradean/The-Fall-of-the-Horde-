@@ -9,6 +9,7 @@ namespace Manager
     {
         [Header("Projectile")]
         [SerializeField] private Projectile.Projectile arrowPrefab;
+        [SerializeField] private Projectile.Projectile fireBallPrefab;
         // ToDo 
         // Mehr Geschosse
         [Header("VFX")]
@@ -17,12 +18,14 @@ namespace Manager
         
 
         public ObjectPool<Projectile.Projectile> ArrowPool { get; private set; }
+        public ObjectPool<Projectile.Projectile> FireBallPool { get; private set; }
         
         ////////////////////////////////////////////////////////////////////////////////////////////////
         protected override void Awake()
         {
             base.Awake();
             ArrowPool = CreatePool(arrowPrefab);
+            FireBallPool = CreatePool(fireBallPrefab);
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////
         private static ObjectPool<Projectile.Projectile> CreatePool(Projectile.Projectile prefab)
@@ -41,7 +44,10 @@ namespace Manager
                     p.gameObject.SetActive(true);
                 },
                 actionOnRelease: p => p.gameObject.SetActive(false),
-                actionOnDestroy: p => Destroy(p.gameObject),
+                actionOnDestroy: p =>
+                {
+                    if(p != null) Destroy(p.gameObject);  
+                },
                 collectionCheck: true,
                 defaultCapacity: 30,
                 maxSize: 100

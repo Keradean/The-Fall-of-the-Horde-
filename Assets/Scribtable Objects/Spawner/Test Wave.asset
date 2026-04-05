@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 685008dfd37af8359b375aaec7000b4c, type: 3}
-  m_Name: Wave Two
-  m_EditorClassIdentifier: Assembly-CSharp::WaveStats
-  enemyPrefab: {fileID: 3026727806335809204, guid: 29cc8081b1783aded98237b821b4693a, type: 3}
-  numberOfEnemies: 10
-  timeBetweenSpawns: 0.5
+  m_Name: Test Wave
+  m_EditorClassIdentifier: Assembly-CSharp::Extra.WaveStats
+  enemyPrefab: {fileID: 5817084854245233570, guid: 216dfd19c09b56590b1ae4e0543c95c8, type: 3}
+  numberOfEnemies: 30
+  timeBetweenSpawns: 0.2
   timeBetweenWaves: 0

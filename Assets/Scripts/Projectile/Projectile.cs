@@ -16,7 +16,6 @@ namespace Projectile
 
 		private bool _isReturned;
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		// Start is called once before the first execution of Update after the MonoBehaviour is created
 		public void LaunchProjectile()
 		{
 			rB.linearVelocity = transform.forward *  firingSpeed;
@@ -46,8 +45,7 @@ namespace Projectile
 		{
 			if (!other.TryGetComponent(out EnemyHealth enemyHealth)) return;
 			enemyHealth.TakeDamage(damage);
-		
-			//pls Burn you nasty Bitch
+			//pls Burn
 			if(burnDuration > 0)
 			{
 				other.GetComponent<Enemy.Enemy>().SetOnFire(burnDamage, burnDuration);
