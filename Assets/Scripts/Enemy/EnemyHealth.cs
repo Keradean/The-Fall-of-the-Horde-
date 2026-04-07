@@ -13,14 +13,6 @@ namespace Enemy
         [FormerlySerializedAs("_enemyStats")] [SerializeField] private EnemyStats enemyStats;
         [FormerlySerializedAs("_enemy")] [SerializeField] private Enemy enemy;
         [SerializeField] private Slider enemyHealthBar;
-        private static readonly int IsDead = Animator.StringToHash("IsDead");
-        private Animator _animator;
- 
-        ////////////////////////////////////////////////////////////////////////////////////////////////
-        private void Start()
-        { 
-            _animator = GetComponent<Animator>();
-        }       
         ////////////////////////////////////////////////////////////////////////////////////////////////
         private void OnEnable()
         {

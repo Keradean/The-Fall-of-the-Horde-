@@ -43,7 +43,7 @@ namespace Enemy
 			_pool = pool; 
 		}
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		public void ReturnToPool()
+		private void ReturnToPool()
 		{
 			_pool?.Release(this);
 		}
@@ -54,7 +54,7 @@ namespace Enemy
 			_animator = GetComponent<Animator>(); // hole dir die Componente
 		}
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		void Start()
+		private void Start()
 		{
 			if(path == null)
 			{
@@ -72,7 +72,7 @@ namespace Enemy
 		}
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		void Update()
+		private void Update()
 		{
 			MoveAndAttack();
 
@@ -120,7 +120,6 @@ namespace Enemy
 				_animator.SetBool(IsAttacking, true);
 				_castleHealth.TakeDamage(enemyStats.damagePerAttack);
 			}
-		
 		}
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		// Reset the Enemy so he can Spawn with full life ...
@@ -165,6 +164,7 @@ namespace Enemy
 			speedMod = 0f;
 			_animator.SetBool(IsDeath, true);
 			StartCoroutine(ReturnToPoolAfterDeath());
+			return;
 
 			IEnumerator ReturnToPoolAfterDeath()
 			{

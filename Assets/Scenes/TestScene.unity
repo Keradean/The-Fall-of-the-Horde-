@@ -9303,8 +9303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Spawner
   wave:
-  - {fileID: 11400000, guid: ff723020f1c36eb2695cb2aebd22ee7b, type: 2}
-  - {fileID: 11400000, guid: 8f7c74983ccb6181b828e726a3882d83, type: 2}
+  - {fileID: 11400000, guid: 1029a9d66f6a5b82b81d43b0c1a06b0a, type: 2}
   spawnPoint: {fileID: 1331543136}
   castleHealth: {fileID: 2086889534}
   path: {fileID: 985182693}
