@@ -39,18 +39,25 @@ namespace Tower
             
                 firePoint.LookAt(_target);
                 //ToDo
-                // je nach Tower Typ anpassen ?fireTower :? iceTower : arrowtower 
-                var projectile = PoolManager.Instance.ArrowPool.Get();
-                projectile.transform.position = firePoint.position;
-                projectile.transform.rotation = firePoint.rotation;
-                projectile.damage = _projectileStats.damage;
-                projectile.LaunchProjectile();
-                //if is a Fire Tower
+                // 
+                Projectile.Projectile projectile;
                 if(_projectileStats is FireTowerStats fireStats)
                 {
+                    projectile = PoolManager.Instance.FireBallPool.Get();
+                    projectile.transform.position = firePoint.position;
+                    projectile.transform.rotation = firePoint.rotation;
+                    projectile.damage = _projectileStats.damage;
                     projectile.burnDamage = fireStats.burnDamage;
                     projectile.burnDuration = fireStats.burnDuration;
                 }
+                else
+                {
+                    projectile = PoolManager.Instance.ArrowPool.Get();
+                    projectile.transform.position = firePoint.position;
+                    projectile.transform.rotation = firePoint.rotation;
+                    projectile.damage = _projectileStats.damage;
+                }
+                projectile.LaunchProjectile();
             }
 
             if (_tower.enemiesInRange.Count > 0)

@@ -237,7 +237,7 @@ MonoBehaviour:
   findTheEnemy:
     serializedVersion: 2
     m_Bits: 64
-  collidersInRange: []
+  maxCollidersInRange: 20
   enemiesInRange: []
   isCastleTower: 1
 --- !u!114 &6622366649159719773
@@ -252,7 +252,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f04e07146c40516d991a257e98cb261, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileTower
-  projectilePrefab: {fileID: 7592020053900702681, guid: bce6e29bf2fe2045d8050eec372c64b6, type: 3}
   firePoint: {fileID: 4461672057924549382}
   towerWeapon: {fileID: 409335227092470459}
 --- !u!1 &6885481684958129086

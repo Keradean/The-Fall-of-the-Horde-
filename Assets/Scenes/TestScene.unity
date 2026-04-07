@@ -9303,9 +9303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Spawner
   wave:
-  - {fileID: 11400000, guid: a58a360ad9bdcf68a83004be0e4ab360, type: 2}
-  - {fileID: 11400000, guid: ad854150d5a5f90e6952db8b9434c261, type: 2}
-  - {fileID: 11400000, guid: 8f7c74983ccb6181b828e726a3882d83, type: 2}
+  - {fileID: 11400000, guid: 1029a9d66f6a5b82b81d43b0c1a06b0a, type: 2}
   spawnPoint: {fileID: 1331543136}
   castleHealth: {fileID: 2086889534}
   path: {fileID: 985182693}
@@ -11949,6 +11947,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Manager.PoolManager
   arrowPrefab: {fileID: 499331189777316039, guid: bba8cc2ecd9a039d38e90e32f39efdd3, type: 3}
+  fireBallPrefab: {fileID: 3383732011391322875, guid: 4e0b87b0fb8df50b7bf7530d495108fe, type: 3}
 --- !u!1 &1614818615
 GameObject:
   m_ObjectHideFlags: 0

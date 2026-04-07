@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UI;
 using UnityEngine;
@@ -19,24 +20,40 @@ namespace Tower
 		[SerializeField] public GameObject rangeIndicator;
 
 		[SerializeField] private LayerMask findTheEnemy;
-		[SerializeField] private Collider[]  collidersInRange;
+		[SerializeField] private int maxCollidersInRange = 20; 
+		private Collider[]  _collidersInRange;
 		public List<Enemy.Enemy>  enemiesInRange = new();
 
 		public bool isCastleTower;
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		// Start is called once before the first execution of Update after the MonoBehaviour is created
+		private void Awake()
+		{
+			_collidersInRange = new Collider[maxCollidersInRange];
+		}		
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		// Start is called once before the first execution of Update after the MonoBehaviour is created
 		private void Start()
 		{
-			towerStats = Instantiate(upgradeLevel[0]);   
+			towerStats = Instantiate(upgradeLevel[0]);
+			StartCoroutine(CheckEnemiesInRange());
 		}
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		// Update is called once per frame
-		private void Update()
+		private IEnumerator CheckEnemiesInRange()
 		{
-			collidersInRange = Physics.OverlapSphere(transform.position, towerStats.range, findTheEnemy);
-			enemiesInRange.Clear();
-			foreach (Collider col in collidersInRange)
-				if(col.TryGetComponent(out Enemy.Enemy enemy))enemiesInRange.Add(enemy);
+			while (true)
+			{
+				var hits = Physics.OverlapSphereNonAlloc(transform.position, towerStats.range, _collidersInRange,findTheEnemy); // Wie viele Einträge in diesem Array sind gültig
+				enemiesInRange.Clear();
+				for (var i = 0; i < hits; i++)
+				{
+					if(_collidersInRange[i].TryGetComponent(out Enemy.Enemy enemy))
+					{
+						enemiesInRange.Add(enemy);
+					}
+				}
+				yield return new WaitForSeconds(0.2f);
+			}
 		}
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		// Upgrade your Tower
