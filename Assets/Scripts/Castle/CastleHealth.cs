@@ -1,6 +1,5 @@
 using Extra;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 // Fürs Canva Slider/ Healthbar
@@ -12,7 +11,7 @@ namespace Castle
         [SerializeField] private CastleStats castleStats;
         [SerializeField] private Slider castleHealthBar;
 
-        [FormerlySerializedAs("PointsOfAttack")] public Transform[] pointsOfAttack;
+        public Transform[] pointsOfAttack;
         ////////////////////////////////////////////////////////////////////////////////////////////////
         private void Start()
         {
@@ -30,7 +29,7 @@ namespace Castle
                 //ToDO
                 //Animation better than this SetActive!!
                 gameObject.SetActive(false);
-                //LoseScreen();
+                
             }
             castleHealthBar.value = castleStats.health;
         }

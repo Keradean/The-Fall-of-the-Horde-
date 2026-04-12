@@ -110,6 +110,7 @@ MonoBehaviour:
   damage: 0
   burnDamage: 0
   burnDuration: 0
+  maxLifetime: 2
 --- !u!65 &8898830004729027850
 BoxCollider:
   m_ObjectHideFlags: 0
