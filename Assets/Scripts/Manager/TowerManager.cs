@@ -20,12 +20,12 @@ namespace Manager
 		public bool canPlace = true;
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		// Update is called once per frame
-		void Update()
+		private void Update()
 		{
 			PlacingTheTower();
 		}
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		public void PlacingTheTower()
+		private void PlacingTheTower()
 		{
 			if (!isPlacing) return;
 			{
@@ -37,56 +37,49 @@ namespace Manager
 					canPlace = false;
 				}
 				indicator.gameObject.SetActive(true);
-				Renderer rend = indicator.GetComponentInChildren<Renderer>();
+				var rend = indicator.GetComponentInChildren<Renderer>();
 				if(rend != null)
 				{
 					rend.material.color = canPlace ? Color.green : Color.red;
 				}
-				if (Mouse.current.leftButton.wasPressedThisFrame && canPlace)
-				{
-					if(GoldManager.Instance.SpendGold(towerStats.cost))
-					{
-						isPlacing = false;
-						Instantiate(activeTower, indicator.position, activeTower.transform.rotation);
 
-						indicator.gameObject.SetActive(false);
-					}
-				}
+				if (!Mouse.current.leftButton.wasPressedThisFrame || !canPlace) return;
+				if (!GoldManager.Instance.SpendGold(towerStats.cost)) return;
+				isPlacing = false;
+				Instantiate(activeTower, indicator.position, activeTower.transform.rotation);
+				indicator.gameObject.SetActive(false);
 			}
 		}
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		public void PlaceTheTower(Tower.Tower placeTower)
 		{
 			activeTower = placeTower;
-			towerStats = placeTower.towerStats;
+			towerStats = placeTower.UpgradeLevelOne;
 			isPlacing = true;
 
 			Destroy(indicator.gameObject);    
-			Tower.Tower placedTower = Instantiate(activeTower);
+			var placedTower = Instantiate(activeTower);
 			placedTower.enabled = false;
 
-			foreach (Collider col in placedTower.GetComponentsInChildren<Collider>()) col.enabled = false;
+			foreach (var col in placedTower.GetComponentsInChildren<Collider>()) col.enabled = false;
 			indicator = placedTower.transform;
 
 			placedTower.rangeIndicator.SetActive(true);
-			placedTower.rangeIndicator.transform.localScale = new Vector3(towerStats.range, 0.001f, towerStats.range );
-		
-
-			Debug.Log("Plazier mich Hart, Du Sau!!!");
+			
+			var range = placeTower.UpgradeLevelOne.range *2f;
+			placedTower.rangeIndicator.transform.localScale = new Vector3(range, 0.1f, range);
 		}   
 		////////////////////////////////////////////////////////////////////////////////////////////////v
 		public void DontPlaceTheTower()
 		{
-			if(isPlacing)
-			{
-				isPlacing = false;
-				Debug.Log("Plazier mich nicht Hart, Du Sau!!!");
+			if (!isPlacing) return;
+			isPlacing = false;
+			Debug.Log("Plazier mich nicht Hart, Du Sau!!!");
 
-				if(indicator != null)
-				{
-					indicator.gameObject.SetActive(false);
-				}
-			}    
+			if(indicator != null)
+			{
+				indicator.gameObject.SetActive(false);
+			}
 		}
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		private Vector3 GetGridPosition()
@@ -106,7 +99,7 @@ namespace Manager
 				{
 					if (!Physics.Raycast(ray, out hit, 200f, castleLayer)) return location;
 					location = hit.point;
-					location.y = 0.8f;
+					location.y = hit.point.y;
 
 				}
 				// i call it here Ground Tower (normal tower)
@@ -114,7 +107,7 @@ namespace Manager
 				{
 					if (!Physics.Raycast(ray, out hit, 200f, groundLayer)) return location;
 					location = hit.point;
-					location.y = 0f;
+					location.y = hit.point.y;
 				}
 			}
 			return location;

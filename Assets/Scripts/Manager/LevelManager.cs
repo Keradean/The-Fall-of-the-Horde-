@@ -32,6 +32,10 @@ namespace Manager
                 _levelComplete = false;
                 UIController.Instance.panelLoseScreen.SetActive(true);
                 UIController.Instance.panelPlaceTower.SetActive(false);
+                foreach (var enemy in activeEnemies) enemy.GetComponent<Enemy.Enemy>().Dance();
+                {
+                    
+                }
             }
             else
             if (activeEnemies.Count == 0 && enemiesSpawner.IsFinished())

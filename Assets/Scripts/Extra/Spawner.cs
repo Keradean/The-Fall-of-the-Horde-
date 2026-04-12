@@ -8,6 +8,9 @@ namespace Extra
 {
 	public class Spawner : MonoBehaviour
 	{
+		[Header("Container")] 
+		[SerializeField] private Transform enemyContainer;
+		
 		[Header("Wave")]
 		[SerializeField] private WaveStats[] wave;
     
@@ -57,6 +60,7 @@ namespace Extra
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		private void Update()
 		{
+			if (!LevelManager.Instance.levelActive) return; // Wenn das Level nicht aktiv ist, dann soll nichts passieren
 			if(!_waveActive)
 			{
 				_waveTimer -= Time.deltaTime;
@@ -82,7 +86,7 @@ namespace Extra
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		private Enemy.Enemy CreateEnemy(int waveIndex)
 		{
-			var enemy = Instantiate(wave[waveIndex].enemyPrefab);	// spawne den Gegner
+			var enemy = Instantiate(wave[waveIndex].enemyPrefab, enemyContainer);	// spawne den Gegner und anstatt im root wird er unter dem EnemyContainer in der Hirachie angezeigt 
 			enemy.Setup(castleHealth, path);     					// die Referenz wo und wohin er gehen soll
 			enemy.SetPool(_enemyPools[waveIndex]);					// der Gegner wird wieder seinem Pool zugeordnet
 			enemy.transform.position = spawnPoint.position; 		// setze die Position des Gegners auf die des SpawnPoints

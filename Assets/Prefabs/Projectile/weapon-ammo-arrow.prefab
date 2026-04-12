@@ -106,11 +106,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
   rB: {fileID: 3290543624148315023}
-  firingSpeed: 3
+  firingSpeed: 22
   damage: 0
   burnDamage: 0
   burnDuration: 0
-  maxLifetime: 2
+  maxLifetime: 1
 --- !u!65 &8898830004729027850
 BoxCollider:
   m_ObjectHideFlags: 0

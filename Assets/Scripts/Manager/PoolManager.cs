@@ -7,6 +7,9 @@ namespace Manager
 {
     public class PoolManager : Singleton<PoolManager>
     {
+        [Header("Container")] 
+        [SerializeField] private Transform projectileContainer;
+        
         [Header("Projectile")]
         [SerializeField] private Projectile.Projectile arrowPrefab;
         [SerializeField] private Projectile.Projectile fireBallPrefab;
@@ -24,17 +27,17 @@ namespace Manager
         protected override void Awake()
         {
             base.Awake();
-            ArrowPool = CreatePool(arrowPrefab);
-            FireBallPool = CreatePool(fireBallPrefab);
+            ArrowPool = CreatePool(arrowPrefab, projectileContainer);
+            FireBallPool = CreatePool(fireBallPrefab, projectileContainer);
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////
-        private static ObjectPool<Projectile.Projectile> CreatePool(Projectile.Projectile prefab)
+        private static ObjectPool<Projectile.Projectile> CreatePool(Projectile.Projectile prefab, Transform container)
         {
             ObjectPool<Projectile.Projectile> pool = null;
                 pool = new ObjectPool<Projectile.Projectile>(
                 createFunc: () =>
                 {
-                    var p = Instantiate(prefab);
+                    var p = Instantiate(prefab, container);
                     p.SetPool(pool);
                     return p;
                 },
