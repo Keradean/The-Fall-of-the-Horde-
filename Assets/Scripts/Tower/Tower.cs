@@ -11,6 +11,7 @@ namespace Tower
 		[Header("Tower Stats")]
 		public TowerStats.TowerStats towerStats;
 
+		public TowerStats.TowerStats UpgradeLevelOne => upgradeLevel[0];
 		[Header("Upgrade")]
 		[SerializeField] private TowerStats.TowerStats[] upgradeLevel;
 		private int _currentLevel;

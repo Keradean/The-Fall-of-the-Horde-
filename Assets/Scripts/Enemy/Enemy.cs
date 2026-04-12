@@ -37,6 +37,10 @@ namespace Enemy
 		private Animator _animator;
 		private Collider _collider;
 
+		private bool _isDead;
+		
+		private static readonly int IsDancing = Animator.StringToHash("isDancing");
+
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		public void SetPool(IObjectPool<Enemy> pool)
 		{
@@ -76,6 +80,7 @@ namespace Enemy
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		private void Update()
 		{
+			if (_isDead) return;
 			MoveAndAttack();
 
 			if (!(_burnTimer > 0)) return;
@@ -113,9 +118,14 @@ namespace Enemy
 			}
 			else
 			{
-				transform.position = !isFlying ? Vector3.MoveTowards(transform.position, _castleHealth.pointsOfAttack[chooseAPointOfAttack].position, moveStep) 
-					: Vector3.MoveTowards(transform.position, _castleHealth.pointsOfAttack[chooseAPointOfAttack].position + (Vector3.up * flyHeight), moveStep);
-			
+				var targetPos = !isFlying 
+					? _castleHealth.pointsOfAttack[chooseAPointOfAttack].position 
+					: _castleHealth.pointsOfAttack[chooseAPointOfAttack].position + Vector3.up * flyHeight;
+				
+				transform.position = Vector3.MoveTowards(transform.position, targetPos, moveStep);
+
+				var distanceToCastle = Vector3.Distance(transform.position, targetPos);
+				if(distanceToCastle > 0.1f) return;
 				_attackCounter -= Time.deltaTime;
 				if (!(_attackCounter <= 0)) return;
 				_attackCounter = enemyStats.timeBetweenAttacks;
@@ -130,6 +140,7 @@ namespace Enemy
 			// Reset Health back to MaxHealth
 			health = enemyStats.maxHealth;
 			// ToDo Reset other things that has to be reset!!!
+			_isDead = false;
 			_currentWayPoint = 0;
 			_reachedTheEnd = false;
 			_attackCounter = 0f;
@@ -137,14 +148,12 @@ namespace Enemy
 			_burnDamage = 0f;
 			_burnTimer = 0f;
 			// flug Gegner werden auf Ihrer Höhe resetet
-			if (isFlying)
-			{
-				transform.position +=  Vector3.up * flyHeight;
-			}
+			if (isFlying) transform.position +=  Vector3.up * flyHeight;
 			_collider.enabled = true;
 			if (_animator == null) return; 
 			_animator.SetBool(IsAttacking, false);
 			_animator.SetBool(IsDeath, false);
+			_animator.SetBool(IsDancing, false);
 		}
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		public void Setup(CastleHealth newCastle, Path.Path newPath)
@@ -159,8 +168,18 @@ namespace Enemy
 			_burnTimer = duration; 
 		}		
 		////////////////////////////////////////////////////////////////////////////////////////////////
+		public void Dance()
+		{
+			_reachedTheEnd = true;
+			speedMod = 0f;
+			_attackCounter = float.MaxValue;
+			_animator.SetBool(IsAttacking, false);
+			_animator.SetBool(IsDancing, true);
+		}
+		////////////////////////////////////////////////////////////////////////////////////////////////
 		public void Die()
 		{
+			_isDead = true;
 			_reachedTheEnd = true;
 			speedMod = 0f;
 			_animator.SetBool(IsDeath, true);

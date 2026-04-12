@@ -19,7 +19,7 @@ namespace MainMenu
         ////////////////////////////////////////////////////////////////////////////////////////////////
         public void LevelOne()
         {
-            SceneManager.LoadScene("Scenes/TestScene");
+            SceneManager.LoadScene("Scenes/LevelOne");
         }
     }
 }

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d53b28b8ae68b8769d300abaffffcc9, type: 3}
+  m_Name: FireTower - Level 1
+  m_EditorClassIdentifier: Assembly-CSharp::FireTowerStats
+  range: 4
+  timeBetweenAttacks: 2.5
+  description: "Verst\xE4rkte Flammen. Gr\xF6\xDFerer Einschlagsbereich, l\xE4ngeres
+    Brennen."
+  cost: 150
+  upgradeCost: 225
+  damage: 75
+  burnDamage: 8
+  burnDuration: 3

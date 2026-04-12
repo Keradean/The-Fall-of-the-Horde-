@@ -14,5 +14,7 @@ namespace Tower.TowerStats
 
         [Header("Cost")]
         public int cost;
+
+        public int upgradeCost;
     }
 }
