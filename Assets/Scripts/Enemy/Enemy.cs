@@ -26,8 +26,7 @@ namespace Enemy
 		private EnemyHealth _enemyHealth;
 
 		public int chooseAPointOfAttack;
-
-
+		
 		private float _burnTimer;
 		private float _burnDamage;
 		private IObjectPool<Enemy> _pool;
@@ -36,6 +35,7 @@ namespace Enemy
 		public float flyHeight;
 		
 		private Animator _animator;
+		private Collider _collider;
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		public void SetPool(IObjectPool<Enemy> pool)
@@ -52,6 +52,7 @@ namespace Enemy
 		{
 			_enemyHealth = GetComponent<EnemyHealth>(); // cachen
 			_animator = GetComponent<Animator>(); // hole dir die Componente
+			_collider = GetComponent<Collider>();//cachen
 		}
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		private void Start()
@@ -65,9 +66,10 @@ namespace Enemy
 			{
 				_castleHealth = FindFirstObjectByType<CastleHealth>();
 			}
-			if (isFlying)
+			if(isFlying)
 			{
 				transform.position += Vector3.up * flyHeight;
+				_currentWayPoint = path.wayPoints.Length - 1; 
 			}
 		}
 
@@ -100,7 +102,7 @@ namespace Enemy
 				else
 				{
 					transform.position = Vector3.MoveTowards(transform.position, path.wayPoints[_currentWayPoint].position + (Vector3.up * flyHeight), moveStep );
-					transform.LookAt(path.wayPoints[_currentWayPoint].position);
+					transform.LookAt(path.wayPoints[_currentWayPoint].position + Vector3.up * flyHeight);
 					if (!(Vector3.Distance(transform.position,
 						    path.wayPoints[_currentWayPoint].position + (Vector3.up * flyHeight)) < .01f)) return;
 					_currentWayPoint++;
@@ -134,13 +136,12 @@ namespace Enemy
 			speedMod = 1f; // back to normal speed
 			_burnDamage = 0f;
 			_burnTimer = 0f;
-		
 			// flug Gegner werden auf Ihrer Höhe resetet
 			if (isFlying)
 			{
-				transform.position +=  Vector3.up * flyHeight ;
+				transform.position +=  Vector3.up * flyHeight;
 			}
-
+			_collider.enabled = true;
 			if (_animator == null) return; 
 			_animator.SetBool(IsAttacking, false);
 			_animator.SetBool(IsDeath, false);
@@ -163,6 +164,7 @@ namespace Enemy
 			_reachedTheEnd = true;
 			speedMod = 0f;
 			_animator.SetBool(IsDeath, true);
+			_collider.enabled = false;
 			StartCoroutine(ReturnToPoolAfterDeath());
 			return;
 

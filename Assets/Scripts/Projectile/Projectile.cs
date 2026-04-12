@@ -11,10 +11,22 @@ namespace Projectile
 		[HideInInspector] public float damage;
 		[HideInInspector] public float burnDamage;
 		[HideInInspector] public float burnDuration;
+
+		private float _lifetime;
+		[SerializeField] private float maxLifetime;
 		
 		private IObjectPool<Projectile> _pool;
 
 		private bool _isReturned;
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		public void Update()
+		{
+			_lifetime += Time.deltaTime;
+			if(_lifetime >= maxLifetime)
+			{
+				ReturnToPool();
+			}
+		}		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		public void LaunchProjectile()
 		{
@@ -32,6 +44,7 @@ namespace Projectile
 			burnDamage = 0f;
 			burnDuration = 0f;
 			_isReturned = false;
+			_lifetime = 0f;
 		}
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		private void ReturnToPool()
