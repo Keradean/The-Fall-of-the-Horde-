@@ -4948,6 +4948,7 @@ MonoBehaviour:
   damage: 0
   burnDamage: 0
   burnDuration: 0
+  maxLifetime: 2
 --- !u!54 &8600109763928926790
 Rigidbody:
   m_ObjectHideFlags: 0
