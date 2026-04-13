@@ -12,12 +12,15 @@ namespace Castle
         [SerializeField] private Slider castleHealthBar;
 
         public Transform[] pointsOfAttack;
+
+        public bool isInitialized;
         ////////////////////////////////////////////////////////////////////////////////////////////////
         private void Start()
         {
             castleStats.health = castleStats.maxHealth;
             castleHealthBar.maxValue = castleStats.maxHealth;
             castleHealthBar.value = castleStats.health;
+            isInitialized = true;
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////
         public void TakeDamage(float damaged)

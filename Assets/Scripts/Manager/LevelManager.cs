@@ -11,21 +11,38 @@ namespace Manager
     {
         [SerializeField] private CastleStats castleStats;
         [SerializeField] private Spawner enemiesSpawner;
+        
+        protected override bool PersistAcrossScenes => false;
         ////////////////////////////////////////////////////////////////////////////////////////////////
         public bool levelActive;
         private bool _levelComplete; // eventuell für Sterne vergabe oder nächstes level freischalten verwenden
+        private bool _initialized;
         ////////////////////////////////////////////////////////////////////////////////////////////////
         public List<EnemyHealth> activeEnemies = new List<EnemyHealth>();
         ////////////////////////////////////////////////////////////////////////////////////////////////
+        private void Awake()
+        {
+            if(Instance != null) Destroy(Instance.gameObject);
+            base.Awake();
+        }        
+        ////////////////////////////////////////////////////////////////////////////////////////////////
         private void Start()
         {
+            castleStats.health = castleStats.maxHealth;
             levelActive = true;
+            _initialized = false;
             AudioManager.Instance?.PlayBGM();
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////
         private void Update()
         {
+            if (!_initialized)
+            {
+                _initialized = true;
+                return;
+            }
             if (!levelActive) return;
+            
             if (castleStats.health <= 0)
             {
                 levelActive = false;
@@ -33,9 +50,6 @@ namespace Manager
                 UIController.Instance.panelLoseScreen.SetActive(true);
                 UIController.Instance.panelPlaceTower.SetActive(false);
                 foreach (var enemy in activeEnemies) enemy.GetComponent<Enemy.Enemy>().Dance();
-                {
-                    
-                }
             }
             else
             if (activeEnemies.Count == 0 && enemiesSpawner.IsFinished())
