@@ -13,7 +13,7 @@ namespace Manager
         ////////////////////////////////////////////////////////////////////////////////////////////////
         public bool SpendGold(int amount)
         {
-            bool canSpendGold = false;
+            var canSpendGold = false;
             if (amount <= currentGold)
             {
                 canSpendGold = true;

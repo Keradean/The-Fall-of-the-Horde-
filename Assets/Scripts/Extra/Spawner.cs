@@ -96,6 +96,7 @@ namespace Extra
 		private void OnTakeFromPool(Enemy.Enemy enemy)
 		{
 			enemy.transform.position = spawnPoint.position;
+			enemy.Setup(castleHealth, path);
 			enemy.ResetEnemy();										// Setzt den Gegner auf den Startzustand zurück
 			enemy.gameObject.SetActive(true);
 		}

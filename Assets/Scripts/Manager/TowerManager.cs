@@ -18,6 +18,14 @@ namespace Manager
   
 		public bool isPlacing;
 		public bool canPlace = true;
+		
+		protected override bool PersistAcrossScenes => false;
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		protected override void Awake()
+		{
+			if(Instance != null) Destroy(Instance.gameObject);
+			base.Awake();
+		}		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		// Update is called once per frame
 		private void Update()

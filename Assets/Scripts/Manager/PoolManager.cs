@@ -22,10 +22,12 @@ namespace Manager
 
         public ObjectPool<Projectile.Projectile> ArrowPool { get; private set; }
         public ObjectPool<Projectile.Projectile> FireBallPool { get; private set; }
+        protected override bool PersistAcrossScenes => false;
         
         ////////////////////////////////////////////////////////////////////////////////////////////////
         protected override void Awake()
         {
+            if (Instance != null) Destroy(Instance.gameObject);
             base.Awake();
             ArrowPool = CreatePool(arrowPrefab, projectileContainer);
             FireBallPool = CreatePool(fireBallPrefab, projectileContainer);
