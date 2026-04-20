@@ -38,24 +38,29 @@ namespace Tower
                 _shotCounter = _projectileStats.timeBetweenAttacks;
             
                 firePoint.LookAt(_target);
-                //ToDo
-                // 
                 Projectile.Projectile projectile;
-                if(_projectileStats is FireTowerStats fireStats)
+                switch (_projectileStats)
                 {
-                    projectile = PoolManager.Instance.FireBallPool.Get();
-                    projectile.transform.position = firePoint.position;
-                    projectile.transform.rotation = firePoint.rotation;
-                    projectile.damage = _projectileStats.damage;
-                    projectile.burnDamage = fireStats.burnDamage;
-                    projectile.burnDuration = fireStats.burnDuration;
-                }
-                else
-                {
-                    projectile = PoolManager.Instance.ArrowPool.Get();
-                    projectile.transform.position = firePoint.position;
-                    projectile.transform.rotation = firePoint.rotation;
-                    projectile.damage = _projectileStats.damage;
+                    case CastleDefenceStats defenceStats:
+                        projectile = PoolManager.Instance.CannonBallPool.Get();
+                        projectile.transform.position = firePoint.position;
+                        projectile.transform.rotation = firePoint.rotation;
+                        projectile.damage = _projectileStats.damage;
+                        break;
+                    case FireTowerStats fireStats:
+                        projectile = PoolManager.Instance.FireBallPool.Get();
+                        projectile.transform.position = firePoint.position;
+                        projectile.transform.rotation = firePoint.rotation;
+                        projectile.damage = _projectileStats.damage;
+                        projectile.burnDamage = fireStats.burnDamage;
+                        projectile.burnDuration = fireStats.burnDuration;
+                        break;
+                    default:
+                        projectile = PoolManager.Instance.ArrowPool.Get();
+                        projectile.transform.position = firePoint.position;
+                        projectile.transform.rotation = firePoint.rotation;
+                        projectile.damage = _projectileStats.damage;
+                        break;
                 }
                 projectile.LaunchProjectile();
             }

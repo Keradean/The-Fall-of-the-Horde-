@@ -3,6 +3,7 @@ using Castle;
 using Enemy;
 using Extra;
 using UI;
+using Tower;
 using UnityEngine;
 
 namespace Manager
@@ -15,12 +16,12 @@ namespace Manager
         protected override bool PersistAcrossScenes => false;
         ////////////////////////////////////////////////////////////////////////////////////////////////
         public bool levelActive;
-        private bool _levelComplete; // eventuell für Sterne vergabe oder nächstes level freischalten verwenden
+        private bool _levelComplete; //eventuell für Sterne vergabe oder nächstes level freischalten verwenden
         private bool _initialized;
         ////////////////////////////////////////////////////////////////////////////////////////////////
         public List<EnemyHealth> activeEnemies = new List<EnemyHealth>();
         ////////////////////////////////////////////////////////////////////////////////////////////////
-        private void Awake()
+        private new void Awake()
         {
             if(Instance != null) Destroy(Instance.gameObject);
             base.Awake();
@@ -47,8 +48,11 @@ namespace Manager
             {
                 levelActive = false;
                 _levelComplete = false;
+                var towers = FindObjectsByType<Tower.Tower>(FindObjectsSortMode.None);
+                foreach(var tower in towers) Destroy(tower.gameObject);
                 UIController.Instance.panelLoseScreen.SetActive(true);
                 UIController.Instance.panelPlaceTower.SetActive(false);
+                var enemies = new List<EnemyHealth>(activeEnemies);
                 foreach (var enemy in activeEnemies) enemy.GetComponent<Enemy.Enemy>().Dance();
             }
             else

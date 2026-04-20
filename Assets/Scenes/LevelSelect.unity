@@ -892,7 +892,7 @@ GameObject:
   - component: {fileID: 419751485}
   - component: {fileID: 419751484}
   m_Layer: 5
-  m_Name: 'Button - inserthereNameofthethirdLevel '
+  m_Name: Button - Level Three
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -961,7 +961,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 419751485}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 428795180}
+        m_TargetAssemblyTypeName: MainMenu.LevelSelect, Assembly-CSharp
+        m_MethodName: LevelThree
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &419751485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1625,7 +1637,7 @@ GameObject:
   - component: {fileID: 1498023964}
   - component: {fileID: 1498023963}
   m_Layer: 5
-  m_Name: Button - inserthereNameofthesecondLevel
+  m_Name: Button - Level Two
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1694,7 +1706,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1498023964}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 428795180}
+        m_TargetAssemblyTypeName: MainMenu.LevelSelect, Assembly-CSharp
+        m_MethodName: LevelTwo
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1498023964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1879,7 +1903,7 @@ GameObject:
   - component: {fileID: 1574081804}
   - component: {fileID: 1574081803}
   m_Layer: 5
-  m_Name: Button - inserthereNameofthefirstLevel
+  m_Name: Button - Level One
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
