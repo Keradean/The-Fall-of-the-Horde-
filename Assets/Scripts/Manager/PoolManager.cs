@@ -9,21 +9,19 @@ namespace Manager
     {
         [Header("Container")] 
         [SerializeField] private Transform projectileContainer;
-        
         [Header("Projectile")]
         [SerializeField] private Projectile.Projectile arrowPrefab;
         [SerializeField] private Projectile.Projectile fireBallPrefab;
+        [SerializeField] private Projectile.Projectile cannonBallPrefab;
         // ToDo 
         // Mehr Geschosse
         [Header("VFX")]
         // ToDo
         // Effect einfügen und über den PoolManager laufen lassen!
-        
-
         public ObjectPool<Projectile.Projectile> ArrowPool { get; private set; }
         public ObjectPool<Projectile.Projectile> FireBallPool { get; private set; }
+        public ObjectPool<Projectile.Projectile> CannonBallPool { get; private set; }
         protected override bool PersistAcrossScenes => false;
-        
         ////////////////////////////////////////////////////////////////////////////////////////////////
         protected override void Awake()
         {
@@ -31,6 +29,7 @@ namespace Manager
             base.Awake();
             ArrowPool = CreatePool(arrowPrefab, projectileContainer);
             FireBallPool = CreatePool(fireBallPrefab, projectileContainer);
+            CannonBallPool = CreatePool(cannonBallPrefab, projectileContainer);
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////
         private static ObjectPool<Projectile.Projectile> CreatePool(Projectile.Projectile prefab, Transform container)

@@ -7,7 +7,7 @@ namespace MainMenu
     public class LevelSelect : MonoBehaviour
     {
         ////////////////////////////////////////////////////////////////////////////////////////////////
-        void Start()
+        private void Start()
         {
             AudioManager.Instance.PlayLevelSelectMusic();
         }
@@ -20,6 +20,16 @@ namespace MainMenu
         public void LevelOne()
         {
             SceneManager.LoadScene("Scenes/LevelOne");
+        }        
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        public void LevelTwo()
+        {
+            SceneManager.LoadScene("Scenes/LevelTwo");
+        }        
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        public void LevelThree()
+        {
+            SceneManager.LoadScene("Scenes/LevelThree");
         }
     }
 }

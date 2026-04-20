@@ -19,6 +19,7 @@ namespace UI
 		[SerializeField] private Tower.Tower  ballistaTower;
 		[SerializeField] private Tower.Tower  iceTower;
 		[SerializeField] private Tower.Tower  fireTower;
+		[SerializeField] private Tower.Tower  cannonTower;
 		// [SerializeField] Tower insert next Tower Here????;	
 		[Header("Display Tower Upgrade")]
 		[SerializeField] private TMP_Text descriptionTMP;
@@ -32,6 +33,7 @@ namespace UI
 		[FormerlySerializedAs("BallistaTMP")] public TMP_Text ballistaTMP;
 		[FormerlySerializedAs("IceTowerTMP")] public TMP_Text iceTowerTMP;
 		[FormerlySerializedAs("FireTowerTMP")] public TMP_Text fireTowerTMP;
+		[FormerlySerializedAs("FireTowerTMP")] public TMP_Text cannonTowerTMP;
     
 		private InputSystem_Actions _inputActions;
 		private Tower.Tower _selectedTower;
@@ -49,6 +51,7 @@ namespace UI
 			ballistaTMP.text = ballistaTower.towerStats.cost.ToString();
 			iceTowerTMP.text = iceTower.towerStats.cost.ToString();
 			fireTowerTMP.text = fireTower.towerStats.cost.ToString();
+			cannonTowerTMP.text = cannonTower.towerStats.cost.ToString();
 		}
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		// Update is called once per frame
@@ -88,13 +91,13 @@ namespace UI
 			else
 			{
 				pauseScreen.SetActive(false);
-				Time.timeScale = 1f;
+				Time.timeScale = 1f;	
 			}
 		}
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		public void Retry()
 		{
-			SceneManager.LoadScene("TestScene");
+			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 		}	
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		public void Resume()

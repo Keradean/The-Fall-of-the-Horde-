@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f272ab187924deaa0929a3d5112024b, type: 3}
+  m_Name: CastleDefence_Level 1
+  m_EditorClassIdentifier: Assembly-CSharp::Tower.TowerStats.CastleDefenceStats
+  range: 4
+  timeBetweenAttacks: 5
+  description: "\t"
+  cost: 120
+  upgradeCost: 150
+  damage: 80
+  aoeDamage: 0

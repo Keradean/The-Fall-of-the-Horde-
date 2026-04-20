@@ -50,7 +50,6 @@ namespace Manager
 				{
 					rend.material.color = canPlace ? Color.green : Color.red;
 				}
-
 				if (!Mouse.current.leftButton.wasPressedThisFrame || !canPlace) return;
 				if (!GoldManager.Instance.SpendGold(towerStats.cost)) return;
 				isPlacing = false;
@@ -82,8 +81,6 @@ namespace Manager
 		{
 			if (!isPlacing) return;
 			isPlacing = false;
-			Debug.Log("Plazier mich nicht Hart, Du Sau!!!");
-
 			if(indicator != null)
 			{
 				indicator.gameObject.SetActive(false);
@@ -93,13 +90,9 @@ namespace Manager
 		private Vector3 GetGridPosition()
 		{
 			var location = indicator.position;
-
 			var mousePosition = Mouse.current.position.ReadValue();
-
 			if (Camera.main == null) return location;
 			var ray = Camera.main.ScreenPointToRay(mousePosition);
-			Debug.DrawRay(ray.origin, ray.direction * 200f, Color.red);
-
 			{
 				// CastleTower ..
 				RaycastHit hit;
@@ -108,7 +101,6 @@ namespace Manager
 					if (!Physics.Raycast(ray, out hit, 200f, castleLayer)) return location;
 					location = hit.point;
 					location.y = hit.point.y;
-
 				}
 				// i call it here Ground Tower (normal tower)
 				else

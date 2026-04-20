@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Orc_Axemann - Level - One
   m_EditorClassIdentifier: Assembly-CSharp::Enemy.EnemyStats
   moveSpeed: 1.4
-  timeBetweenAttacks: 160
+  timeBetweenAttacks: 2
   damagePerAttack: 18
-  maxHealth: 2
+  maxHealth: 160
   goldOnDeath: 18
   deathAnimationDuration: 3
