@@ -13,8 +13,7 @@ namespace Extra
             if (!Instance)
             {
                 Instance = this as T;
-                if(PersistAcrossScenes)
-                    DontDestroyOnLoad(gameObject);
+                if(PersistAcrossScenes) DontDestroyOnLoad(gameObject);
             }
             else
             {

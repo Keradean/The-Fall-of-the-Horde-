@@ -21,7 +21,7 @@ namespace Manager
         ////////////////////////////////////////////////////////////////////////////////////////////////
         public List<EnemyHealth> activeEnemies = new List<EnemyHealth>();
         ////////////////////////////////////////////////////////////////////////////////////////////////
-        private new void Awake()
+        private void Awake()
         {
             if(Instance != null) Destroy(Instance.gameObject);
             base.Awake();
@@ -48,21 +48,22 @@ namespace Manager
             {
                 levelActive = false;
                 _levelComplete = false;
+                AudioManager.Instance?.PlayGameOverMusic();
                 var towers = FindObjectsByType<Tower.Tower>(FindObjectsSortMode.None);
                 foreach(var tower in towers) Destroy(tower.gameObject);
                 UIController.Instance.panelLoseScreen.SetActive(true);
                 UIController.Instance.panelPlaceTower.SetActive(false);
                 var enemies = new List<EnemyHealth>(activeEnemies);
-                foreach (var enemy in activeEnemies) enemy.GetComponent<Enemy.Enemy>().Dance();
+                foreach (var enemy in enemies) enemy.GetComponent<Enemy.Enemy>().Dance();
             }
             else
             if (activeEnemies.Count == 0 && enemiesSpawner.IsFinished())
             {
                 levelActive = false;
                 _levelComplete = true;
+                AudioManager.Instance?.PlayWinMusic();
                 UIController.Instance.panelWinScreen.SetActive(true);
             }
-
         }
     }
 }

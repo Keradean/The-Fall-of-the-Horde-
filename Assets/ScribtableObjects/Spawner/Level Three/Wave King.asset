@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 685008dfd37af8359b375aaec7000b4c, type: 3}
-  m_Name: Wave Flying
-  m_EditorClassIdentifier: Assembly-CSharp::WaveStats
-  enemyPrefab: {fileID: 4107967552287623424, guid: 650805566d8ec9b31b9348fc37c75b07, type: 3}
-  numberOfEnemies: 10
-  timeBetweenSpawns: 1.8
-  timeBetweenWaves: 10
+  m_Name: Wave King
+  m_EditorClassIdentifier: Assembly-CSharp::Extra.WaveStats
+  enemyPrefab: {fileID: 5019823758082881670, guid: 512207b445f8e062281db1864fefe789, type: 3}
+  numberOfEnemies: 1
+  timeBetweenSpawns: 0
+  timeBetweenWaves: 0

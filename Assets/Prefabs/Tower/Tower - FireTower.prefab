@@ -117,7 +117,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2612696341104748832}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Tower - Range Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -274,7 +274,7 @@ GameObject:
   - component: {fileID: 7502745566908518521}
   - component: {fileID: 4878007874580997765}
   - component: {fileID: 4584670536643703258}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Indicator -  Outline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -449,7 +449,7 @@ GameObject:
   - component: {fileID: 610808491056134576}
   - component: {fileID: 6531529914408271350}
   - component: {fileID: 6646900543226021405}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Range - Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -743,6 +743,7 @@ GameObject:
   - component: {fileID: 6234978244587053430}
   - component: {fileID: 6277706768184721356}
   - component: {fileID: 8026375683190512483}
+  - component: {fileID: 1581562324326665745}
   m_Layer: 8
   m_Name: Tower - FireTower
   m_TagString: Untagged
@@ -792,6 +793,7 @@ MonoBehaviour:
     m_Bits: 64
   maxCollidersInRange: 20
   enemiesInRange: []
+  attackFlying: 1
   isCastleTower: 0
 --- !u!136 &6234978244587053430
 CapsuleCollider:
@@ -851,6 +853,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileTower
   firePoint: {fileID: 4246442011753491169}
   towerWeapon: {fileID: 4760921591283669856}
+--- !u!114 &1581562324326665745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7388726153274113650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c72f1e4d2a75db3c79b1c70718797daf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Tower.Upgrade.UpgradeTower
 --- !u!1 &7968111403585660706
 GameObject:
   m_ObjectHideFlags: 0

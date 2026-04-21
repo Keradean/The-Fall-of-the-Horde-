@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
+using Extra;
+using Tower.Upgrade;
 
 namespace UI
 {
@@ -14,7 +16,9 @@ namespace UI
 		[FormerlySerializedAs("PanelPlaceTower")] [SerializeField] public GameObject panelPlaceTower;
 		[FormerlySerializedAs("PauseScreen")] [SerializeField] public GameObject pauseScreen;
 		[FormerlySerializedAs("UpgradeScreen")] [SerializeField] public GameObject upgradeScreen;
-
+		[Header("Wave Display")]
+		[SerializeField] private TMP_Text waveTMP;
+		[SerializeField] private Spawner enemiesSpawner;
 		[Header("Display Tower Cost")]
 		[SerializeField] private Tower.Tower  ballistaTower;
 		[SerializeField] private Tower.Tower  iceTower;
@@ -25,6 +29,7 @@ namespace UI
 		[SerializeField] private TMP_Text descriptionTMP;
 		[SerializeField] private TMP_Text costTMP;
 		[SerializeField] private Transform displayPoint;
+		[SerializeField] private UnityEngine.UI.Button upgradeButton;
 		private GameObject _towerDisplay; 
 		//[SerializeField] 
 		[Header("Display Tower Upgrade Cost")]
@@ -37,6 +42,7 @@ namespace UI
     
 		private InputSystem_Actions _inputActions;
 		private Tower.Tower _selectedTower;
+		private UpgradeTower _selectedUpgradeTower;
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		private void Awake()
 		{
@@ -58,6 +64,7 @@ namespace UI
 		private void Update()
 		{
 			UIController.Instance.goldTMP.text = GoldManager.Instance.currentGold.ToString();
+			waveTMP.text = "Wave" + enemiesSpawner.CurrentWave + "/" + enemiesSpawner.TotalWaves;
 		}
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		private void OnEnable()
@@ -116,41 +123,33 @@ namespace UI
 			SceneManager.LoadScene("MainMenu");
 		}
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		public void ShowUpgradeUI(Tower.Tower tower)
-		{
-			_selectedTower = tower;
-			upgradeScreen.SetActive(true);
-			descriptionTMP.text = tower.towerStats.description;
-			costTMP.text = tower.towerStats.cost.ToString(); 
-			if(_towerDisplay != null) Destroy(_towerDisplay); 
-			_towerDisplay = Instantiate(tower.towerPrefab, displayPoint.position, Quaternion.identity);
-		}   
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		private void HideUpgradeUI()
-		{
-			_selectedTower = null;
-			upgradeScreen.SetActive(false);
-			if(_towerDisplay != null) Destroy(_towerDisplay);
-		}
-		////////////////////////////////////////////////////////////////////////////////////////////////
 		public void OnUpgradeClick()
 		{
-			if (_selectedTower == null) return;
-			if (GoldManager.Instance.SpendGold(_selectedTower.towerStats.cost)) _selectedTower.Upgrade();
-			{
-				_selectedTower.Upgrade();
-			}
-			HideUpgradeUI();
+			_selectedUpgradeTower?.OnUpgradeButton();
 		}
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		public void OnSellClick()
 		{
-			if (_selectedTower == null) return; 
-			// Get the Half of your Money back
-			GoldManager.Instance.AddGold(_selectedTower.towerStats.cost / 2);
-			// destroy tower
-			Destroy(_selectedTower.gameObject);
-			HideUpgradeUI();
+			_selectedUpgradeTower?.OnSell();
+		}
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		public void ShowUpgradeUI(Tower.Tower tower)
+		{
+			_selectedTower = tower;
+			upgradeScreen.SetActive(true);
+			_selectedUpgradeTower = tower.GetComponent<UpgradeTower>();
+			descriptionTMP.text = tower.towerStats.description;
+			costTMP.text = tower.towerStats.upgradeCost.ToString(); 
+			if(_towerDisplay != null) Destroy(_towerDisplay); 
+			_towerDisplay = Instantiate(tower.towerPrefab, displayPoint.position, Quaternion.identity);
+			upgradeButton.interactable = _selectedTower.CanUpgrade;
+		}   
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		public void HideUpgradeUI()
+		{
+			_selectedTower = null;
+			upgradeScreen.SetActive(false);
+			if(_towerDisplay != null) Destroy(_towerDisplay);
 		}
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		public void FastTime()

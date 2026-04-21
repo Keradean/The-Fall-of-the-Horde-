@@ -22,23 +22,20 @@ namespace Enemy
         ////////////////////////////////////////////////////////////////////////////////////////////////
         private void OnDisable()
         {
-            if(LevelManager.Instance != null)
-                LevelManager.Instance.activeEnemies.Remove(this);
+            if(LevelManager.Instance != null) LevelManager.Instance.activeEnemies.Remove(this);
         } 
         ////////////////////////////////////////////////////////////////////////////////////////////////
         public void TakeDamage(float damaged)
         {
             if(enemy.health <= 0f) return; // Einmal sterben ist genug!
-            
             enemy.health -=  damaged;
+            AudioManager.Instance?.PlaySfx(1);
             if (enemy.health <= 0f)
             {
                 enemy.health = 0f;
-                //ToDO
-                
                 GoldManager.Instance.AddGold(enemyStats.goldOnDeath);
                 enemy.Die();
-               // AudioManager.Instance.PlaySfx(0);
+                AudioManager.Instance?.PlaySfx(0);
             }
             enemyHealthBar.value = enemy.health;
         }

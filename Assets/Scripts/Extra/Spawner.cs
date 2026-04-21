@@ -10,24 +10,21 @@ namespace Extra
 	{
 		[Header("Container")] 
 		[SerializeField] private Transform enemyContainer;
-		
 		[Header("Wave")]
 		[SerializeField] private WaveStats[] wave;
-    
 		[Header("Castle & Path Reference")]
 		[SerializeField] private Transform  spawnPoint;
 		[FormerlySerializedAs("_castleHealth")] [SerializeField] private CastleHealth castleHealth;
 		//[SerializeField] private CastleStats _castleStats;
 		[FormerlySerializedAs("_path")] [SerializeField] private Path.Path path;
-    
+		public int CurrentWave => _currentWave +1;
+		public int TotalWaves => wave.Length +1;
 		private int _currentWave;
 		private int _enemiesLeftToSpawn;
 		private float _spawnTimer;
 		private float _waveTimer;
 		private bool _waveActive;
-
 		private ObjectPool<Enemy.Enemy>[] _enemyPools;
-
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		private void Awake()
 		{
@@ -115,6 +112,5 @@ namespace Extra
 		{
 			return _currentWave >= wave.Length && !_waveActive && LevelManager.Instance.activeEnemies.Count == 0;
 		}
-
 	}
 }

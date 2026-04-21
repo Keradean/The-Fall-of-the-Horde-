@@ -53,6 +53,7 @@ namespace Manager
 				if (!Mouse.current.leftButton.wasPressedThisFrame || !canPlace) return;
 				if (!GoldManager.Instance.SpendGold(towerStats.cost)) return;
 				isPlacing = false;
+				AudioManager.Instance?.PlaySfx(6);
 				Instantiate(activeTower, indicator.position, activeTower.transform.rotation);
 				indicator.gameObject.SetActive(false);
 			}
@@ -63,16 +64,12 @@ namespace Manager
 			activeTower = placeTower;
 			towerStats = placeTower.UpgradeLevelOne;
 			isPlacing = true;
-
 			Destroy(indicator.gameObject);    
 			var placedTower = Instantiate(activeTower);
 			placedTower.enabled = false;
-
 			foreach (var col in placedTower.GetComponentsInChildren<Collider>()) col.enabled = false;
 			indicator = placedTower.transform;
-
 			placedTower.rangeIndicator.SetActive(true);
-			
 			var range = placeTower.UpgradeLevelOne.range *2f;
 			placedTower.rangeIndicator.transform.localScale = new Vector3(range, 0.1f, range);
 		}   

@@ -2235,6 +2235,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4962966336181386939, guid: a1d4b6b5fa90370ad9044046cf7947a8, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f8505557322f7424ebf9ad3c42f5e036, type: 2}
     - target: {fileID: 7465080856243571261, guid: a1d4b6b5fa90370ad9044046cf7947a8, type: 3}
       propertyPath: m_Name
       value: Castele - two

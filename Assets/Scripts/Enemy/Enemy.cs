@@ -13,34 +13,24 @@ namespace Enemy
 		private static readonly int IsAttacking = Animator.StringToHash("isAttacking");
 		private static readonly int IsDeath = Animator.StringToHash("isDeath");
 		[SerializeField] private EnemyStats enemyStats;
-
 		[FormerlySerializedAs("Health")] [HideInInspector] public float health;
 		[HideInInspector] public float speedMod = 1f;
-
 		[FormerlySerializedAs("_path")] public Path.Path path;
 		private int _currentWayPoint;
 		private bool _reachedTheEnd;
-	
 		private float _attackCounter;
 		private CastleHealth _castleHealth;
 		private EnemyHealth _enemyHealth;
-
 		public int chooseAPointOfAttack;
-		
 		private float _burnTimer;
 		private float _burnDamage;
 		private IObjectPool<Enemy> _pool;
-
 		public bool isFlying;
 		public float flyHeight;
-		
 		private Animator _animator;
 		private Collider _collider;
-
 		private bool _isDead;
-		
 		private static readonly int IsDancing = Animator.StringToHash("isDancing");
-
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		public void SetPool(IObjectPool<Enemy> pool)
 		{
@@ -76,7 +66,6 @@ namespace Enemy
 				_currentWayPoint = path.wayPoints.Length - 1; 
 			}
 		}
-
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		private void Update()
 		{
@@ -90,6 +79,7 @@ namespace Enemy
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		private void MoveAndAttack()
 		{
+			if(path == null || _castleHealth == null) return;
 			var moveStep = enemyStats.moveSpeed * Time.deltaTime * speedMod;
 			if (!_reachedTheEnd)
 			{
@@ -139,7 +129,6 @@ namespace Enemy
 		{
 			// Reset Health back to MaxHealth
 			health = enemyStats.maxHealth;
-			// ToDo Reset other things that has to be reset!!!
 			_isDead = false;
 			_currentWayPoint = 0;
 			_reachedTheEnd = false;

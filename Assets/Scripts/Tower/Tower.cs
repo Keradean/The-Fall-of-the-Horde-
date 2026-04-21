@@ -24,8 +24,9 @@ namespace Tower
 		[SerializeField] private int maxCollidersInRange = 20; 
 		private Collider[]  _collidersInRange;
 		public List<Enemy.Enemy>  enemiesInRange = new();
-
+		public bool attackFlying;
 		public bool isCastleTower;
+		public bool CanUpgrade => _currentLevel < upgradeLevel.Length - 1;
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		// Start is called once before the first execution of Update after the MonoBehaviour is created
 		private void Awake()
@@ -50,6 +51,7 @@ namespace Tower
 				{
 					if(_collidersInRange[i].TryGetComponent(out Enemy.Enemy enemy))
 					{
+						if (enemy.isFlying && !attackFlying) continue;
 						enemiesInRange.Add(enemy);
 					}
 				}
