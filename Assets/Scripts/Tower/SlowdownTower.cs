@@ -1,3 +1,4 @@
+using Manager;
 using Tower.TowerStats;
 using UnityEngine;
 
@@ -21,6 +22,7 @@ namespace Tower
 		private void OnTriggerEnter(Collider other)
 		{
 			if (other.TryGetComponent<Enemy.Enemy>(out Enemy.Enemy enemy)) enemy.speedMod = _slowStats.slowDownAmount;
+			AudioManager.Instance.PlaySfx(4);
 		}   
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		private void OnTriggerExit(Collider other)

@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 8996716230204697819}
   - component: {fileID: 2035271814138198962}
   - component: {fileID: 6192329500454673869}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Range - Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -279,6 +279,7 @@ GameObject:
   - component: {fileID: 5829171558782241619}
   - component: {fileID: 7913694637489712024}
   - component: {fileID: 6622366649159719773}
+  - component: {fileID: 2652584270740347759}
   m_Layer: 8
   m_Name: Tower - CastleTower
   m_TagString: Untagged
@@ -399,6 +400,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileTower
   firePoint: {fileID: 4461672057924549382}
   towerWeapon: {fileID: 409335227092470459}
+--- !u!114 &2652584270740347759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2659505935875023742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c72f1e4d2a75db3c79b1c70718797daf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Tower.Upgrade.UpgradeTower
 --- !u!1 &2879419980013040016
 GameObject:
   m_ObjectHideFlags: 0
@@ -411,7 +424,7 @@ GameObject:
   - component: {fileID: 808673626514446054}
   - component: {fileID: 2456440204001072301}
   - component: {fileID: 535904570233529779}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Indicator -  Outline
   m_TagString: Untagged
   m_Icon: {fileID: 0}

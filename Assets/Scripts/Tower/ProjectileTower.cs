@@ -25,6 +25,7 @@ namespace Tower
         // Update is called once per frame
         private void Update()
         {
+            if(_projectileStats == null) return;
             if (_target != null)
             {
                 towerWeapon.LookAt(_target);
@@ -36,12 +37,11 @@ namespace Tower
             if (_shotCounter <= 0 && _target != null)
             {
                 _shotCounter = _projectileStats.timeBetweenAttacks;
-            
                 firePoint.LookAt(_target);
                 Projectile.Projectile projectile;
                 switch (_projectileStats)
                 {
-                    case CastleDefenceStats defenceStats:
+                    case CastleDefenceStats:
                         projectile = PoolManager.Instance.CannonBallPool.Get();
                         projectile.transform.position = firePoint.position;
                         projectile.transform.rotation = firePoint.rotation;
@@ -64,7 +64,6 @@ namespace Tower
                 }
                 projectile.LaunchProjectile();
             }
-
             if (_tower.enemiesInRange.Count > 0)
             {
                 var minDistance = _projectileStats.range + 1f;

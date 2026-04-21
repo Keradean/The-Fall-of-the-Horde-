@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4309645952424194433}
   - component: {fileID: 6051768817027563308}
   - component: {fileID: 2681143211572892949}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Range - Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -188,7 +188,7 @@ GameObject:
   - component: {fileID: 7481709083949297989}
   - component: {fileID: 6637755845932992195}
   - component: {fileID: 4898951723544794560}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Indicator -  Outline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -300,6 +300,7 @@ GameObject:
   - component: {fileID: 1268169719930953591}
   - component: {fileID: 1312568632937346471}
   - component: {fileID: 7213088690369010389}
+  - component: {fileID: 1974186564351504642}
   m_Layer: 8
   m_Name: Tower - Ballista
   m_TagString: Untagged
@@ -387,6 +388,18 @@ CapsuleCollider:
   m_Height: 2.1084776
   m_Direction: 1
   m_Center: {x: 0, y: -0.054238796, z: 0}
+--- !u!114 &1974186564351504642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4100267257545989959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c72f1e4d2a75db3c79b1c70718797daf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Tower.Upgrade.UpgradeTower
 --- !u!1 &6946987225075327052
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,7 +409,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6546328403143716744}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Tower - Range Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}

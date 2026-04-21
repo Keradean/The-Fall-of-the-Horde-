@@ -8,9 +8,11 @@ namespace Manager
     {
         [SerializeField] public AudioSource menuMusic;
         [SerializeField] public AudioSource levelSelectMusic;
+        [SerializeField] private AudioSource gameOverMusic;
+        [SerializeField] private AudioSource winMusic;
         [SerializeField] public AudioSource[] bgm;
-
         public AudioSource[] sfx;
+
         
         private int _currentBGM;
         private bool _playingBGM;
@@ -39,13 +41,26 @@ namespace Manager
             _currentBGM = Random.Range(0, bgm.Length);
             bgm[_currentBGM].Play();
             _playingBGM = true;
+        }        
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        public void PlayWinMusic()
+        {
+            StopMusic();
+            winMusic.Play();
+        }       
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        public void PlayGameOverMusic()
+        {
+            StopMusic();
+            gameOverMusic.Play();
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////
-        private void StopMusic()
+        public void StopMusic()
         {
             menuMusic.Stop();
             levelSelectMusic.Stop();
-
+            gameOverMusic.Stop();
+            winMusic.Stop();
             foreach (var track in bgm)
             {
                 track.Stop();
@@ -69,8 +84,8 @@ namespace Manager
         ////////////////////////////////////////////////////////////////////////////////////////////////
         public void PlaySfx(int sfxToPlay)
         {
-            sfx[sfxToPlay].Stop();
-            sfx[sfxToPlay].Play();
+            if (!sfx[sfxToPlay].isPlaying)
+                sfx[sfxToPlay].Play();
         }
     }
 }
