@@ -66,6 +66,7 @@ Alle fremden Medien sind im separaten **Medienkatalog** (`Konzeption/Medienkatal
 
 - **Kenney.nl** (CC0) – Tower Defense Kit, Mini Dungeon, Fantasy UI Borders, Impact Sounds
 - **Unity Technologies** – Particle Pack (Fireball-VFX) über den Asset Store
+- **Mixamo (Adobe)** – Charakter Animationen für alle Gegner (Walk, Attack, Death, Dance)
 - **OpenGameArt.org** (CC0) – 9 Musik-Tracks und mehrere Sound-Packs
 
 ### Zur KI-Nutzung
@@ -101,7 +102,7 @@ Ich habe mir beim Aufbau bewusst Mühe mit der Architektur gegeben, weil das ja 
 Nur weil's ein bisschen Liebe verdient hat:
 
 - Range Indicator beim Turm platzieren mit grün/rot- Feedback für gültig/ungültig
-- Upgrade-Fenster mit Live 3D Preview des Turms
+- Upgrade Fenster mit Live 3D Preview des Turms
 - Verkaufssystem mit 60 % Gold Refund
 - Zeitsteuerung Pause / langsam / normal / schnell
 - Fliegende Gegner, die eine Luftabwehr Strategie erzwingen 
